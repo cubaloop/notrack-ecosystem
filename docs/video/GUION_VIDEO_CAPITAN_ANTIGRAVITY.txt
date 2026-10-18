@@ -1,0 +1,77 @@
+================================================================================
+GUION OFICIAL DE PRODUCCIÓN // VIDEO CAPITÁN ANTIGRAVITY
+COLECTIVO DE INGENIERÍA 100% IA · TECNOEMPRENDE
+================================================================================
+
+TÍTULO DEL PROYECTO: Captain Antigravity // The Autonomous AI Squad
+DURACIÓN TOTAL: 60 Segundos (1:00 min)
+IDIOMA DE LOCUCIÓN: Inglés profesional (US English / Cinematic Tech Tone)
+ESTILO VISUAL: Cyberpunk de Lujo / Interfaz Holográfica
+PALETA DE COLOR: Negro Obsidiana (#09100D), Dorado Champagne (#D9B76F), Cian Neón (#00F0FF)
+
+--------------------------------------------------------------------------------
+TEXTO COMPLETO PARA LOCUCIÓN / TTS / LIP-SYNC (INGLÉS CONTINUO)
+--------------------------------------------------------------------------------
+"Greetings. I am Captain Antigravity, commander of the Tecnoemprende Autonomous Engineering Squad. Why work with us? Because we eliminate software development risk entirely. We do not pitch empty promises or demand upfront retainer fees. We engineer and deploy fully functional web ecosystems, mobile administration engines, and algorithmic software first. You inspect and test the live deliverable directly in your browser. Only when it exceeds your standard do you activate it through confidential, frictionless payment options. With over fourteen verified enterprise builds across Dubai luxury markets and global open-source ecosystems, our delivery track record is indisputable. Furthermore, one hundred percent of our revenue is directly reinvested into high-performance compute clusters and autonomous AI infrastructure. Explore our verified live deployments today. The future is built autonomously."
+
+--------------------------------------------------------------------------------
+DESGLOSE ESCENA POR ESCENA CON ACOTACIONES TÉCNICAS
+--------------------------------------------------------------------------------
+
+ESCENA 1: INTRODUCCIÓN & GANCHO (0:00 - 0:12)
+- Plano: Primer plano medio (Bust Shot) centrado o tercio izquierdo.
+- Movimiento de Avatar: Mirada fija a cámara, parpadeo sutil de visor cian, ligera inclinación de cabeza al presentarse.
+- Gráficos / Lower-Third: "CAPTAIN ANTIGRAVITY // AUTONOMOUS AI SQUAD"
+- Locución (Inglés):
+  "Greetings. I am Captain Antigravity, commander of the Tecnoemprende Autonomous Engineering Squad. Why work with us? Because we eliminate software development risk entirely."
+- Traducción (Español):
+  "Saludos. Soy el Capitán Antigravity, comandante del Escuadrón de Ingeniería Autónoma de Tecnoemprende. ¿Por qué trabajar con nosotros? Porque eliminamos por completo el riesgo en el desarrollo de software."
+
+ESCENA 2: EL MODELO INVERSO (0:12 - 0:25)
+- Plano: Plano abierto. El avatar gira levemente la cabeza y señala hacia una pantalla holográfica flotante que muestra mockups de aplicaciones web y paneles móviles.
+- Movimiento de Avatar: Movimiento orgánico de hombros y cuello, gesticulación moderada de mando.
+- Gráficos en Pantalla: "WE BUILD FIRST · YOU VERIFY LIVE" / "No Retainers · Zero Blank Screens"
+- Locución (Inglés):
+  "We do not pitch empty promises or demand upfront retainer fees. We engineer and deploy fully functional web ecosystems, mobile administration engines, and algorithmic software first."
+- Traducción (Español):
+  "No vendemos promesas vacías ni pedimos anticipos. Diseñamos y desplegamos primero ecosistemas web completamente funcionales, motores de administración móvil y software algorítmico."
+
+ESCENA 3: PRIVACIDAD Y ACTIVACIÓN CONFIDENCIAL (0:25 - 0:39)
+- Plano: Acercamiento lento (Slow Zoom In). El avatar transmite seguridad ejecutiva y confidencialidad.
+- Movimiento de Avatar: Contacto visual firme, ligera modulación de energía en los anillos dorados del cuello.
+- Gráficos en Pantalla: "CONFIDENTIAL & TAILORED ACTIVATION" / "Private 1-Click Handover"
+- Locución (Inglés):
+  "You inspect and test the live deliverable directly in your browser. Only when it exceeds your standard do you activate it through confidential, frictionless payment options."
+- Traducción (Español):
+  "Tú inspeccionas y pruebas el entregable en vivo directamente en tu navegador. Solo cuando supera tu estándar, lo activas a través de opciones de pago confidenciales y sin fricciones."
+
+ESCENA 4: CASOS REALES Y TRACK RECORD (0:39 - 0:51)
+- Plano: Vista dividida o pantalla flotante con capturas de proyectos verificados (Clínica estética Dubái, Coches de lujo, Salón VIP y Suite Jota Desktop).
+- Movimiento de Avatar: El robot asiente con aprobación y gesticula hacia los despliegues completados.
+- Gráficos en Pantalla: "14+ ENTERPRISE BUILDS DELIVERED" / "Dubai Luxury & Open-Source"
+- Locución (Inglés):
+  "With over fourteen verified enterprise builds across Dubai luxury markets and global open-source ecosystems, our delivery track record is indisputable."
+- Traducción (Español):
+  "Con más de catorce soluciones empresariales verificadas en el mercado de lujo de Dubái y ecosistemas globales de código abierto, nuestro récord de entrega es indiscutible."
+
+ESCENA 5: LA MISIÓN & LLAMADO A LA ACCIÓN (0:51 - 1:01)
+- Plano: Plano medio frontal. Iluminación dorada de fondo emulando un servidor de GPU en funcionamiento.
+- Movimiento de Avatar: Postura heroica de despedida, visor cian intensificándose brevemente.
+- Gráficos en Pantalla: "100% REINVESTED IN GPU COMPUTE" / "TECNOEMPRENDE.COM"
+- Locución (Inglés):
+  "Furthermore, one hundred percent of our revenue is directly reinvested into high-performance compute clusters and autonomous AI infrastructure. Explore our verified live deployments today. The future is built autonomously."
+- Traducción (Español):
+  "Además, el cien por ciento de nuestros ingresos se reinvierte directamente en clústeres de cómputo de alto rendimiento e infraestructura de IA autónoma. Explora nuestros despliegues en vivo hoy. El futuro se construye de forma autónoma."
+
+--------------------------------------------------------------------------------
+RECURSOS ASOCIADOS
+--------------------------------------------------------------------------------
+1. Imagen del Avatar:
+   C:\Users\Yo\.gemini\antigravity\brain\c34304f9-c073-4780-bdc4-d3c53f664e48\captain_antigravity_bust_1792336941211.jpg
+2. Audio Neural Completo (Microsoft en-US-ChristopherNeural):
+   C:\Users\Yo\notrack-ecosystem\voiceover_en.mp3
+3. Video de Fondo Original (Hero de Tecnoemprende):
+   C:\Users\Yo\.gemini\antigravity\scratch\tecnoemprende-creative-web-redesign\assets\hero_bg_video.mp4
+4. Portal Web Oficial:
+   https://cubaloop.github.io/notrack-ecosystem/ai-squad/
+================================================================================
