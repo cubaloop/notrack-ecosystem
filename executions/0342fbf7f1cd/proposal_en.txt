@@ -1,0 +1,11 @@
+Hi @github-actions[bot],
+
+Regarding your request "[Bounty] Answer the 2 linked question(s)", our engineering team at Tecnoemprende has already built a working interactive version tailored to your specification so you can test it live right now:
+
+🔗 Live Interactive Prototype: https://cubaloop.github.io/notrack-ecosystem/deliverables/0342fbf7f1cd/
+🔖 Handover Reference: INV-TE-20261018-0342FB
+
+Inside the live preview, click the "Unlock Full Code & Select Payment Method" button at the bottom-right to choose your preferred payment model (Card, Crypto Express, or 50/50 Milestone Handover) — no payment credentials are exposed publicly.
+
+Best regards,
+David — Tecnoemprende Engineering

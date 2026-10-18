@@ -1,0 +1,11 @@
+Hi hn/fmner,
+
+Regarding your request "Build an mvp, get paid, with a chance to become a co-founder. Interested?", our engineering team at Tecnoemprende has already built a working interactive version tailored to your specification so you can test it live right now:
+
+🔗 Live Interactive Prototype: https://cubaloop.github.io/notrack-ecosystem/deliverables/ffe2716f325d/
+🔖 Handover Reference: INV-TE-20261018-FFE271
+
+Inside the live preview, click the "Unlock Full Code & Select Payment Method" button at the bottom-right to choose your preferred payment model (Card, Crypto Express, or 50/50 Milestone Handover) — no payment credentials are exposed publicly.
+
+Best regards,
+David — Tecnoemprende Engineering

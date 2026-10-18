@@ -1,0 +1,15 @@
+{
+  "invoice_id": "INV-TE-20261018-FFE271",
+  "created_at": "2026-10-18T17:10:40.897772",
+  "requester": "hn/fmner",
+  "request_title": "Build an mvp, get paid, with a chance to become a co-founder. Interested?",
+  "source": "HackerNews Request",
+  "source_url": "https://news.ycombinator.com/item?id=7567377",
+  "contact_url": "https://news.ycombinator.com/item?id=7567377",
+  "amount": "$350 USD",
+  "payment_buttons_mode": "PRIVATE_INTERACTIVE_BUTTONS_ONLY",
+  "deliverable_cloud_url": "https://cubaloop.github.io/notrack-ecosystem/deliverables/ffe2716f325d/",
+  "deliverable_local_url": "http://127.0.0.1:5000/deliverables/ffe2716f325d",
+  "pitch_english": "Hi hn/fmner,\n\nRegarding your request \"Build an mvp, get paid, with a chance to become a co-founder. Interested?\", our engineering team at Tecnoemprende has already built a working interactive version tailored to your specification so you can test it live right now:\n\n🔗 Live Interactive Prototype: https://cubaloop.github.io/notrack-ecosystem/deliverables/ffe2716f325d/\n🔖 Handover Reference: INV-TE-20261018-FFE271\n\nInside the live preview, click the \"Unlock Full Code & Select Payment Method\" button at the bottom-right to choose your preferred payment model (Card, Crypto Express, or 50/50 Milestone Handover) — no payment credentials are exposed publicly.\n\nBest regards,\nDavid — Tecnoemprende Engineering",
+  "status": "BUILT_AND_AUTO_DISPATCHED"
+}
