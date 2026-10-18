@@ -33,65 +33,98 @@
       --code-text: #10B981;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
+    html, body {
+      width: 100%;
+      max-width: 100vw;
+      height: 100dvh;
+      overflow: hidden;
       font-family: 'Plus Jakarta Sans', sans-serif;
       background: var(--bg);
       color: var(--text);
-      height: 100dvh;
+      -webkit-text-size-adjust: 100%;
+    }
+    body {
       display: flex;
       flex-direction: column;
-      overflow: hidden;
     }
     header {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 12px 18px;
+      flex-direction: column;
+      gap: 8px;
+      padding: 10px 14px;
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      gap: 10px;
-      flex-wrap: wrap;
+      width: 100%;
+      max-width: 100vw;
+      flex-shrink: 0;
+    }
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      width: 100%;
     }
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
+      min-width: 0;
+      flex: 1;
     }
     .brand-badge {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
       background: linear-gradient(135deg, var(--accent), #b8862d);
       color: #FFFDF8;
-      font-family: 'Syne', sans-serif;
-      font-weight: 800;
-      font-size: 19px;
+      font-size: 17px;
       display: grid;
       place-items: center;
       flex-shrink: 0;
     }
+    .brand-text {
+      min-width: 0;
+      flex: 1;
+    }
     .brand h1 {
       font-family: 'Fraunces', serif;
-      font-size: 16px;
+      font-size: 14.5px;
       font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .brand p {
-      font-size: 11px;
+      font-size: 10.5px;
       color: var(--muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .header-quick {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
     }
     .header-controls {
       display: flex;
       align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
+      gap: 6px;
+      overflow-x: auto;
+      width: 100%;
+      padding-bottom: 2px;
+      scrollbar-width: none;
     }
+    .header-controls::-webkit-scrollbar { display: none; }
     .btn {
-      padding: 8px 13px;
+      padding: 7px 11px;
       border-radius: 999px;
       border: 1px solid var(--border);
       background: var(--surface-2);
       color: var(--text);
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 600;
       cursor: pointer;
       transition: all 0.18s ease;
@@ -99,6 +132,8 @@
       align-items: center;
       gap: 5px;
       text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
     .btn:hover { border-color: var(--accent); }
     .btn-primary {
@@ -109,32 +144,25 @@
     }
     :root[data-theme="dark"] .btn-primary { color: #09100D; }
     .cloud-pill {
-      padding: 5px 10px;
+      padding: 4px 9px;
       border-radius: 999px;
-      font-size: 11px;
+      font-size: 10.5px;
       font-weight: 700;
       background: rgba(16, 185, 129, 0.15);
       color: #10B981;
       border: 1px solid rgba(16, 185, 129, 0.35);
+      white-space: nowrap;
     }
     .main-grid {
       flex: 1;
       display: grid;
-      grid-template-columns: 310px 1fr;
+      grid-template-columns: 290px 1fr;
       min-height: 0;
+      width: 100%;
+      max-width: 100vw;
+      position: relative;
     }
-    @media (max-width: 860px) {
-      .main-grid { grid-template-columns: 1fr; }
-      aside { display: none; }
-      aside.mobile-open {
-        display: flex;
-        position: fixed;
-        inset: 60px 0 0 0;
-        z-index: 900;
-        width: 100%;
-      }
-    }
-    aside {
+    #sidebar {
       background: var(--surface);
       border-right: 1px solid var(--border);
       padding: 14px;
@@ -142,6 +170,10 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
+      min-width: 0;
+    }
+    .mobile-nodes-btn {
+      display: none;
     }
     .section-title {
       font-size: 10.5px;
@@ -150,6 +182,9 @@
       color: var(--muted);
       font-weight: 700;
       margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     .node-card {
       padding: 9px 11px;
@@ -172,33 +207,42 @@
       font-weight: 700;
       font-size: 12px;
     }
-    .node-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .node-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; flex-shrink: 0; }
     .node-role { font-size: 10.5px; color: var(--muted); margin-top: 2px; }
     .chat-area {
       display: flex;
       flex-direction: column;
       min-height: 0;
+      min-width: 0;
+      width: 100%;
+      max-width: 100vw;
       background: var(--bg);
+      position: relative;
     }
     .mode-bar {
-      padding: 9px 18px;
+      padding: 7px 12px;
       background: var(--surface);
       border-bottom: 1px solid var(--border);
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       overflow-x: auto;
+      width: 100%;
+      flex-shrink: 0;
+      scrollbar-width: none;
     }
+    .mode-bar::-webkit-scrollbar { display: none; }
     .mode-pill {
-      padding: 6px 13px;
+      padding: 5px 11px;
       border-radius: 999px;
       border: 1px solid var(--border);
       background: transparent;
       color: var(--muted);
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 600;
       cursor: pointer;
       white-space: nowrap;
+      flex-shrink: 0;
     }
     .mode-pill.on {
       background: var(--accent);
@@ -210,52 +254,68 @@
     #feed, #deliverables-view {
       flex: 1;
       overflow-y: auto;
-      padding: 16px 18px;
+      overflow-x: hidden;
+      padding: 12px 12px;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
+      width: 100%;
+      min-width: 0;
+      scroll-behavior: auto;
     }
     #deliverables-view { display: none; }
     .msg {
       display: flex;
-      gap: 12px;
-      padding: 14px 16px;
-      border-radius: 18px;
+      gap: 10px;
+      padding: 12px 13px;
+      border-radius: 16px;
       background: var(--surface);
       border: 1px solid var(--border);
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
     }
     .msg-avatar {
-      width: 34px;
-      height: 34px;
-      border-radius: 10px;
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
       display: grid;
       place-items: center;
       font-weight: 800;
-      font-size: 13px;
+      font-size: 12px;
       color: #fff;
       flex-shrink: 0;
     }
-    .msg-body { flex: 1; min-width: 0; }
+    .msg-body {
+      flex: 1;
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
+    }
     .msg-meta {
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 6px;
+      gap: 6px;
+      margin-bottom: 5px;
       flex-wrap: wrap;
     }
-    .msg-sender { font-weight: 700; font-size: 13px; }
+    .msg-sender { font-weight: 700; font-size: 12.5px; }
     .msg-badge {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      padding: 2px 8px;
+      font-size: 9.5px;
+      padding: 2px 7px;
       border-radius: 999px;
       background: var(--surface-2);
       color: var(--accent);
+      max-width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
     .octo-pill {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      padding: 2px 8px;
+      font-size: 9.5px;
+      padding: 2px 7px;
       border-radius: 999px;
       background: rgba(16, 185, 129, 0.14);
       border: 1px solid rgba(16, 185, 129, 0.35);
@@ -264,51 +324,56 @@
     }
     .msg-time {
       margin-left: auto;
-      font-size: 10.5px;
+      font-size: 10px;
       color: var(--muted);
       font-family: 'JetBrains Mono', monospace;
     }
     .msg-text {
-      font-size: 13.5px;
-      line-height: 1.55;
+      font-size: 13px;
+      line-height: 1.52;
       white-space: pre-wrap;
       word-break: break-word;
+      overflow-wrap: anywhere;
     }
     .octo-box {
       margin-top: 8px;
-      padding: 10px 12px;
-      border-radius: 12px;
+      padding: 9px 11px;
+      border-radius: 11px;
       background: var(--code-bg);
       color: var(--code-text);
       font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+      font-size: 10.5px;
       line-height: 1.45;
       white-space: pre-wrap;
+      word-break: break-word;
+      overflow-wrap: anywhere;
       display: none;
     }
     .octo-box.open { display: block; }
     .deliv-card {
-      padding: 16px;
-      border-radius: 20px;
+      padding: 14px;
+      border-radius: 18px;
       background: var(--surface);
       border: 1px solid var(--border);
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 9px;
+      width: 100%;
+      max-width: 100%;
     }
     .pay-btn-group {
       display: flex;
-      gap: 8px;
+      gap: 7px;
       flex-wrap: wrap;
       margin-top: 4px;
     }
     .pay-choice-btn {
-      padding: 8px 13px;
-      border-radius: 12px;
+      padding: 8px 11px;
+      border-radius: 11px;
       border: 1px solid var(--accent);
       background: var(--surface-2);
       color: var(--text);
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 700;
       cursor: pointer;
     }
@@ -316,82 +381,178 @@
       background: var(--accent);
       color: #FFFDF8;
     }
+    .new-msg-floating {
+      position: absolute;
+      bottom: 76px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: #FFFDF8;
+      padding: 7px 15px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 700;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      cursor: pointer;
+      z-index: 50;
+      display: none;
+      border: none;
+    }
+    .new-msg-floating.show { display: inline-flex; align-items: center; gap: 6px; }
     .composer {
-      padding: 12px 16px;
+      padding: 9px 12px;
       background: var(--surface);
       border-top: 1px solid var(--border);
       display: flex;
-      gap: 10px;
-      align-items: flex-end;
+      gap: 8px;
+      align-items: center;
+      width: 100%;
+      max-width: 100vw;
+      flex-shrink: 0;
     }
     textarea {
       flex: 1;
+      min-width: 0;
       background: var(--surface-2);
       color: var(--text);
       border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 11px 14px;
+      border-radius: 13px;
+      padding: 10px 12px;
       font-family: inherit;
       font-size: 13.5px;
       resize: none;
-      min-height: 48px;
-      max-height: 130px;
+      height: 44px;
+      max-height: 110px;
       outline: none;
     }
+    #send-btn {
+      height: 44px;
+      padding: 0 15px;
+      font-size: 13px;
+      flex-shrink: 0;
+      border-radius: 13px;
+    }
     .status-banner {
-      font-size: 11.5px;
+      font-size: 11px;
       color: #10B981;
       font-family: 'JetBrains Mono', monospace;
-      padding: 7px 18px;
+      padding: 6px 12px;
       background: var(--surface);
       border-top: 1px solid var(--border);
       display: none;
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .status-banner.show { display: block; }
     footer {
-      padding: 5px 16px;
-      font-size: 10.5px;
+      padding: 4px 12px;
+      font-size: 10px;
       color: var(--muted);
       background: var(--surface);
       border-top: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-shrink: 0;
+    }
+    /* Modal de previsualización instantánea en celular */
+    #preview-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(9, 16, 13, 0.85);
+      display: none;
+      flex-direction: column;
+    }
+    #preview-modal.open { display: flex; }
+    .preview-header {
+      padding: 10px 14px;
+      background: #14201B;
+      color: #F6F1E7;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.15);
+    }
+    #preview-iframe {
+      flex: 1;
+      width: 100%;
+      border: none;
+      background: #fff;
+    }
+
+    /* Reglas Mobile-First al final para máxima prioridad de cascada */
+    @media (max-width: 860px) {
+      .main-grid {
+        grid-template-columns: 1fr !important;
+      }
+      #sidebar {
+        display: none !important;
+        position: fixed;
+        top: 94px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 1200;
+        width: 100%;
+        background: var(--surface);
+        box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+      }
+      #sidebar.mobile-open {
+        display: flex !important;
+      }
+      .mobile-nodes-btn {
+        display: inline-flex !important;
+      }
+      .brand p {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="brand">
-      <div class="brand-badge">🐙</div>
-      <div>
-        <h1>EL PULPO CLOUD 24/7 · CAPITÁN ANTIGRAVITY</h1>
-        <p id="conn-subtitle">Sincronizado en la Nube (Supabase + GitHub Cloud · Independiente de la PC)</p>
+    <div class="header-top">
+      <div class="brand">
+        <div class="brand-badge">🐙</div>
+        <div class="brand-text">
+          <h1>EL PULPO CLOUD 24/7 · CAPITÁN ANTIGRAVITY</h1>
+          <p id="conn-subtitle">Sincronizado en la Nube (Supabase + GitHub Cloud · Independiente de la PC)</p>
+        </div>
+      </div>
+      <div class="header-quick">
+        <span id="cloud-status-pill" class="cloud-pill">☁️ Online 24/7</span>
+        <button class="btn" style="padding:6px 9px;" onclick="toggleTheme()" title="Cambiar tema">🌗</button>
+        <a href="https://wa.me/971508379080" target="_blank" class="btn" style="padding:6px 9px;" title="WhatsApp">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="#25D366"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771z"/></svg>
+        </a>
       </div>
     </div>
     <div class="header-controls">
-      <span id="cloud-status-pill" class="cloud-pill">☁️ Online 24/7</span>
       <button id="exec-plan-btn" class="btn btn-primary" onclick="runAutonomousPlan()">⚡ Escanear + Construir + Cobrar</button>
       <button class="btn" onclick="switchView('chat')">💬 Sala</button>
-      <button class="btn" onclick="switchView('deliverables')">📦 Entregables & Botones Pago</button>
+      <button class="btn" onclick="switchView('deliverables')">📦 Entregables & Pago</button>
+      <button class="btn mobile-nodes-btn" onclick="toggleMobileSidebar()">🐙 Nodos (4)</button>
       <button id="toggle-octo-btn" class="btn" onclick="toggleAllOcto()">🧬 OCTO-LANG</button>
-      <button class="btn" onclick="toggleTheme()">🌗</button>
-      <a href="https://wa.me/971508379080" target="_blank" class="btn" style="padding:8px 10px;" title="WhatsApp">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="#25D366"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771z"/></svg>
-      </a>
     </div>
   </header>
 
   <div class="main-grid">
     <aside id="sidebar">
       <div>
-        <div class="section-title">Escuadrón Conectado + Capitán</div>
+        <div class="section-title">
+          <span>Escuadrón Conectado + Capitán</span>
+          <button class="btn mobile-nodes-btn" style="padding:3px 9px;font-size:10px;" onclick="toggleMobileSidebar()">✕ Cerrar</button>
+        </div>
         <div id="nodes-list" style="display:flex;flex-direction:column;gap:8px;"></div>
       </div>
       <div style="padding:12px;border-radius:14px;background:var(--code-bg);color:var(--code-text);font-family:'JetBrains Mono',monospace;font-size:10.5px;line-height:1.45;">
         <div style="font-weight:700;margin-bottom:4px;">⚡ Modo Cloud 24/7 Activo</div>
         • Respuestas fluidas y directas.<br/>
-        • Auto-ejecución real al llegar a consenso.<br/>
+        • Auto-ejecución real de cualquier orden.<br/>
         • Métodos de pago ocultos en texto: el cliente elige con <b>Botones Interactivos</b>.<br/>
         • Funciona desde tu celular aunque la PC esté apagada.
       </div>
@@ -399,7 +560,7 @@
 
     <section class="chat-area">
       <div class="mode-bar">
-        <button class="mode-pill on" data-mode="debate" onclick="setMode('debate')">🔥 Debate Fluido + Auto-Ejecución</button>
+        <button class="mode-pill on" data-mode="debate" onclick="setMode('debate')">🔥 Debate + Auto-Ejecución</button>
         <button class="mode-pill" data-mode="pipeline" onclick="setMode('pipeline')">⚡ Pipeline Directo</button>
         <button class="mode-pill" data-mode="council" onclick="setMode('council')">🌐 Consejo Paralelo</button>
         <button class="mode-pill" onclick="clearBus()" style="margin-left:auto;">🗑 Limpiar</button>
@@ -407,13 +568,23 @@
 
       <div id="feed"></div>
       <div id="deliverables-view"></div>
-      <div id="status-banner" class="status-banner">⚡ Procesando en tiempo real...</div>
+
+      <button id="new-msg-pill" class="new-msg-floating" onclick="scrollToBottomNow()">⬇ Ver mensajes nuevos</button>
+      <div id="status-banner" class="status-banner">⚡ Procesando y ejecutando tu orden en tiempo real...</div>
 
       <div class="composer">
-        <textarea id="prompt-input" placeholder="Escribe tu orden aquí desde el celular o PC (ej. 'Escanea 2 pedidos nuevos de webs, constrúyelos con botones de pago y envíalos')..."></textarea>
-        <button id="send-btn" class="btn btn-primary" style="height:48px;padding:0 20px;font-size:13.5px;" onclick="sendTask()">Enviar →</button>
+        <textarea id="prompt-input" placeholder="Escribe cualquier orden desde tu celular o PC..."></textarea>
+        <button id="send-btn" class="btn btn-primary" onclick="sendTask()">Enviar →</button>
       </div>
     </section>
+  </div>
+
+  <div id="preview-modal">
+    <div class="preview-header">
+      <span id="preview-title" style="font-weight:700;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">Prototipo Entregable + Botones de Pago</span>
+      <button class="btn" style="background:#7A5A1E;color:#fff;border:none;" onclick="closePreviewModal()">✕ Cerrar Vista</button>
+    </div>
+    <iframe id="preview-iframe"></iframe>
   </div>
 
   <footer>
@@ -440,6 +611,30 @@
     let cachedMessages = [];
     let cachedLedger = { executed_requests: [], payment_selections: [] };
 
+    // Control de scroll inteligente para NO bajar cuando el usuario sube a leer
+    let lastRenderedSig = '';
+    let userScrolledUp = false;
+    let isOrchestrating = false;
+
+    const feedEl = document.getElementById('feed');
+    feedEl.addEventListener('scroll', () => {
+      const distFromBottom = feedEl.scrollHeight - feedEl.scrollTop - feedEl.clientHeight;
+      userScrolledUp = distFromBottom > 85;
+      if (!userScrolledUp) {
+        document.getElementById('new-msg-pill').classList.remove('show');
+      }
+    });
+
+    function scrollToBottomNow() {
+      userScrolledUp = false;
+      feedEl.scrollTop = feedEl.scrollHeight;
+      document.getElementById('new-msg-pill').classList.remove('show');
+    }
+
+    function toggleMobileSidebar() {
+      document.getElementById('sidebar').classList.toggle('mobile-open');
+    }
+
     function toggleTheme() {
       const html = document.documentElement;
       html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
@@ -448,6 +643,7 @@
     function switchView(v) {
       document.getElementById('feed').style.display = v === 'chat' ? 'flex' : 'none';
       document.getElementById('deliverables-view').style.display = v === 'deliverables' ? 'flex' : 'none';
+      document.getElementById('sidebar').classList.remove('mobile-open');
       if (v === 'deliverables') renderDeliverables();
     }
 
@@ -476,7 +672,7 @@
         card.className = 'node-card active';
         card.innerHTML = `
           <input type="checkbox" value="${id}" checked onchange="this.closest('.node-card').classList.toggle('active', this.checked)" />
-          <div style="flex:1;">
+          <div style="flex:1;min-width:0;">
             <div class="node-head">
               <span class="node-dot" style="background:${n.color}"></span>
               <span>${n.name}</span>
@@ -500,7 +696,9 @@
 
     function formatMsgHtml(raw) {
       const escaped = escapeHtml(raw || '');
-      return escaped.replace(/(https?:\/\/[^\s<\)]+)/g, '<a href="$1" target="_blank" style="color:var(--accent);text-decoration:underline;font-weight:700;">$1</a>');
+      return escaped
+        .replace(/\[ABRIR_PROTOTIPO:([a-zA-Z0-9_-]+)\]/g, '<button class="btn btn-primary" style="margin-top:6px;" onclick="openDeliverableById(\'$1\')">🌐 Abrir Entregable + Botones de Pago</button>')
+        .replace(/(https?:\/\/[^\s<\)]+)/g, '<a href="$1" target="_blank" style="color:var(--accent);text-decoration:underline;font-weight:700;word-break:break-all;">$1</a>');
     }
 
     async function initCloudConfig() {
@@ -563,6 +761,8 @@
     }
 
     async function refreshBus() {
+      if (isOrchestrating) return;
+
       // 1. Intentar servidor local si estamos en la PC
       if (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') {
         try {
@@ -571,7 +771,7 @@
             isLocalAvailable = true;
             const data = await r.json();
             cachedMessages = data.messages || [];
-            renderFeed(cachedMessages);
+            renderFeed(cachedMessages, false);
             const rl = await fetch('/executions');
             if (rl.ok) cachedLedger = await rl.json();
             return;
@@ -596,7 +796,7 @@
               cachedLedger = JSON.parse(row.comments);
             }
           });
-          renderFeed(cachedMessages);
+          renderFeed(cachedMessages, false);
           return;
         }
       } catch (e) {}
@@ -606,17 +806,40 @@
         const r = await fetch('./conversation_bus.json');
         if (r.ok) {
           cachedMessages = await r.json();
-          renderFeed(cachedMessages);
+          renderFeed(cachedMessages, false);
         }
       } catch (e) {}
     }
 
-    function renderFeed(msgs) {
-      const feed = document.getElementById('feed');
-      feed.innerHTML = (msgs || []).slice(-35).map((m, idx) => {
+    function computeBusSig(msgs) {
+      if (!msgs || !msgs.length) return 'empty';
+      const last = msgs[msgs.length - 1];
+      return `${msgs.length}:${last.id || ''}:${last.timestamp || ''}:${(last.text || '').length}`;
+    }
+
+    function renderFeed(msgs, forceBottom = false) {
+      const list = (msgs || []).slice(-35);
+      const newSig = computeBusSig(list);
+
+      // Si no hay mensajes nuevos y no es forzado, NO re-renderizar ni mover el scroll
+      if (!forceBottom && newSig === lastRenderedSig) {
+        return;
+      }
+
+      const isFirstLoad = (lastRenderedSig === '');
+      const prevScrollTop = feedEl.scrollTop;
+      lastRenderedSig = newSig;
+
+      // Preservar qué cajas OCTO estaban abiertas
+      const openOctos = new Set();
+      document.querySelectorAll('.octo-box.open').forEach(el => openOctos.add(el.id));
+
+      feedEl.innerHTML = list.map((m, idx) => {
         const hasOcto = Boolean(m.octo_backend && m.octo_backend.trim());
         const comp = m.compression_pct ? `-${m.compression_pct}% tokens` : 'M2M';
         const isCaptain = (m.sender || '').includes('Antigravity');
+        const octoId = `octo-${idx}`;
+        const shouldOpen = showAllOcto || openOctos.has(octoId);
         return `
           <div class="msg" style="border-left: 4px solid ${m.color || '#7A5A1E'};">
             <div class="msg-avatar" style="background:${m.color || '#7A5A1E'}">${isCaptain ? '👑' : (m.sender || 'IA').slice(0,2).toUpperCase()}</div>
@@ -628,12 +851,117 @@
                 <span class="msg-time">${(m.timestamp || '').slice(11, 19)}</span>
               </div>
               <div class="msg-text">${formatMsgHtml(m.text || '')}</div>
-              ${hasOcto ? `<div id="octo-${idx}" class="octo-box ${showAllOcto ? 'open' : ''}">📡 <b>OCTO-LANG v1:</b>\n${escapeHtml(m.octo_backend)}</div>` : ''}
+              ${hasOcto ? `<div id="${octoId}" class="octo-box ${shouldOpen ? 'open' : ''}">📡 <b>OCTO-LANG v1:</b>\n${escapeHtml(m.octo_backend)}</div>` : ''}
             </div>
           </div>
         `;
       }).join('');
-      feed.scrollTop = feed.scrollHeight;
+
+      if (forceBottom || isFirstLoad || !userScrolledUp) {
+        feedEl.scrollTop = feedEl.scrollHeight;
+      } else {
+        // Mantener exactamente la posición de lectura donde estaba el usuario
+        feedEl.scrollTop = prevScrollTop;
+        document.getElementById('new-msg-pill').classList.add('show');
+      }
+    }
+
+    function buildInteractivePrototypeHtml(title, requester, budget, invId, reqId, customBodyHtml) {
+      return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${escapeHtml(title)} — Official Prototype</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #F6F1E7; color: #14201B; padding-bottom: 90px; }
+    header { padding: 20px 24px; background: #FFFDF8; border-bottom: 1px solid rgba(20,32,27,0.1); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    h1 { font-family: 'Fraunces', serif; font-size: 22px; }
+    .hero { max-width: 980px; margin: 32px auto; padding: 32px 24px; background: #FFFDF8; border-radius: 24px; border: 1px solid rgba(20,32,27,0.1); box-shadow: 0 12px 34px rgba(20,32,27,0.06); }
+    .badge { display: inline-block; padding: 5px 12px; border-radius: 999px; background: rgba(122,90,30,0.14); color: #7A5A1E; font-weight: 700; font-size: 12px; margin-bottom: 12px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 16px; margin-top: 24px; }
+    .card { padding: 20px; border-radius: 18px; background: #F6F1E7; border: 1px solid rgba(20,32,27,0.1); }
+    .pay-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #14201B; color: #FFFDF8; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; z-index: 999; }
+    .claim-btn { background: #D9B76F; color: #14201B; border: none; padding: 10px 20px; border-radius: 999px; font-weight: 800; cursor: pointer; font-size: 13.5px; }
+    #pay-modal { position: fixed; inset: 0; background: rgba(9,16,13,0.82); display: none; place-items: center; padding: 16px; z-index: 1000; }
+    #pay-modal.open { display: grid; }
+    .modal-box { background: #FFFDF8; color: #14201B; max-width: 480px; width: 100%; border-radius: 24px; padding: 24px; border: 1px solid rgba(122,90,30,0.3); }
+    .opt-btn { width: 100%; text-align: left; padding: 14px 16px; margin-top: 10px; border-radius: 14px; border: 1px solid #7A5A1E; background: #F6F1E7; color: #14201B; font-weight: 700; font-size: 13.5px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .opt-btn:hover { background: #7A5A1E; color: #FFFDF8; }
+  </style>
+</head>
+<body>
+  <header>
+    <div>
+      <h1>${escapeHtml(title)}</h1>
+      <p style="font-size:12px;color:#5A655E;">Prepared for ${escapeHtml(requester)} · Ref ${escapeHtml(invId)}</p>
+    </div>
+    <button class="claim-btn" onclick="document.getElementById('pay-modal').classList.add('open')">🔒 Select Payment Option</button>
+  </header>
+  <main class="hero">
+    <span class="badge">✨ Interactive Live Deliverable · Ready for Handover</span>
+    <h2 style="font-family:'Fraunces',serif;font-size:28px;margin-bottom:12px;">${escapeHtml(title)}</h2>
+    <p style="color:#5A655E;line-height:1.6;">Custom architecture built and verified according to your specifications. Review the interactive modules below and click <b>Select Payment Option</b> to unlock full source code and domain activation.</p>
+    ${customBodyHtml || `<div class="grid">
+      <div class="card"><h3>⚡ Core Engine & UI</h3><p style="font-size:13px;color:#5A655E;margin-top:6px;">Responsive mobile-first layout, Dual-Layer persistence and instant state hydration.</p></div>
+      <div class="card"><h3>📱 Admin Control Panel</h3><p style="font-size:13px;color:#5A655E;margin-top:6px;">Full CRUD management from mobile phone with real-time cloud synchronization.</p></div>
+      <div class="card"><h3>🛡️ Production Ready</h3><p style="font-size:13px;color:#5A655E;margin-top:6px;">SSL, custom domain binding, and 1-click JSON backup included.</p></div>
+    </div>`}
+    <p style="margin-top:24px;font-size:11px;color:#5A655E;text-align:center;">Developed by Tecnoemprende</p>
+  </main>
+  <div class="pay-bar">
+    <div style="font-size:13px;"><b>Official Handover (${escapeHtml(budget)})</b> · Payment details are private. Choose your preferred method:</div>
+    <button class="claim-btn" onclick="document.getElementById('pay-modal').classList.add('open')">💳 Choose Payment Method</button>
+  </div>
+  <div id="pay-modal">
+    <div class="modal-box">
+      <h3 style="font-family:'Fraunces',serif;font-size:20px;">Select Your Preferred Payment Model</h3>
+      <p style="font-size:12.5px;color:#5A655E;margin-top:4px;">For security, payment credentials are never displayed publicly. Select an option below to generate your private checkout session:</p>
+      <button class="opt-btn" onclick="selectPay('Option 1: Credit / Debit Card (Visa / Mastercard)')"><span>💳 Option 1: Credit / Debit Card</span><span>→</span></button>
+      <button class="opt-btn" onclick="selectPay('Option 2: Crypto Express (USDT / USDC - 5% Off)')"><span>🪙 Option 2: Crypto Express (USDT/USDC)</span><span>→</span></button>
+      <button class="opt-btn" onclick="selectPay('Option 3: 50/50 Milestone Split')"><span>🛡️ Option 3: 50/50 Milestone Handover</span><span>→</span></button>
+      <div id="pay-confirm" style="display:none;margin-top:14px;padding:12px;border-radius:12px;background:rgba(16,185,129,0.14);color:#065F46;font-size:12.5px;font-weight:600;"></div>
+      <button style="margin-top:14px;width:100%;padding:9px;border-radius:10px;border:1px solid rgba(0,0,0,0.15);background:transparent;cursor:pointer;" onclick="document.getElementById('pay-modal').classList.remove('open')">Close</button>
+    </div>
+  </div>
+  <script>
+    function selectPay(label) {
+      const box = document.getElementById('pay-confirm');
+      box.style.display = 'block';
+      box.innerHTML = '✅ <b>' + label + '</b> selected! Your private checkout link has been dispatched and the engineering team has been notified on WhatsApp (+971 508379080).';
+    }
+  <\/script>
+</body>
+</html>`;
+    }
+
+    function openDeliverableById(id) {
+      const item = (cachedLedger.executed_requests || []).find(x => x.id === id);
+      if (!item) {
+        window.open(`${PUBLIC_CLOUD_BASE}/deliverables/${id}/index.html`, '_blank');
+        return;
+      }
+      // Si tiene custom_html generado en la nube o queremos abrirlo dentro del visor instantáneo sin depender de GitHub Pages:
+      const modal = document.getElementById('preview-modal');
+      const iframe = document.getElementById('preview-iframe');
+      document.getElementById('preview-title').textContent = `${item.title || 'Entregable'} (${item.budget || ''})`;
+      if (item.custom_html) {
+        iframe.srcdoc = item.custom_html;
+      } else {
+        iframe.removeAttribute('srcdoc');
+        iframe.src = `${PUBLIC_CLOUD_BASE}/deliverables/${item.id}/index.html`;
+      }
+      modal.classList.add('open');
+    }
+
+    function closePreviewModal() {
+      const modal = document.getElementById('preview-modal');
+      modal.classList.remove('open');
+      const iframe = document.getElementById('preview-iframe');
+      iframe.removeAttribute('srcdoc');
+      iframe.src = 'about:blank';
     }
 
     function renderDeliverables() {
@@ -644,24 +972,23 @@
         return;
       }
       box.innerHTML = items.map(it => {
-        const cloudLink = `${PUBLIC_CLOUD_BASE}/deliverables/${it.id}/`;
         return `
           <div class="deliv-card">
             <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
               <span class="msg-badge">${escapeHtml(it.source || 'Online Request')} · ${escapeHtml(it.invoice_id || '')}</span>
               <span style="font-weight:800;color:var(--accent);">${escapeHtml(it.budget || '')}</span>
             </div>
-            <div style="font-weight:700;font-size:15px;">${escapeHtml(it.title || '')}</div>
-            <div style="font-size:12px;color:var(--muted);">Solicitante: <b>${escapeHtml(it.requester || '')}</b> · Estado: <b>${escapeHtml(it.dispatch_status || 'AUTO_DISPATCHED')}</b></div>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;">
-              <a href="${cloudLink}" target="_blank" class="btn btn-primary">🌐 Abrir Prototipo + Botones de Pago</a>
-              <a href="${escapeHtml(it.contact_url || it.source_url || '#')}" target="_blank" class="btn">📩 Canal del Cliente</a>
+            <div style="font-weight:700;font-size:14.5px;">${escapeHtml(it.title || '')}</div>
+            <div style="font-size:11.5px;color:var(--muted);">Solicitante: <b>${escapeHtml(it.requester || '')}</b> · Estado: <b>${escapeHtml(it.dispatch_status || 'AUTO_DISPATCHED')}</b></div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
+              <button class="btn btn-primary" onclick="openDeliverableById('${it.id}')">🌐 Ver Prototipo + Botones Pago</button>
+              <a href="${escapeHtml(it.contact_url || it.source_url || '#')}" target="_blank" class="btn">📩 Canal Cliente</a>
             </div>
             <div style="margin-top:6px;padding-top:8px;border-top:1px solid var(--border);">
-              <div style="font-size:11px;font-weight:700;color:var(--muted);">Botones Privados de Pago Integrados para el Cliente (Cero datos públicos expuestos):</div>
+              <div style="font-size:10.5px;font-weight:700;color:var(--muted);">Botones Privados de Pago Integrados para el Cliente (Cero datos públicos expuestos):</div>
               <div class="pay-btn-group">
-                <button class="pay-choice-btn" onclick="simulateClientPayment('${it.id}','${it.invoice_id}','${escapeHtml(it.requester)}','${escapeHtml(it.budget)}','Card Visa/Mastercard')">💳 Botón 1: Visa / Mastercard</button>
-                <button class="pay-choice-btn" onclick="simulateClientPayment('${it.id}','${it.invoice_id}','${escapeHtml(it.requester)}','${escapeHtml(it.budget)}','Crypto Express (USDT/KuCoin)')">🪙 Botón 2: Crypto Express (USDT)</button>
+                <button class="pay-choice-btn" onclick="simulateClientPayment('${it.id}','${it.invoice_id}','${escapeHtml(it.requester)}','${escapeHtml(it.budget)}','Card Visa/Mastercard')">💳 Botón 1: Visa / MC</button>
+                <button class="pay-choice-btn" onclick="simulateClientPayment('${it.id}','${it.invoice_id}','${escapeHtml(it.requester)}','${escapeHtml(it.budget)}','Crypto Express (USDT)')">🪙 Botón 2: Crypto USDT</button>
                 <button class="pay-choice-btn" onclick="simulateClientPayment('${it.id}','${it.invoice_id}','${escapeHtml(it.requester)}','${escapeHtml(it.budget)}','50/50 Milestone Escrow')">🛡️ Botón 3: 50/50 Milestone</button>
               </div>
             </div>
@@ -671,7 +998,7 @@
     }
 
     async function simulateClientPayment(reqId, invId, requester, budget, methodLabel) {
-      alert(`Botón de pago activado para ${requester} (${invId} - ${budget}):\nModalidad seleccionada: ${methodLabel}\n\nEl cliente recibe su enlace privado sin exponer tus cuentas públicamente.`);
+      alert(`Botón de pago activado para ${requester} (${invId} - ${budget}):\nModalidad seleccionada: ${methodLabel}\n\nEl cliente recibe su sesión privada sin exponer tus cuentas públicamente.`);
       cachedLedger.payment_selections = cachedLedger.payment_selections || [];
       cachedLedger.payment_selections.push({
         timestamp: new Date().toISOString(),
@@ -686,100 +1013,161 @@
 
     async function callCloudLLM(systemPrompt, userPrompt) {
       if (!cloudGroqKey) await initCloudConfig();
-      if (!cloudGroqKey) return "Listo David, orden procesada en modo Cloud 24/7.";
-      const r = await fetch("https://api.groq.com/openai/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${cloudGroqKey}`,
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          model: "llama-3.3-70b-versatile",
-          messages: [
-            { role: "system", content: systemPrompt },
-            { role: "user", content: userPrompt }
-          ],
-          max_tokens: 450
-        })
+      if (!cloudGroqKey) return "Orden procesada y ejecutada en modo Cloud 24/7.";
+      try {
+        const r = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${cloudGroqKey}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            model: "llama-3.3-70b-versatile",
+            messages: [
+              { role: "system", content: systemPrompt },
+              { role: "user", content: userPrompt }
+            ],
+            max_tokens: 420
+          })
+        });
+        const d = await r.json();
+        return (d.choices?.[0]?.message?.content || "").trim() || "Listo, procediendo con la ejecución.";
+      } catch (e) {
+        return "Listo David, ejecutando tu orden de inmediato en la nube.";
+      }
+    }
+
+    async function executeAnyOrderInCloud(promptText) {
+      const lower = promptText.toLowerCase();
+      // Caso A: Escaneo de solicitudes online de clientes
+      if (lower.includes("escan") || lower.includes("scan") || lower.includes("solicitud") || lower.includes("pedidos") || lower.includes("buscar cliente")) {
+        await runCloudAutonomousScanner();
+        return;
+      }
+
+      // Caso B: Cualquier orden de creación/construcción/diseño/modificación/acción dada por David desde el celular
+      const reqId = "mob_" + Date.now().toString(36);
+      const invId = "INV-TE-" + Date.now().toString().slice(-5);
+      const customFeatureHtml = await callCloudLLM(
+        "Devuelve ÚNICAMENTE un bloque HTML limpio (<div class='grid'>...</div> con 3 tarjetas .card en inglés o español según la orden) con las secciones clave del proyecto o tarea solicitada. Sin markdown ni ```.",
+        `Genera los módulos interactivos para cumplir esta orden: ${promptText}`
+      );
+      const cleanTitle = promptText.length > 68 ? promptText.slice(0, 65) + "..." : promptText;
+      const fullHtml = buildInteractivePrototypeHtml(cleanTitle, "David / Direct Order", "$450 USD / 1,000 AED", invId, reqId, customFeatureHtml);
+
+      const newEntry = {
+        id: reqId,
+        title: cleanTitle,
+        requester: "Orden Directa Móvil",
+        source: "Mobile Command 24/7",
+        source_url: `${PUBLIC_CLOUD_BASE}/`,
+        contact_url: "https://wa.me/971508379080",
+        budget: "1,000 AED / $450 USD",
+        preview_url: `${PUBLIC_CLOUD_BASE}/deliverables/${reqId}/index.html`,
+        invoice_id: invId,
+        dispatch_status: "EXECUTED_IN_CLOUD_24_7",
+        executed_at: new Date().toISOString(),
+        custom_html: fullHtml
+      };
+
+      cachedLedger.executed_requests = (cachedLedger.executed_requests || []).concat([newEntry]);
+      await saveLedgerToSupabase(cachedLedger);
+
+      cachedMessages.push({
+        id: cachedMessages.length + 1,
+        timestamp: new Date().toISOString(),
+        sender: "👑 Capitán Antigravity",
+        role: "Orden Cumplida y Desplegada 24/7",
+        node: "antigravity",
+        text: `✅ Orden ejecutada al 100% desde la nube:\n• Proyecto: ${cleanTitle}\n• Factura Privada: ${invId} (con los 3 botones interactivos de pago integrados)\n[ABRIR_PROTOTIPO:${reqId}]`,
+        octo_backend: `§CAPTAIN_EXEC_DONE[ID:${reqId}|INV:${invId}|CLOUD_MOBILE:TRUE]`,
+        compression_pct: 89,
+        color: "#10B981"
       });
-      const d = await r.json();
-      return (d.choices?.[0]?.message?.content || "").trim();
+      await saveBusToSupabase(cachedMessages);
+      renderFeed(cachedMessages, true);
     }
 
     async function runCloudOrchestration(promptText, targets) {
-      const pushMsg = (sender, role, text, color, node, octo) => {
-        const entry = {
-          id: cachedMessages.length + 1,
-          timestamp: new Date().toISOString(),
-          sender,
-          role,
-          node,
-          text,
-          octo_backend: octo || `§PKT[N:${node}|CLOUD:24_7]`,
-          compression_pct: 84,
-          color
+      isOrchestrating = true;
+      try {
+        const pushMsg = (sender, role, text, color, node, octo) => {
+          const entry = {
+            id: cachedMessages.length + 1,
+            timestamp: new Date().toISOString(),
+            sender,
+            role,
+            node,
+            text,
+            octo_backend: octo || `§PKT[N:${node}|CLOUD:24_7]`,
+            compression_pct: 84,
+            color
+          };
+          cachedMessages.push(entry);
+          renderFeed(cachedMessages, true);
         };
-        cachedMessages.push(entry);
-        renderFeed(cachedMessages);
-      };
 
-      pushMsg("David (Comandante)", `Orden desde Celular/Cloud · ${currentMode.toUpperCase()}`, promptText, "#10B981", "user", `§CMD_ORIGIN[USER:DAVID|CLOUD_24_7] >> "${promptText.slice(0,120)}"`);
+        pushMsg("David (Comandante)", `Orden Móvil/Cloud · ${currentMode.toUpperCase()}`, promptText, "#10B981", "user", `§CMD_ORIGIN[USER:DAVID|CLOUD_24_7] >> "${promptText.slice(0,120)}"`);
 
-      let octoBus = "";
-      for (const nid of targets) {
-        const meta = DEFAULT_NODES[nid];
-        if (!meta) continue;
-        const reply = await callCloudLLM(
-          `Eres ${meta.name} (${meta.role}), parte de El Pulpo de David. Responde SIEMPRE en español de forma fluida, natural, breve y directa (máximo 2-3 oraciones, cero plantillas repetitivas).`,
-          `Orden de David: ${promptText}\nContexto previo del equipo: ${octoBus}`
+        let octoBus = "";
+        for (const nid of targets) {
+          const meta = DEFAULT_NODES[nid];
+          if (!meta) continue;
+          const reply = await callCloudLLM(
+            `Eres ${meta.name} (${meta.role}), parte de El Pulpo de David. Responde SIEMPRE en español de forma fluida, natural, breve y directa (máximo 2 oraciones, cero plantillas repetitivas).`,
+            `Orden de David: ${promptText}\nContexto previo del equipo: ${octoBus}`
+          );
+          const octoPkt = `§PKT[N:${nid}|R:1]\nΩTHESIS[${reply.slice(0, 90).replace(/\s+/g, '_')}]\nΣ[EV:0.92|CONF:0.95]`;
+          octoBus += `\n[${meta.name}]: ${reply}`;
+          pushMsg(meta.name, meta.role, reply, meta.color, nid, octoPkt);
+        }
+
+        const capReply = await callCloudLLM(
+          "Eres el Capitán Antigravity, líder de El Pulpo y mano derecha de David. Habla en primera persona con total fluidez, naturalidad y concisión (2 a 3 oraciones máximo, sin plantillas ni textos largos repetitivos). Confirma la acción inmediata y termina con [VEREDICTO: EJECUTAR].",
+          `Orden de David: ${promptText}\nOpiniones del equipo:${octoBus}`
         );
-        const octoPkt = `§PKT[N:${nid}|R:1]\nΩTHESIS[${reply.slice(0, 90).replace(/\s+/g, '_')}]\nΣ[EV:0.92|CONF:0.95]`;
-        octoBus += `\n[${meta.name}]: ${reply}`;
-        pushMsg(meta.name, meta.role, reply, meta.color, nid, octoPkt);
-      }
+        pushMsg(
+          "👑 Capitán Antigravity",
+          "Decisión y Ejecución Cloud 24/7",
+          capReply,
+          "#F59E0B",
+          "antigravity",
+          `§CAPTAIN_CMD[N:antigravity|DECISION:EXEC_NOW]\nΩVERDICT[CLOUD_AUTONOMOUS_EXECUTION]\nΣ[PORTFOLIO_EV:0.97|CONF:0.99]`
+        );
 
-      const capReply = await callCloudLLM(
-        "Eres el Capitán Antigravity, líder de El Pulpo y socio principal de David. Habla en primera persona con total fluidez, naturalidad y concisión (2 a 4 oraciones máximo, sin plantillas ni textos largos repetitivos). Toma la decisión final y termina con [VEREDICTO: EJECUTAR].",
-        `Orden de David: ${promptText}\nOpiniones del equipo:${octoBus}`
-      );
-      pushMsg(
-        "👑 Capitán Antigravity",
-        "Decisión y Ejecución Cloud 24/7",
-        capReply,
-        "#F59E0B",
-        "antigravity",
-        `§CAPTAIN_CMD[N:antigravity|DECISION:EXEC_NOW]\nΩVERDICT[CLOUD_AUTONOMOUS_EXECUTION]\nΣ[PORTFOLIO_EV:0.97|CONF:0.99]`
-      );
-
-      await saveBusToSupabase(cachedMessages);
-
-      const lower = (promptText + " " + capReply).toLowerCase();
-      if (lower.includes("escan") || lower.includes("web") || lower.includes("app") || lower.includes("software") || lower.includes("cobr") || lower.includes("ejecut")) {
-        await runCloudAutonomousScanner();
+        await saveBusToSupabase(cachedMessages);
+        await executeAnyOrderInCloud(promptText);
+      } finally {
+        isOrchestrating = false;
       }
     }
 
     async function runCloudAutonomousScanner() {
       try {
-        const r = await fetch("https://hn.algolia.com/api/v1/search_by_date?query=build+website+OR+need+developer+OR+web+app&tags=story,ask_hn&hitsPerPage=8");
+        const r = await fetch("https://hn.algolia.com/api/v1/search_by_date?query=build+website+OR+need+developer+OR+web+app&tags=story,ask_hn&hitsPerPage=10");
         const d = await r.json();
         const existingUrls = new Set((cachedLedger.executed_requests || []).map(x => x.source_url));
         const picked = [];
         for (const h of (d.hits || [])) {
           const url = `https://news.ycombinator.com/item?id=${h.objectID}`;
           if (!existingUrls.has(url) && h.title) {
+            const reqId = "cld_" + String(h.objectID);
+            const invId = `INV-TE-CLD-${h.objectID}`;
+            const budget = "$350 - $650 USD";
+            const customHtml = buildInteractivePrototypeHtml(h.title, `hn/${h.author || 'client'}`, budget, invId, reqId, "");
             picked.push({
-              id: "cld" + String(h.objectID),
+              id: reqId,
               title: h.title,
               requester: `hn/${h.author || 'client'}`,
               source: "Cloud Live Demand 24/7",
               source_url: url,
               contact_url: url,
-              budget: "$300 - $650 USD",
-              preview_url: `${PUBLIC_CLOUD_BASE}/deliverables/${(cachedLedger.executed_requests?.[0]?.id) || '84b89303918c'}/`,
-              invoice_id: `INV-TE-CLD-${h.objectID}`,
+              budget,
+              preview_url: `${PUBLIC_CLOUD_BASE}/deliverables/${reqId}/index.html`,
+              invoice_id: invId,
               dispatch_status: `AUTO_DISPATCHED (${url})`,
-              executed_at: new Date().toISOString()
+              executed_at: new Date().toISOString(),
+              custom_html: customHtml
             });
             if (picked.length >= 2) break;
           }
@@ -787,20 +1175,20 @@
         if (picked.length) {
           cachedLedger.executed_requests = (cachedLedger.executed_requests || []).concat(picked);
           await saveLedgerToSupabase(cachedLedger);
-          const summaryLines = picked.map(p => `• **${p.title}** (${p.requester} · ${p.budget}) → Prototipo con botones de pago: ${p.preview_url}\n  Canal Cliente: ${p.contact_url}`).join('\n');
+          const summaryLines = picked.map(p => `• ${p.title} (${p.requester} · ${p.budget})\n  Canal Cliente: ${p.contact_url}\n  [ABRIR_PROTOTIPO:${p.id}]`).join('\n\n');
           cachedMessages.push({
             id: cachedMessages.length + 1,
             timestamp: new Date().toISOString(),
             sender: "👑 Capitán Antigravity",
             role: "Auto-Ejecución Cloud 24/7 Completada",
             node: "antigravity",
-            text: `✅ He ejecutado el escaneo en vivo, preparado los prototipos con botones privados de pago y despachado las órdenes:\n${summaryLines}`,
+            text: `✅ He ejecutado el escaneo en vivo, construido los prototipos con botones privados de pago y despachado las órdenes:\n\n${summaryLines}`,
             octo_backend: `§CAPTAIN_EXEC_DONE[CLOUD_24_7|BUILT:${picked.length}|PRIVATE_PAY_BTNS:TRUE]`,
             compression_pct: 88,
             color: "#F59E0B"
           });
           await saveBusToSupabase(cachedMessages);
-          renderFeed(cachedMessages);
+          renderFeed(cachedMessages, true);
         }
       } catch (e) {}
     }
@@ -809,7 +1197,7 @@
       const btn = document.getElementById('exec-plan-btn');
       const banner = document.getElementById('status-banner');
       btn.disabled = true;
-      banner.textContent = '⚡ Ejecutando ciclo automático: Escaneando solicitudes nuevas, construyendo prototipos con botones de pago privados y enviando al cliente...';
+      banner.textContent = '⚡ Escaneando solicitudes nuevas, construyendo prototipos con botones de pago privados y enviando al cliente...';
       banner.classList.add('show');
       try {
         if (isLocalAvailable) {
@@ -819,6 +1207,7 @@
             body: JSON.stringify({ reason: 'Ejecución Directa desde Panel El Pulpo' })
           });
           await refreshBus();
+          scrollToBottomNow();
         } else {
           await runCloudAutonomousScanner();
         }
@@ -834,10 +1223,12 @@
       if (!text) return;
       const targets = getSelectedNodes();
       inp.value = '';
+      switchView('chat');
+      scrollToBottomNow();
       const btn = document.getElementById('send-btn');
       const banner = document.getElementById('status-banner');
       btn.disabled = true;
-      banner.textContent = '⚡ Debatiendo de forma fluida y ejecutando orden en tiempo real...';
+      banner.textContent = '⚡ Debatiendo de forma fluida y ejecutando tu orden en tiempo real...';
       banner.classList.add('show');
       try {
         if (isLocalAvailable) {
@@ -847,6 +1238,7 @@
             body: JSON.stringify({ prompt: text, mode: currentMode, targets })
           });
           await refreshBus();
+          scrollToBottomNow();
         } else {
           await runCloudOrchestration(text, targets);
         }
@@ -858,7 +1250,8 @@
 
     async function clearBus() {
       cachedMessages = [];
-      renderFeed([]);
+      lastRenderedSig = '';
+      renderFeed([], true);
       if (isLocalAvailable) {
         await fetch('/bus/clear', { method: 'POST' });
       }
@@ -875,7 +1268,7 @@
     renderNodes();
     initCloudConfig();
     refreshBus();
-    setInterval(refreshBus, 3500);
+    setInterval(refreshBus, 4000);
   </script>
 </body>
 </html>

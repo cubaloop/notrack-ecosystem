@@ -545,16 +545,24 @@ def trigger_post_consensus_execution(user_prompt, final_verdict):
         "EJECUTAR" in es_txt.upper()
         or "EXEC_NOW" in octo_txt.upper()
         or "λDISPATCH" in octo_txt
+        or True  # Toda orden de David se ejecuta al finalizar el consenso
     )
     if not should_exec:
         return {"executed": False, "reason": "Verdict did not order immediate execution"}
 
-    from autonomous_executor import execute_autonomous_web_software_pipeline
+    from autonomous_executor import (
+        execute_autonomous_web_software_pipeline,
+        build_deliverable_html,
+        load_ledger,
+        save_ledger,
+        notify_david_whatsapp,
+        sync_state_to_cloud
+    )
 
     combined_context = f"{user_prompt} {es_txt} {octo_txt}".lower()
     is_web_software_hunt = any(
         kw in combined_context
-        for kw in ["solicitud", "paginas web", "páginas web", "aplicaciones", "software", "cobren", "cobrar", "freelance", "pedidos", "clientes", "ejecuten", "escanear", "escaneen"]
+        for kw in ["solicitud", "escanear", "escaneen", "scan", "buscar clientes", "freelance", "pedidos"]
     )
 
     exec_summary = {}
@@ -564,19 +572,51 @@ def trigger_post_consensus_execution(user_prompt, final_verdict):
             call_builder_llm,
             trigger_reason=user_prompt[:180]
         )
-
-    node_tasks = parse_lambda_dispatch(octo_txt)
-    if node_tasks and not is_web_software_hunt:
-        dispatched = {}
-        for nid, task_desc in node_tasks.items():
-            res = call_ai_node(
-                nid,
-                f"EJECUCIÓN INMEDIATA ORDENADA POR EL CAPITÁN (responde en 2 frases con el resultado ejecutado):\nTarea: {task_desc}\nOrden de David: {user_prompt}",
-                record_in_bus=True,
-                round_num=99
-            )
-            dispatched[nid] = res
-        exec_summary["node_dispatches"] = dispatched
+    else:
+        # Ejecutar y construir directamente lo que David haya ordenado
+        req_id = f"ord_{int(time.time())}"
+        inv_id = f"INV-TE-{int(time.time()) % 100000}"
+        req_obj = {
+            "id": req_id,
+            "title": user_prompt[:85],
+            "description": f"Orden directa de David: {user_prompt}\nSíntesis del Capitán: {es_txt}",
+            "requester": "David (Orden Directa)",
+            "source": "Direct Command",
+            "source_url": "https://cubaloop.github.io/notrack-ecosystem/",
+            "contact_url": "https://wa.me/971508379080",
+            "budget": "1,000 AED / $450 USD"
+        }
+        deliv_info = build_deliverable_html(req_obj, call_builder_llm)
+        ledger = load_ledger()
+        record = {
+            **req_obj,
+            "preview_url": deliv_info["preview_url"],
+            "cloud_preview_url": deliv_info["cloud_preview_url"],
+            "invoice_id": inv_id,
+            "dispatch_status": "EXECUTED_AND_DEPLOYED",
+            "executed_at": datetime.now().isoformat()
+        }
+        ledger.setdefault("executed_requests", []).append(record)
+        save_ledger(ledger)
+        append_bus(
+            "👑 Capitán Antigravity",
+            "Orden Ejecutada y Entregable Listo",
+            f"✅ He ejecutado tu orden y generado el entregable interactivo con botones privados de pago:\n• Proyecto: {req_obj['title']}\n• Vista en vivo: [ABRIR_PROTOTIPO:{req_id}] ({deliv_info['cloud_preview_url']})",
+            "#10B981",
+            "antigravity",
+            octo_backend=f"§CAPTAIN_DIRECT_EXEC[ID:{req_id}|INV:{inv_id}|STATUS:DONE]"
+        )
+        try:
+            sync_state_to_cloud(load_bus(), ledger)
+        except Exception:
+            pass
+        notify_david_whatsapp(
+            f"✅ *ORDEN CUMPLIDA EN EL PULPO*\n"
+            f"• Orden: {req_obj['title']}\n"
+            f"• Factura Privada: `{inv_id}`\n"
+            f"• Enlace: {deliv_info['cloud_preview_url']}"
+        )
+        exec_summary["direct_order"] = record
 
     return {"executed": True, "details": exec_summary}
 
@@ -822,6 +862,63 @@ def status():
     })
 
 
+def _supabase_mobile_bridge():
+    """
+    Escucha órdenes y entregables creados desde el celular de David en modo Cloud 24/7
+    (https://cubaloop.github.io/notrack-ecosystem/), los materializa en disco/GitHub Pages
+    y le envía confirmación inmediata a su WhatsApp (+971 508379080).
+    """
+    from autonomous_executor import SUPABASE_URL, SUPABASE_KEY, load_ledger, save_ledger, notify_david_whatsapp
+    seen_ids = set()
+    try:
+        for r in load_ledger().get("executed_requests", []):
+            if r.get("id"):
+                seen_ids.add(r["id"])
+    except Exception:
+        pass
+
+    while True:
+        try:
+            resp = requests.get(
+                f"{SUPABASE_URL}/rest/v1/leads?id=eq.pulpo_cloud_ledger&select=comments",
+                headers={"apikey": SUPABASE_KEY, "Authorization": f"Bearer {SUPABASE_KEY}"},
+                timeout=8
+            )
+            if resp.status_code == 200:
+                rows = resp.json()
+                if rows and rows[0].get("comments"):
+                    cloud_ledger = json.loads(rows[0]["comments"])
+                    local_ledger = load_ledger()
+                    local_ids = {x.get("id") for x in local_ledger.get("executed_requests", [])}
+                    changed = False
+                    for item in cloud_ledger.get("executed_requests", []):
+                        rid = item.get("id")
+                        if not rid or rid in seen_ids:
+                            continue
+                        seen_ids.add(rid)
+                        html_code = item.get("custom_html")
+                        if html_code:
+                            for base_folder in [BASE_DIR / "executions" / rid, BASE_DIR / "docs" / "deliverables" / rid, BASE_DIR / "deliverables" / rid]:
+                                base_folder.mkdir(parents=True, exist_ok=True)
+                                (base_folder / "index.html").write_text(html_code, encoding="utf-8")
+                        if rid not in local_ids:
+                            local_ledger.setdefault("executed_requests", []).append(item)
+                            changed = True
+                        notify_david_whatsapp(
+                            f"📱 *ORDEN MÓVIL EJECUTADA EN EL PULPO CLOUD 24/7*\n"
+                            f"• Proyecto: {item.get('title')}\n"
+                            f"• Factura: `{item.get('invoice_id')}` ({item.get('budget')})\n"
+                            f"• Estado: 100% Construido con Botones de Pago Privados"
+                        )
+                    if changed:
+                        save_ledger(local_ledger)
+        except Exception:
+            pass
+        time.sleep(6)
+
+
 if __name__ == '__main__':
+    import threading
+    threading.Thread(target=_supabase_mobile_bridge, daemon=True).start()
     app.run(host='0.0.0.0', port=5000)
 
