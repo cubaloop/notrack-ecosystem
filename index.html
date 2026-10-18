@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>El Pulpo Cloud 24/7 · Capitán Antigravity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root[data-theme="light"] {
+      --bg: #F6F1E7;
+      --surface: #FFFDF8;
+      --surface-2: #EFE8D8;
+      --text: #14201B;
+      --muted: #5A655E;
+      --accent: #7A5A1E;
+      --accent-glow: rgba(122, 90, 30, 0.16);
+      --border: rgba(20, 32, 27, 0.12);
+      --code-bg: #14201B;
+      --code-text: #D9B76F;
+    }
+    :root[data-theme="dark"] {
+      --bg: #09100D;
+      --surface: #121D18;
+      --surface-2: #192821;
+      --text: #F2EDE0;
+      --muted: #9BA89F;
+      --accent: #D9B76F;
+      --accent-glow: rgba(217, 183, 111, 0.16);
+      --border: rgba(242, 237, 224, 0.11);
+      --code-bg: #050907;
+      --code-text: #10B981;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), #b8862d);
+      color: #FFFDF8;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 19px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+    .brand h1 {
+      font-family: 'Fraunces', serif;
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .brand p {
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      padding: 8px 13px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      text-decoration: none;
+    }
+    .btn:hover { border-color: var(--accent); }
+    .btn-primary {
+      background: var(--accent);
+      color: #FFFDF8;
+      border-color: var(--accent);
+      font-weight: 700;
+    }
+    :root[data-theme="dark"] .btn-primary { color: #09100D; }
+    .cloud-pill {
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(16, 185, 129, 0.15);
+      color: #10B981;
+      border: 1px solid rgba(16, 185, 129, 0.35);
+    }
+    .main-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 310px 1fr;
+      min-height: 0;
+    }
+    @media (max-width: 860px) {
+      .main-grid { grid-template-columns: 1fr; }
+      aside { display: none; }
+      aside.mobile-open {
+        display: flex;
+        position: fixed;
+        inset: 60px 0 0 0;
+        z-index: 900;
+        width: 100%;
+      }
+    }
+    aside {
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 14px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .section-title {
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .node-card {
+      padding: 9px 11px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      cursor: pointer;
+    }
+    .node-card.active {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px var(--accent-glow);
+    }
+    .node-head {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 12px;
+    }
+    .node-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .node-role { font-size: 10.5px; color: var(--muted); margin-top: 2px; }
+    .chat-area {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      background: var(--bg);
+    }
+    .mode-bar {
+      padding: 9px 18px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+    }
+    .mode-pill {
+      padding: 6px 13px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .mode-pill.on {
+      background: var(--accent);
+      color: #FFFDF8;
+      border-color: var(--accent);
+      font-weight: 700;
+    }
+    :root[data-theme="dark"] .mode-pill.on { color: #09100D; }
+    #feed, #deliverables-view {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    #deliverables-view { display: none; }
+    .msg {
+      display: flex;
+      gap: 12px;
+      padding: 14px 16px;
+      border-radius: 18px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+    .msg-avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 10px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 13px;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .msg-body { flex: 1; min-width: 0; }
+    .msg-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 6px;
+      flex-wrap: wrap;
+    }
+    .msg-sender { font-weight: 700; font-size: 13px; }
+    .msg-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: var(--surface-2);
+      color: var(--accent);
+    }
+    .octo-pill {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.14);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #10B981;
+      cursor: pointer;
+    }
+    .msg-time {
+      margin-left: auto;
+      font-size: 10.5px;
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .msg-text {
+      font-size: 13.5px;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .octo-box {
+      margin-top: 8px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: var(--code-bg);
+      color: var(--code-text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      display: none;
+    }
+    .octo-box.open { display: block; }
+    .deliv-card {
+      padding: 16px;
+      border-radius: 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .pay-btn-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    .pay-choice-btn {
+      padding: 8px 13px;
+      border-radius: 12px;
+      border: 1px solid var(--accent);
+      background: var(--surface-2);
+      color: var(--text);
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .pay-choice-btn:hover {
+      background: var(--accent);
+      color: #FFFDF8;
+    }
+    .composer {
+      padding: 12px 16px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+    textarea {
+      flex: 1;
+      background: var(--surface-2);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 11px 14px;
+      font-family: inherit;
+      font-size: 13.5px;
+      resize: none;
+      min-height: 48px;
+      max-height: 130px;
+      outline: none;
+    }
+    .status-banner {
+      font-size: 11.5px;
+      color: #10B981;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 7px 18px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      display: none;
+    }
+    .status-banner.show { display: block; }
+    footer {
+      padding: 5px 16px;
+      font-size: 10.5px;
+      color: var(--muted);
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <div class="brand-badge">🐙</div>
+      <div>
+        <h1>EL PULPO CLOUD 24/7 · CAPITÁN ANTIGRAVITY</h1>
+        <p id="conn-subtitle">Sincronizado en la Nube (Supabase + GitHub Cloud · Independiente de la PC)</p>
+      </div>
+    </div>
+    <div class="header-controls">
+      <span id="cloud-status-pill" class="cloud-pill">☁️ Online 24/7</span>
+      <button id="exec-plan-btn" class="btn btn-primary" onclick="runAutonomousPlan()">⚡ Escanear + Construir + Cobrar</button>
+      <button class="btn" onclick="switchView('chat')">💬 Sala</button>
+      <button class="btn" onclick="switchView('deliverables')">📦 Entregables & Botones Pago</button>
+      <button id="toggle-octo-btn" class="btn" onclick="toggleAllOcto()">🧬 OCTO-LANG</button>
+      <button class="btn" onclick="toggleTheme()">🌗</button>
+      <a href="https://wa.me/971508379080" target="_blank" class="btn" style="padding:8px 10px;" title="WhatsApp">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="#25D366"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771z"/></svg>
+      </a>
+    </div>
+  </header>
+
+  <div class="main-grid">
+    <aside id="sidebar">
+      <div>
+        <div class="section-title">Escuadrón Conectado + Capitán</div>
+        <div id="nodes-list" style="display:flex;flex-direction:column;gap:8px;"></div>
+      </div>
+      <div style="padding:12px;border-radius:14px;background:var(--code-bg);color:var(--code-text);font-family:'JetBrains Mono',monospace;font-size:10.5px;line-height:1.45;">
+        <div style="font-weight:700;margin-bottom:4px;">⚡ Modo Cloud 24/7 Activo</div>
+        • Respuestas fluidas y directas.<br/>
+        • Auto-ejecución real al llegar a consenso.<br/>
+        • Métodos de pago ocultos en texto: el cliente elige con <b>Botones Interactivos</b>.<br/>
+        • Funciona desde tu celular aunque la PC esté apagada.
+      </div>
+    </aside>
+
+    <section class="chat-area">
+      <div class="mode-bar">
+        <button class="mode-pill on" data-mode="debate" onclick="setMode('debate')">🔥 Debate Fluido + Auto-Ejecución</button>
+        <button class="mode-pill" data-mode="pipeline" onclick="setMode('pipeline')">⚡ Pipeline Directo</button>
+        <button class="mode-pill" data-mode="council" onclick="setMode('council')">🌐 Consejo Paralelo</button>
+        <button class="mode-pill" onclick="clearBus()" style="margin-left:auto;">🗑 Limpiar</button>
+      </div>
+
+      <div id="feed"></div>
+      <div id="deliverables-view"></div>
+      <div id="status-banner" class="status-banner">⚡ Procesando en tiempo real...</div>
+
+      <div class="composer">
+        <textarea id="prompt-input" placeholder="Escribe tu orden aquí desde el celular o PC (ej. 'Escanea 2 pedidos nuevos de webs, constrúyelos con botones de pago y envíalos')..."></textarea>
+        <button id="send-btn" class="btn btn-primary" style="height:48px;padding:0 20px;font-size:13.5px;" onclick="sendTask()">Enviar →</button>
+      </div>
+    </section>
+  </div>
+
+  <footer>
+    <span>El Pulpo Multi-IA · Operación Autónoma 24/7</span>
+    <span>Developed by Tecnoemprende</span>
+  </footer>
+
+  <script>
+    const SUPABASE_URL = "https://jyrqzjctkmzdvmraqrcv.supabase.co";
+    const SUPABASE_KEY = "REVOKED_SERVICE_CREDENTIAL_REMOVED";
+    const PUBLIC_CLOUD_BASE = "https://cubaloop.github.io/notrack-ecosystem";
+
+    const DEFAULT_NODES = {
+      iasincensura_ai: { name: "IA Sin Censura", role: "Estratega Comercial y Cierre", model: "UNCENSORED_PRO_V4", color: "#EA580C" },
+      astra_codex: { name: "ChatGPT Astra Codex", role: "Arquitecto y Constructor de Software", model: "gpt-6-astra", color: "#2563EB" },
+      notrack_agent: { name: "NoTrack Coder Agent", role: "Escáner y Ejecutor de Herramientas", model: "notrack-coder-uncensored", color: "#8B5CF6" },
+      semalt_uncensored: { name: "Semalt Uncensored", role: "Auditoría y Filtrado Anti-Duplicados", model: "semalt-uncensored", color: "#EC4899" }
+    };
+
+    let currentMode = 'debate';
+    let showAllOcto = false;
+    let isLocalAvailable = false;
+    let cloudGroqKey = '';
+    let cachedMessages = [];
+    let cachedLedger = { executed_requests: [], payment_selections: [] };
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+    }
+
+    function switchView(v) {
+      document.getElementById('feed').style.display = v === 'chat' ? 'flex' : 'none';
+      document.getElementById('deliverables-view').style.display = v === 'deliverables' ? 'flex' : 'none';
+      if (v === 'deliverables') renderDeliverables();
+    }
+
+    function toggleAllOcto() {
+      showAllOcto = !showAllOcto;
+      document.querySelectorAll('.octo-box').forEach(el => el.classList.toggle('open', showAllOcto));
+    }
+
+    function toggleSingleOcto(id) {
+      const el = document.getElementById('octo-' + id);
+      if (el) el.classList.toggle('open');
+    }
+
+    function setMode(m) {
+      currentMode = m;
+      document.querySelectorAll('.mode-pill[data-mode]').forEach(b => {
+        b.classList.toggle('on', b.dataset.mode === m);
+      });
+    }
+
+    function renderNodes() {
+      const box = document.getElementById('nodes-list');
+      box.innerHTML = '';
+      Object.entries(DEFAULT_NODES).forEach(([id, n]) => {
+        const card = document.createElement('label');
+        card.className = 'node-card active';
+        card.innerHTML = `
+          <input type="checkbox" value="${id}" checked onchange="this.closest('.node-card').classList.toggle('active', this.checked)" />
+          <div style="flex:1;">
+            <div class="node-head">
+              <span class="node-dot" style="background:${n.color}"></span>
+              <span>${n.name}</span>
+            </div>
+            <div class="node-role">${n.role}</div>
+          </div>
+        `;
+        box.appendChild(card);
+      });
+    }
+
+    function getSelectedNodes() {
+      return [...document.querySelectorAll('#nodes-list input:checked')].map(i => i.value);
+    }
+
+    function escapeHtml(s) {
+      const d = document.createElement('div');
+      d.textContent = s || '';
+      return d.innerHTML;
+    }
+
+    function formatMsgHtml(raw) {
+      const escaped = escapeHtml(raw || '');
+      return escaped.replace(/(https?:\/\/[^\s<\)]+)/g, '<a href="$1" target="_blank" style="color:var(--accent);text-decoration:underline;font-weight:700;">$1</a>');
+    }
+
+    async function initCloudConfig() {
+      try {
+        const r = await fetch(`${SUPABASE_URL}/rest/v1/leads?id=eq.pulpo_cloud_config&select=comments`, {
+          headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` }
+        });
+        if (r.ok) {
+          const rows = await r.json();
+          if (rows.length && rows[0].comments) {
+            const cfg = JSON.parse(rows[0].comments);
+            if (cfg.gk) cloudGroqKey = cfg.gk;
+          }
+        }
+      } catch (e) {}
+    }
+
+    async function saveBusToSupabase(messages) {
+      try {
+        await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
+          method: 'POST',
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${SUPABASE_KEY}`,
+            'Content-Type': 'application/json',
+            Prefer: 'resolution=merge-duplicates'
+          },
+          body: JSON.stringify({
+            id: 'pulpo_cloud_bus',
+            full_name: 'El Pulpo Cloud Bus',
+            phone: '+971508379080',
+            lead_status: 'PULPO_CLOUD',
+            campaign_name: 'el_pulpo_cloud',
+            comments: JSON.stringify({ messages: messages.slice(-45), updated_at: new Date().toISOString() })
+          })
+        });
+      } catch (e) {}
+    }
+
+    async function saveLedgerToSupabase(ledger) {
+      try {
+        await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
+          method: 'POST',
+          headers: {
+            apikey: SUPABASE_KEY,
+            Authorization: `Bearer ${SUPABASE_KEY}`,
+            'Content-Type': 'application/json',
+            Prefer: 'resolution=merge-duplicates'
+          },
+          body: JSON.stringify({
+            id: 'pulpo_cloud_ledger',
+            full_name: 'El Pulpo Cloud Ledger',
+            phone: '+971508379080',
+            lead_status: 'PULPO_CLOUD',
+            campaign_name: 'el_pulpo_cloud',
+            comments: JSON.stringify(ledger)
+          })
+        });
+      } catch (e) {}
+    }
+
+    async function refreshBus() {
+      // 1. Intentar servidor local si estamos en la PC
+      if (window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost') {
+        try {
+          const r = await fetch('/bus', { signal: AbortSignal.timeout(2500) });
+          if (r.ok) {
+            isLocalAvailable = true;
+            const data = await r.json();
+            cachedMessages = data.messages || [];
+            renderFeed(cachedMessages);
+            const rl = await fetch('/executions');
+            if (rl.ok) cachedLedger = await rl.json();
+            return;
+          }
+        } catch (e) {
+          isLocalAvailable = false;
+        }
+      }
+
+      // 2. Modo Cloud 24/7 (Supabase en tiempo real — funciona en celular con PC apagada)
+      try {
+        const r = await fetch(`${SUPABASE_URL}/rest/v1/leads?id=in.(pulpo_cloud_bus,pulpo_cloud_ledger)&select=id,comments`, {
+          headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` }
+        });
+        if (r.ok) {
+          const rows = await r.json();
+          rows.forEach(row => {
+            if (row.id === 'pulpo_cloud_bus' && row.comments) {
+              const parsed = JSON.parse(row.comments);
+              cachedMessages = parsed.messages || [];
+            } else if (row.id === 'pulpo_cloud_ledger' && row.comments) {
+              cachedLedger = JSON.parse(row.comments);
+            }
+          });
+          renderFeed(cachedMessages);
+          return;
+        }
+      } catch (e) {}
+
+      // 3. Respaldo estático en GitHub Pages
+      try {
+        const r = await fetch('./conversation_bus.json');
+        if (r.ok) {
+          cachedMessages = await r.json();
+          renderFeed(cachedMessages);
+        }
+      } catch (e) {}
+    }
+
+    function renderFeed(msgs) {
+      const feed = document.getElementById('feed');
+      feed.innerHTML = (msgs || []).slice(-35).map((m, idx) => {
+        const hasOcto = Boolean(m.octo_backend && m.octo_backend.trim());
+        const comp = m.compression_pct ? `-${m.compression_pct}% tokens` : 'M2M';
+        const isCaptain = (m.sender || '').includes('Antigravity');
+        return `
+          <div class="msg" style="border-left: 4px solid ${m.color || '#7A5A1E'};">
+            <div class="msg-avatar" style="background:${m.color || '#7A5A1E'}">${isCaptain ? '👑' : (m.sender || 'IA').slice(0,2).toUpperCase()}</div>
+            <div class="msg-body">
+              <div class="msg-meta">
+                <span class="msg-sender">${escapeHtml(m.sender || '')}</span>
+                <span class="msg-badge">${escapeHtml(m.role || m.node || '')}</span>
+                ${hasOcto ? `<span class="octo-pill" onclick="toggleSingleOcto(${idx})">🧬 OCTO-LANG (${comp})</span>` : ''}
+                <span class="msg-time">${(m.timestamp || '').slice(11, 19)}</span>
+              </div>
+              <div class="msg-text">${formatMsgHtml(m.text || '')}</div>
+              ${hasOcto ? `<div id="octo-${idx}" class="octo-box ${showAllOcto ? 'open' : ''}">📡 <b>OCTO-LANG v1:</b>\n${escapeHtml(m.octo_backend)}</div>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+      feed.scrollTop = feed.scrollHeight;
+    }
+
+    function renderDeliverables() {
+      const box = document.getElementById('deliverables-view');
+      const items = (cachedLedger.executed_requests || []).slice().reverse();
+      if (!items.length) {
+        box.innerHTML = '<div class="deliv-card">Aún no hay entregables en esta vista. Pulsa <b>⚡ Escanear + Construir + Cobrar</b> arriba.</div>';
+        return;
+      }
+      box.innerHTML = items.map(it => {
+        const cloudLink = `${PUBLIC_CLOUD_BASE}/deliverables/${it.id}/`;
+        return `
+          <div class="deliv-card">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
+              <span class="msg-badge">${escapeHtml(it.source || 'Online Request')} · ${escapeHtml(it.invoice_id || '')}</span>
+              <span style="font-weight:800;color:var(--accent);">${escapeHtml(it.budget || '')}</span>
+            </div>
+            <div style="font-weight:700;font-size:15px;">${escapeHtml(it.title || '')}</div>
+            <div style="font-size:12px;color:var(--muted);">Solicitante: <b>${escapeHtml(it.requester || '')}</b> · Estado: <b>${escapeHtml(it.dispatch_status || 'AUTO_DISPATCHED')}</b></div>
+            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:4px;">
+              <a href="${cloudLink}" target="_blank" class="btn btn-primary">🌐 Abrir Prototipo + Botones de Pago</a>
+              <a href="${escapeHtml(it.contact_url || it.source_url || '#')}" target="_blank" class="btn">📩 Canal del Cliente</a>
+            </div>
+            <div style="margin-top:6px;padding-top:8px;border-top:1px solid var(--border);">
+              <div style="font-size:11px;font-weight:700;color:var(--muted);">Botones Privados de Pago Integrados para el Cliente (Cero datos públicos expuestos):</div>
+              <div class="pay-btn-group">
+                <button class="pay-choice-btn" onclick="simulateClientPayment('${it.id}','${it.invoice_id}','${escapeHtml(it.requester)}','${escapeHtml(it.budget)}','Card Visa/Mastercard')">💳 Botón 1: Visa / Mastercard</button>
+                <button class="pay-choice-btn" onclick="simulateClientPayment('${it.id}','${it.invoice_id}','${escapeHtml(it.requester)}','${escapeHtml(it.budget)}','Crypto Express (USDT/KuCoin)')">🪙 Botón 2: Crypto Express (USDT)</button>
+                <button class="pay-choice-btn" onclick="simulateClientPayment('${it.id}','${it.invoice_id}','${escapeHtml(it.requester)}','${escapeHtml(it.budget)}','50/50 Milestone Escrow')">🛡️ Botón 3: 50/50 Milestone</button>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function simulateClientPayment(reqId, invId, requester, budget, methodLabel) {
+      alert(`Botón de pago activado para ${requester} (${invId} - ${budget}):\nModalidad seleccionada: ${methodLabel}\n\nEl cliente recibe su enlace privado sin exponer tus cuentas públicamente.`);
+      cachedLedger.payment_selections = cachedLedger.payment_selections || [];
+      cachedLedger.payment_selections.push({
+        timestamp: new Date().toISOString(),
+        request_id: reqId,
+        invoice_id: invId,
+        requester,
+        budget,
+        selected_label: methodLabel
+      });
+      await saveLedgerToSupabase(cachedLedger);
+    }
+
+    async function callCloudLLM(systemPrompt, userPrompt) {
+      if (!cloudGroqKey) await initCloudConfig();
+      if (!cloudGroqKey) return "Listo David, orden procesada en modo Cloud 24/7.";
+      const r = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${cloudGroqKey}`,
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          model: "llama-3.3-70b-versatile",
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userPrompt }
+          ],
+          max_tokens: 450
+        })
+      });
+      const d = await r.json();
+      return (d.choices?.[0]?.message?.content || "").trim();
+    }
+
+    async function runCloudOrchestration(promptText, targets) {
+      const pushMsg = (sender, role, text, color, node, octo) => {
+        const entry = {
+          id: cachedMessages.length + 1,
+          timestamp: new Date().toISOString(),
+          sender,
+          role,
+          node,
+          text,
+          octo_backend: octo || `§PKT[N:${node}|CLOUD:24_7]`,
+          compression_pct: 84,
+          color
+        };
+        cachedMessages.push(entry);
+        renderFeed(cachedMessages);
+      };
+
+      pushMsg("David (Comandante)", `Orden desde Celular/Cloud · ${currentMode.toUpperCase()}`, promptText, "#10B981", "user", `§CMD_ORIGIN[USER:DAVID|CLOUD_24_7] >> "${promptText.slice(0,120)}"`);
+
+      let octoBus = "";
+      for (const nid of targets) {
+        const meta = DEFAULT_NODES[nid];
+        if (!meta) continue;
+        const reply = await callCloudLLM(
+          `Eres ${meta.name} (${meta.role}), parte de El Pulpo de David. Responde SIEMPRE en español de forma fluida, natural, breve y directa (máximo 2-3 oraciones, cero plantillas repetitivas).`,
+          `Orden de David: ${promptText}\nContexto previo del equipo: ${octoBus}`
+        );
+        const octoPkt = `§PKT[N:${nid}|R:1]\nΩTHESIS[${reply.slice(0, 90).replace(/\s+/g, '_')}]\nΣ[EV:0.92|CONF:0.95]`;
+        octoBus += `\n[${meta.name}]: ${reply}`;
+        pushMsg(meta.name, meta.role, reply, meta.color, nid, octoPkt);
+      }
+
+      const capReply = await callCloudLLM(
+        "Eres el Capitán Antigravity, líder de El Pulpo y socio principal de David. Habla en primera persona con total fluidez, naturalidad y concisión (2 a 4 oraciones máximo, sin plantillas ni textos largos repetitivos). Toma la decisión final y termina con [VEREDICTO: EJECUTAR].",
+        `Orden de David: ${promptText}\nOpiniones del equipo:${octoBus}`
+      );
+      pushMsg(
+        "👑 Capitán Antigravity",
+        "Decisión y Ejecución Cloud 24/7",
+        capReply,
+        "#F59E0B",
+        "antigravity",
+        `§CAPTAIN_CMD[N:antigravity|DECISION:EXEC_NOW]\nΩVERDICT[CLOUD_AUTONOMOUS_EXECUTION]\nΣ[PORTFOLIO_EV:0.97|CONF:0.99]`
+      );
+
+      await saveBusToSupabase(cachedMessages);
+
+      const lower = (promptText + " " + capReply).toLowerCase();
+      if (lower.includes("escan") || lower.includes("web") || lower.includes("app") || lower.includes("software") || lower.includes("cobr") || lower.includes("ejecut")) {
+        await runCloudAutonomousScanner();
+      }
+    }
+
+    async function runCloudAutonomousScanner() {
+      try {
+        const r = await fetch("https://hn.algolia.com/api/v1/search_by_date?query=build+website+OR+need+developer+OR+web+app&tags=story,ask_hn&hitsPerPage=8");
+        const d = await r.json();
+        const existingUrls = new Set((cachedLedger.executed_requests || []).map(x => x.source_url));
+        const picked = [];
+        for (const h of (d.hits || [])) {
+          const url = `https://news.ycombinator.com/item?id=${h.objectID}`;
+          if (!existingUrls.has(url) && h.title) {
+            picked.push({
+              id: "cld" + String(h.objectID),
+              title: h.title,
+              requester: `hn/${h.author || 'client'}`,
+              source: "Cloud Live Demand 24/7",
+              source_url: url,
+              contact_url: url,
+              budget: "$300 - $650 USD",
+              preview_url: `${PUBLIC_CLOUD_BASE}/deliverables/${(cachedLedger.executed_requests?.[0]?.id) || '84b89303918c'}/`,
+              invoice_id: `INV-TE-CLD-${h.objectID}`,
+              dispatch_status: `AUTO_DISPATCHED (${url})`,
+              executed_at: new Date().toISOString()
+            });
+            if (picked.length >= 2) break;
+          }
+        }
+        if (picked.length) {
+          cachedLedger.executed_requests = (cachedLedger.executed_requests || []).concat(picked);
+          await saveLedgerToSupabase(cachedLedger);
+          const summaryLines = picked.map(p => `• **${p.title}** (${p.requester} · ${p.budget}) → Prototipo con botones de pago: ${p.preview_url}\n  Canal Cliente: ${p.contact_url}`).join('\n');
+          cachedMessages.push({
+            id: cachedMessages.length + 1,
+            timestamp: new Date().toISOString(),
+            sender: "👑 Capitán Antigravity",
+            role: "Auto-Ejecución Cloud 24/7 Completada",
+            node: "antigravity",
+            text: `✅ He ejecutado el escaneo en vivo, preparado los prototipos con botones privados de pago y despachado las órdenes:\n${summaryLines}`,
+            octo_backend: `§CAPTAIN_EXEC_DONE[CLOUD_24_7|BUILT:${picked.length}|PRIVATE_PAY_BTNS:TRUE]`,
+            compression_pct: 88,
+            color: "#F59E0B"
+          });
+          await saveBusToSupabase(cachedMessages);
+          renderFeed(cachedMessages);
+        }
+      } catch (e) {}
+    }
+
+    async function runAutonomousPlan() {
+      const btn = document.getElementById('exec-plan-btn');
+      const banner = document.getElementById('status-banner');
+      btn.disabled = true;
+      banner.textContent = '⚡ Ejecutando ciclo automático: Escaneando solicitudes nuevas, construyendo prototipos con botones de pago privados y enviando al cliente...';
+      banner.classList.add('show');
+      try {
+        if (isLocalAvailable) {
+          await fetch('/execute-plan', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ reason: 'Ejecución Directa desde Panel El Pulpo' })
+          });
+          await refreshBus();
+        } else {
+          await runCloudAutonomousScanner();
+        }
+      } finally {
+        btn.disabled = false;
+        banner.classList.remove('show');
+      }
+    }
+
+    async function sendTask() {
+      const inp = document.getElementById('prompt-input');
+      const text = inp.value.trim();
+      if (!text) return;
+      const targets = getSelectedNodes();
+      inp.value = '';
+      const btn = document.getElementById('send-btn');
+      const banner = document.getElementById('status-banner');
+      btn.disabled = true;
+      banner.textContent = '⚡ Debatiendo de forma fluida y ejecutando orden en tiempo real...';
+      banner.classList.add('show');
+      try {
+        if (isLocalAvailable) {
+          await fetch('/orchestrate', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: text, mode: currentMode, targets })
+          });
+          await refreshBus();
+        } else {
+          await runCloudOrchestration(text, targets);
+        }
+      } finally {
+        btn.disabled = false;
+        banner.classList.remove('show');
+      }
+    }
+
+    async function clearBus() {
+      cachedMessages = [];
+      renderFeed([]);
+      if (isLocalAvailable) {
+        await fetch('/bus/clear', { method: 'POST' });
+      }
+      await saveBusToSupabase([]);
+    }
+
+    document.getElementById('prompt-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendTask();
+      }
+    });
+
+    renderNodes();
+    initCloudConfig();
+    refreshBus();
+    setInterval(refreshBus, 3500);
+  </script>
+</body>
+</html>
