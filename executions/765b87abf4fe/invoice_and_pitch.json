@@ -1,0 +1,15 @@
+{
+  "invoice_id": "INV-TE-20261018-765B87",
+  "created_at": "2026-10-18T17:20:40.882977",
+  "requester": "@zhangjiayang6835-cyber",
+  "request_title": "[Bounty] [Bounty: $105] Tolerate transient Iris failures in getAttestation and resolveBur",
+  "source": "GitHub Bounty",
+  "source_url": "https://github.com/zhangjiayang6835-cyber/bounty-plaza/issues/1913",
+  "contact_url": "https://github.com/zhangjiayang6835-cyber/bounty-plaza/issues/1913",
+  "amount": "$105 USD",
+  "payment_buttons_mode": "PRIVATE_INTERACTIVE_BUTTONS_ONLY",
+  "deliverable_cloud_url": "https://cubaloop.github.io/notrack-ecosystem/deliverables/765b87abf4fe/",
+  "deliverable_local_url": "http://127.0.0.1:5000/deliverables/765b87abf4fe",
+  "pitch_english": "Hi @zhangjiayang6835-cyber,\n\nRegarding your request \"[Bounty] [Bounty: $105] Tolerate transient Iris failures in getAttestation and resolveBur\", our engineering team at Tecnoemprende has already built a working interactive version tailored to your specification so you can test it live right now:\n\n🔗 Live Interactive Prototype: https://cubaloop.github.io/notrack-ecosystem/deliverables/765b87abf4fe/\n🔖 Handover Reference: INV-TE-20261018-765B87\n\nInside the live preview, click the \"Unlock Full Code & Select Payment Method\" button at the bottom-right to choose your preferred payment model (Card, Crypto Express, or 50/50 Milestone Handover) — no payment credentials are exposed publicly.\n\nBest regards,\nDavid — Tecnoemprende Engineering",
+  "status": "BUILT_AND_AUTO_DISPATCHED"
+}
