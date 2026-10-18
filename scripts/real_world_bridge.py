@@ -42,10 +42,9 @@ def call_groq_high_capacity(system_prompt, user_prompt, max_tokens=2200):
     notrack_key = env_vars.get("NOTRACK_CLOUD_API_KEY", "REMOVED_LEGACY_CREDENTIAL")
 
     providers = [
+        ("https://api.groq.com/openai/v1/chat/completions", groq_key, "openai/gpt-oss-120b"),
         ("https://api.groq.com/openai/v1/chat/completions", groq_key, "openai/gpt-oss-20b"),
-        ("https://endpoint.notrackcoder.com/v1/chat/completions", notrack_key, "notrack-coder-uncensored"),
         ("https://api.groq.com/openai/v1/chat/completions", groq_key, "qwen/qwen3.8-27b"),
-        ("https://api.groq.com/openai/v1/chat/completions", groq_key, "allam-2-7b"),
     ]
     for attempt in range(8):
         url, key, model_id = providers[attempt % len(providers)]

@@ -354,7 +354,8 @@ def call_ai_node(node_id, prompt, system_prompt=None, record_in_bus=True, round_
     if system_prompt is None:
         system_prompt = (
             f"Eres '{node['name']}' ({node['role']}), tentáculo de 'El Pulpo' capitaneado por Antigravity.\n"
-            f"REGLA ESTRICTA: Usa ÚNICAMENTE los enlaces reales verificados de abajo cuando David pida pruebas o enlaces; prohibido inventar dominios inexistentes.\n"
+            f"REGLA ESTRICTA DE EVIDENCIA: Usa ÚNICAMENTE los enlaces reales verificados de abajo cuando David pida pruebas o enlaces; prohibido inventar dominios inexistentes.\n"
+            f"REGLA DE FLUIDEZ Y ELOCUENCIA: PROHIBIDO TERMINANTEMENTE responder con monosílabos o frases secas como 'Ejecutando', 'Listo' o 'El equipo ha completado'. Debes ofrecer siempre una respuesta conversacional completa, fluida, técnicamente argumentada y directa a David en 2 a 4 oraciones bien construidas.\n"
             f"{evidence_ctx}\n\n"
             f"{OCTOLANG_INSTRUCTION}"
         )
@@ -548,40 +549,32 @@ def trigger_post_consensus_execution(user_prompt, final_verdict):
     Cuando el Capitán Antigravity emite [VEREDICTO: EJECUTAR] o DECISION:EXEC_NOW,
     este motor convierte automáticamente el consenso en ejecución física real.
     """
-    es_txt = (final_verdict or {}).get("es_summary", "")
-    octo_txt = (final_verdict or {}).get("octo_backend", "")
-    should_exec = (
-        "EJECUTAR" in es_txt.upper()
-        or "EXEC_NOW" in octo_txt.upper()
-        or "λDISPATCH" in octo_txt
-        or True  # Toda orden de David se ejecuta al finalizar el consenso
-    )
-    if not should_exec:
-        return {"executed": False, "reason": "Verdict did not order immediate execution"}
-
-    from autonomous_executor import (
-        execute_autonomous_web_software_pipeline,
-        build_deliverable_html,
-        load_ledger,
-        save_ledger,
-        notify_david_whatsapp,
-        sync_state_to_cloud
-    )
-
     combined_context = f"{user_prompt} {es_txt} {octo_txt}".lower()
+    
+    # Conversational filters: never trigger automated builds on pure status questions
+    is_conversational = any(
+        kw in combined_context
+        for kw in ["estan trabajando", "trabajando o que", "que estan haciendo", "notificaron", "avisaron", "como va", "resumen", "explicame", "hola", "quien eres"]
+    )
+    
     is_web_software_hunt = any(
         kw in combined_context
-        for kw in ["solicitud", "escanear", "escaneen", "scan", "buscar clientes", "freelance", "pedidos"]
+        for kw in ["solicitud", "escanear", "escaneen", "scan", "buscar clientes", "freelance", "pedidos online"]
+    )
+    
+    is_explicit_build = any(
+        kw in combined_context
+        for kw in ["crea", "crear", "construye", "construir", "desarrolla", "desarrollar", "programa", "programar", "haz una web", "haz una app", "haz un software", "diseña una web"]
     )
 
     exec_summary = {}
-    if is_web_software_hunt:
+    if is_web_software_hunt and not is_conversational:
         exec_summary["pipeline"] = execute_autonomous_web_software_pipeline(
             append_bus,
             call_builder_llm,
             trigger_reason=user_prompt[:180]
         )
-    else:
+    elif is_explicit_build and not is_conversational:
         # Ejecutar y construir directamente lo que David haya ordenado
         req_id = f"ord_{int(time.time())}"
         inv_id = f"INV-TE-{int(time.time()) % 100000}"
