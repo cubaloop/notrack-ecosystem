@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tecnoemprende · Registro de Notificación al Cliente</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        parchment: '#F6F1E7',
+        card: '#FFFDF8',
+        ink: '#14201B',
+        brass: '#7A5A1E',
+        brasslight: '#A9853F',
+        brassdark: '#5C4416',
+        forest: '#1E3A2F',
+        forestlight: '#2E5245',
+        cream: '#FBF7EE',
+        line: '#E4D9C4',
+        ok: '#2E7D5B',
+        warn: '#B4691E'
+      },
+      fontFamily: {
+        display: ['"Fraunces"', 'Georgia', 'serif'],
+        body: ['"Manrope"', 'system-ui', 'sans-serif'],
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace']
+      }
+    }
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --parchment:#F6F1E7; --card:#FFFDF8; --ink:#14201B; --brass:#7A5A1E;
+    --brasslight:#A9853F; --brassdark:#5C4416; --forest:#1E3A2F; --line:#E4D9C4;
+  }
+  *{ -webkit-font-smoothing:antialiased; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background-color:var(--parchment);
+    color:var(--ink);
+    font-family:'Manrope',system-ui,sans-serif;
+    background-image:
+      radial-gradient(1200px 600px at 85% -10%, rgba(122,90,30,0.10), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, rgba(30,58,47,0.08), transparent 55%),
+      linear-gradient(rgba(20,32,27,0.028) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(20,32,27,0.028) 1px, transparent 1px);
+    background-size:auto,auto,34px 34px,34px 34px;
+    background-attachment:fixed;
+  }
+  .font-display{ font-family:'Fraunces',Georgia,serif; }
+  .font-mono{ font-family:'JetBrains Mono',ui-monospace,monospace; }
+
+  /* grain overlay */
+  .grain::before{
+    content:""; position:fixed; inset:0; z-index:1; pointer-events:none; opacity:.05;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    box-shadow:0 1px 0 rgba(255,255,255,.7) inset, 0 18px 40px -28px rgba(20,32,27,.45);
+  }
+  .card-hover{ transition:transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s; }
+  .card-hover:hover{ transform:translateY(-4px); box-shadow:0 1px 0 rgba(255,255,255,.7) inset, 0 30px 55px -30px rgba(20,32,27,.55); }
+
+  .brass-line{ height:1px; background:linear-gradient(90deg,transparent, var(--brass) 20%, var(--brass) 80%, transparent); opacity:.5; }
+
+  .seal{
+    background:
+      radial-gradient(circle at 35% 30%, #fff, transparent 40%),
+      conic-gradient(from 210deg, var(--brassdark), var(--brasslight), var(--brass), var(--brassdark));
+    box-shadow:0 10px 24px -10px rgba(92,68,22,.7), inset 0 0 0 2px rgba(255,253,248,.35);
+  }
+
+  .btn{ transition:transform .18s ease, box-shadow .25s ease, background .25s ease, color .25s ease; }
+  .btn:active{ transform:translateY(1px) scale(.99); }
+  .btn-primary{
+    background:linear-gradient(180deg, var(--forestlight), var(--forest));
+    color:#F6F1E7; box-shadow:0 12px 26px -14px rgba(30,58,47,.9);
+  }
+  .btn-primary:hover{ box-shadow:0 18px 34px -14px rgba(30,58,47,.95); transform:translateY(-2px); }
+  .btn-brass{
+    background:linear-gradient(180deg, var(--brasslight), var(--brass));
+    color:#FFFDF8; box-shadow:0 12px 26px -14px rgba(92,68,22,.85);
+  }
+  .btn-brass:hover{ box-shadow:0 18px 34px -14px rgba(92,68,22,.9); transform:translateY(-2px); }
+  .btn-ghost{ background:transparent; border:1px solid var(--line); color:var(--ink); }
+  .btn-ghost:hover{ border-color:var(--brass); color:var(--brassdark); background:rgba(122,90,30,.05); }
+  .btn:disabled{ opacity:.4; cursor:not-allowed; transform:none; box-shadow:none; }
+
+  .chip{ border:1px solid var(--line); background:var(--card); }
+
+  /* reveal */
+  .reveal{ opacity:0; transform:translateY(22px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
+  .reveal.in{ opacity:1; transform:none; }
+
+  /* progress bar */
+  .progress-track{ background:rgba(20,32,27,.08); }
+  .progress-fill{ background:linear-gradient(90deg, var(--brass), var(--brasslight)); transition:width .6s cubic-bezier(.2,.8,.2,1); }
+
+  /* timeline */
+  .tl-dot{ box-shadow:0 0 0 4px var(--parchment); }
+  .tl-line{ background:linear-gradient(180deg, var(--brass), rgba(122,90,30,.15)); }
+
+  /* pulse for live dot */
+  @keyframes pulseDot{ 0%{ box-shadow:0 0 0 0 rgba(46,125,91,.5);} 70%{ box-shadow:0 0 0 10px rgba(46,125,91,0);} 100%{ box-shadow:0 0 0 0 rgba(46,125,91,0);} }
+  .live-dot{ animation:pulseDot 1.8s infinite; }
+
+  @keyframes spin{ to{ transform:rotate(360deg);} }
+  .spinner{ animation:spin .8s linear infinite; }
+
+  @keyframes floaty{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-6px);} }
+  .floaty{ animation:floaty 6s ease-in-out infinite; }
+
+  @keyframes stampIn{ 0%{ transform:scale(1.6) rotate(-14deg); opacity:0;} 60%{ transform:scale(.94) rotate(-9deg); opacity:1;} 100%{ transform:scale(1) rotate(-9deg); opacity:1;} }
+  .stamp-in{ animation:stampIn .55s cubic-bezier(.2,1.4,.4,1) both; }
+
+  @keyframes checkPop{ 0%{ transform:scale(.4); opacity:0;} 100%{ transform:scale(1); opacity:1;} }
+  .check-pop{ animation:checkPop .4s cubic-bezier(.2,1.5,.4,1) both; }
+
+  .tab-active{ color:var(--brassdark); border-color:var(--brass); }
+  .tab{ border-bottom:2px solid transparent; color:rgba(20,32,27,.55); transition:color .2s, border-color .2s; }
+  .tab:hover{ color:var(--ink); }
+
+  .field{ background:var(--card); border:1px solid var(--line); transition:border-color .2s, box-shadow .2s; }
+  .field:focus{ outline:none; border-color:var(--brass); box-shadow:0 0 0 3px rgba(122,90,30,.14); }
+
+  .log-line{ opacity:0; transform:translateX(-8px); animation:logIn .4s ease forwards;
+
+<!-- PRIVATE PAYMENT SELECTION MODAL & FLOATING BAR (TECNOEMPRENDE) -->
+<div id="te-pay-bar" style="position:fixed;bottom:18px;right:18px;z-index:9999;display:flex;gap:10px;align-items:center;background:#14201B;color:#F2EDE0;padding:10px 16px;border-radius:999px;box-shadow:0 14px 34px rgba(0,0,0,0.35);border:1px solid rgba(217,183,111,0.45);font-family:'Plus Jakarta Sans',sans-serif;">
+  <span style="font-size:12px;font-weight:700;color:#D9B76F;">Ref: INV-TE-20261018-ORD_17 (1,000 AED / $450 USD)</span>
+  <button onclick="document.getElementById('te-pay-modal').style.display='flex'" style="background:linear-gradient(135deg,#D9B76F,#b8862d);color:#09100D;border:none;padding:8px 16px;border-radius:999px;font-size:12px;font-weight:800;cursor:pointer;">
+    🔓 Unlock Full Code & Select Payment Method
+  </button>
+</div>
+
+<div id="te-pay-modal" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(9,16,13,0.82);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;font-family:'Plus Jakarta Sans',sans-serif;">
+  <div style="background:#FFFDF8;color:#14201B;max-width:480px;width:100%;border-radius:28px;padding:28px;border:1px solid rgba(122,90,30,0.25);box-shadow:0 24px 60px rgba(0,0,0,0.45);position:relative;">
+    <button onclick="document.getElementById('te-pay-modal').style.display='none'" style="position:absolute;top:18px;right:18px;background:#EFE8D8;border:none;width:32px;height:32px;border-radius:50%;font-weight:800;cursor:pointer;">✕</button>
+    <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#7A5A1E;">Private Handover & Checkout · INV-TE-20261018-ORD_17</div>
+    <h3 style="font-size:20px;font-weight:800;margin-top:6px;">Select Your Preferred Payment Model</h3>
+    <p style="font-size:13px;color:#5A655E;margin-top:6px;line-height:1.5;">
+      Built for <b>David (Orden Directa)</b> (<i>Ok y ya notificaron al cliente que colgo dicha tarea?</i>). For security, payment credentials are never displayed publicly. Choose your preferred payment option below to generate your private checkout session:
+    </p>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:18px;">
+      <button onclick="selectTePayment('visa_mastercard', 'Card Checkout (Visa / Mastercard)')" style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-radius:16px;border:1px solid rgba(20,32,27,0.15);background:#F6F1E7;cursor:pointer;text-align:left;transition:0.15s;">
+        <div>
+          <div style="font-weight:800;font-size:14px;color:#14201B;">💳 Option 1: Credit / Debit Card (Fiat)</div>
+          <div style="font-size:11.5px;color:#5A655E;">Instant Visa / Mastercard / Apple Pay checkout link (1,000 AED / $450 USD)</div>
+        </div>
+        <span style="font-weight:800;color:#7A5A1E;">Select →</span>
+      </button>
+      <button onclick="selectTePayment('crypto_usdt', 'Crypto Settlement (USDT / USDC)')" style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-radius:16px;border:1px solid rgba(20,32,27,0.15);background:#F6F1E7;cursor:pointer;text-align:left;transition:0.15s;">
+        <div>
+          <div style="font-weight:800;font-size:14px;color:#14201B;">🪙 Option 2: Crypto Express (USDT / USDC)</div>
+          <div style="font-size:11.5px;color:#5A655E;">Private KuCoin Pay / TRC20 / ERC20 / Arbitrum gateway</div>
+        </div>
+        <span style="font-weight:800;color:#7A5A1E;">Select →</span>
+      </button>
+      <button onclick="selectTePayment('milestone_escrow', '50/50 Milestone Split')" style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-radius:16px;border:1px solid rgba(20,32,27,0.15);background:#F6F1E7;cursor:pointer;text-align:left;transition:0.15s;">
+        <div>
+          <div style="font-weight:800;font-size:14px;color:#14201B;">🛡️ Option 3: 50/50 Milestone Handover</div>
+          <div style="font-size:11.5px;color:#5A655E;">50% upon live preview approval + 50% upon repository deployment</div>
+        </div>
+        <span style="font-weight:800;color:#7A5A1E;">Select →</span>
+      </button>
+    </div>
+    <div id="te-pay-confirm" style="display:none;margin-top:16px;padding:14px;border-radius:16px;background:#14201B;color:#F2EDE0;font-size:12.5px;line-height:1.5;"></div>
+  </div>
+</div>
+<script>
+async function selectTePayment(methodCode, methodLabel) {
+  const box = document.getElementById('te-pay-confirm');
+  box.style.display = 'block';
+  box.innerHTML = '⏳ Generating private checkout session for <b>' + methodLabel + '</b>...';
+  try {
+    await fetch('/api/select-payment', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        request_id: 'ord_1792337430',
+        invoice_id: 'INV-TE-20261018-ORD_17',
+        requester: 'David (Orden Directa)',
+        budget: '1,000 AED / $450 USD',
+        selected_method: methodCode,
+        selected_label: methodLabel
+      })
+    });
+  } catch (e) {}
+  const waText = encodeURIComponent('Hi David (Tecnoemprende), I reviewed my live prototype (INV-TE-20261018-ORD_17 - Ok y ya notificaron al cliente que colgo dicha tarea?) and selected payment option: ' + methodLabel + ' (1,000 AED / $450 USD). Please send my private checkout link to complete handover.');
+  box.innerHTML = '✅ <b>' + methodLabel + ' Selected!</b><br/>For security, your single-use payment link is dispatched privately. Click below to receive your checkout link and full source code immediately:<br/><div style="margin-top:10px;display:flex;gap:8px;"><a href="https://wa.me/971508379080?text=' + waText + '" target="_blank" style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;background:#25D366;color:#fff;text-decoration:none;" title="WhatsApp"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/></svg></a></div>';
+}
+</script>
+
+</body>
+</html>
