@@ -1,0 +1,11 @@
+Hi @zhangjiayang6835-cyber,
+
+Regarding your request "[Bounty] [Bounty: $125] Add AbortSignal support across transfer, completeMint, and attest", our engineering team at Tecnoemprende has already built a working interactive version tailored to your specification so you can test it live right now:
+
+🔗 Live Interactive Prototype: https://cubaloop.github.io/notrack-ecosystem/deliverables/769f4e8c18c2/
+🔖 Handover Reference: INV-TE-20261018-769F4E
+
+Inside the live preview, click the "Unlock Full Code & Select Payment Method" button at the bottom-right to choose your preferred payment model (Card, Crypto Express, or 50/50 Milestone Handover) — no payment credentials are exposed publicly.
+
+Best regards,
+David — Tecnoemprende Engineering
