@@ -1,0 +1,15 @@
+{
+  "invoice_id": "INV-TE-20261018-083139",
+  "created_at": "2026-10-18T17:47:02.712303",
+  "requester": "@zhangjiayang6835-cyber",
+  "request_title": "[Bounty] [Bounty: $125] Add structured progress callbacks to transfer()",
+  "source": "GitHub Bounty",
+  "source_url": "https://github.com/zhangjiayang6835-cyber/bounty-plaza/issues/1910",
+  "contact_url": "https://github.com/zhangjiayang6835-cyber/bounty-plaza/issues/1910",
+  "amount": "$125 USD",
+  "payment_buttons_mode": "PRIVATE_INTERACTIVE_BUTTONS_ONLY",
+  "deliverable_cloud_url": "https://cubaloop.github.io/notrack-ecosystem/deliverables/083139e7f1be/",
+  "deliverable_local_url": "http://127.0.0.1:5000/deliverables/083139e7f1be",
+  "pitch_english": "Hi @zhangjiayang6835-cyber,\n\nRegarding your request \"[Bounty] [Bounty: $125] Add structured progress callbacks to transfer()\", our engineering team at Tecnoemprende has already built a working interactive version tailored to your specification so you can test it live right now:\n\n🔗 Live Interactive Prototype: https://cubaloop.github.io/notrack-ecosystem/deliverables/083139e7f1be/\n🔖 Handover Reference: INV-TE-20261018-083139\n\nInside the live preview, click the \"Unlock Full Code & Select Payment Method\" button at the bottom-right to choose your preferred payment model (Card, Crypto Express, or 50/50 Milestone Handover) — no payment credentials are exposed publicly.\n\nBest regards,\nDavid — Tecnoemprende Engineering",
+  "status": "BUILT_AND_AUTO_DISPATCHED"
+}

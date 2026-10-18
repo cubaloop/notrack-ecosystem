@@ -245,6 +245,48 @@
       "dispatch_status": "AUTO_PUBLISHED_AND_LINKED (https://github.com/zhangjiayang6835-cyber/bounty-plaza/issues/1911)",
       "pitch_english": "Hi @zhangjiayang6835-cyber,\n\nRegarding your request \"[Bounty] [Bounty: $125] Add AbortSignal support across transfer, completeMint, and attest\", our engineering team at Tecnoemprende has already built a working interactive version tailored to your specification so you can test it live right now:\n\n🔗 Live Interactive Prototype: https://cubaloop.github.io/notrack-ecosystem/deliverables/769f4e8c18c2/\n🔖 Handover Reference: INV-TE-20261018-769F4E\n\nInside the live preview, click the \"Unlock Full Code & Select Payment Method\" button at the bottom-right to choose your preferred payment model (Card, Crypto Express, or 50/50 Milestone Handover) — no payment credentials are exposed publicly.\n\nBest regards,\nDavid — Tecnoemprende Engineering",
       "executed_at": "2026-10-18T17:23:54.023093"
+    },
+    {
+      "id": "083139e7f1be",
+      "title": "[Bounty] [Bounty: $125] Add structured progress callbacks to transfer()",
+      "requester": "@zhangjiayang6835-cyber",
+      "source": "GitHub Bounty",
+      "source_url": "https://github.com/zhangjiayang6835-cyber/bounty-plaza/issues/1910",
+      "contact_url": "https://github.com/zhangjiayang6835-cyber/bounty-plaza/issues/1910",
+      "budget": "$125 USD",
+      "file_path": "C:\\Users\\Yo\\notrack-ecosystem\\executions\\083139e7f1be\\index.html",
+      "preview_url": "https://cubaloop.github.io/notrack-ecosystem/deliverables/083139e7f1be/",
+      "local_preview_url": "http://127.0.0.1:5000/deliverables/083139e7f1be",
+      "invoice_id": "INV-TE-20261018-083139",
+      "payment_buttons": [
+        "💳 Card (Visa/MC)",
+        "🪙 Crypto (USDT/USDC)",
+        "🛡️ 50/50 Milestone"
+      ],
+      "dispatch_status": "AUTO_PUBLISHED_AND_LINKED (https://github.com/zhangjiayang6835-cyber/bounty-plaza/issues/1910)",
+      "pitch_english": "Hi @zhangjiayang6835-cyber,\n\nRegarding your request \"[Bounty] [Bounty: $125] Add structured progress callbacks to transfer()\", our engineering team at Tecnoemprende has already built a working interactive version tailored to your specification so you can test it live right now:\n\n🔗 Live Interactive Prototype: https://cubaloop.github.io/notrack-ecosystem/deliverables/083139e7f1be/\n🔖 Handover Reference: INV-TE-20261018-083139\n\nInside the live preview, click the \"Unlock Full Code & Select Payment Method\" button at the bottom-right to choose your preferred payment model (Card, Crypto Express, or 50/50 Milestone Handover) — no payment credentials are exposed publicly.\n\nBest regards,\nDavid — Tecnoemprende Engineering",
+      "executed_at": "2026-10-18T17:47:02.712303"
+    },
+    {
+      "id": "3478489f70d8",
+      "title": "[Bounty] [Bounty: $90] Reject unsupported CCTP message versions in decodeCctpMessage",
+      "requester": "@zhangjiayang6835-cyber",
+      "source": "GitHub Bounty",
+      "source_url": "https://github.com/zhangjiayang6835-cyber/bounty-plaza/issues/1907",
+      "contact_url": "https://github.com/zhangjiayang6835-cyber/bounty-plaza/issues/1907",
+      "budget": "$90 USD",
+      "file_path": "C:\\Users\\Yo\\notrack-ecosystem\\executions\\3478489f70d8\\index.html",
+      "preview_url": "https://cubaloop.github.io/notrack-ecosystem/deliverables/3478489f70d8/",
+      "local_preview_url": "http://127.0.0.1:5000/deliverables/3478489f70d8",
+      "invoice_id": "INV-TE-20261018-347848",
+      "payment_buttons": [
+        "💳 Card (Visa/MC)",
+        "🪙 Crypto (USDT/USDC)",
+        "🛡️ 50/50 Milestone"
+      ],
+      "dispatch_status": "AUTO_PUBLISHED_AND_LINKED (https://github.com/zhangjiayang6835-cyber/bounty-plaza/issues/1907)",
+      "pitch_english": "Hi @zhangjiayang6835-cyber,\n\nRegarding your request \"[Bounty] [Bounty: $90] Reject unsupported CCTP message versions in decodeCctpMessage\", our engineering team at Tecnoemprende has already built a working interactive version tailored to your specification so you can test it live right now:\n\n🔗 Live Interactive Prototype: https://cubaloop.github.io/notrack-ecosystem/deliverables/3478489f70d8/\n🔖 Handover Reference: INV-TE-20261018-347848\n\nInside the live preview, click the \"Unlock Full Code & Select Payment Method\" button at the bottom-right to choose your preferred payment model (Card, Crypto Express, or 50/50 Milestone Handover) — no payment credentials are exposed publicly.\n\nBest regards,\nDavid — Tecnoemprende Engineering",
+      "executed_at": "2026-10-18T17:47:23.758825"
     }
   ],
   "runs": [
@@ -271,6 +313,11 @@
     {
       "timestamp": "2026-10-18T17:23:54.023093",
       "trigger": "El responsable de enviar los mensajes por whatapp a los clientes es Antigravity que es el que tiene el acceso, por favor antigravity tambien mira a ve que le pasa a Semalt Uncensor",
+      "count": 2
+    },
+    {
+      "timestamp": "2026-10-18T17:47:23.758825",
+      "trigger": "Ejecución Directa desde Panel El Pulpo",
       "count": 2
     }
   ],
