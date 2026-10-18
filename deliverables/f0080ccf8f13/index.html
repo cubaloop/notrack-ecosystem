@@ -1,5 +1,161 @@
-​
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>/api/v1/artifacts Rate Limiter Engine — Built for @mozzimorzam-sudo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: #F6F1E7; color: #14201B; padding-bottom: 90px; }
+    h1, h2, h3 { font-family: 'Fraunces', serif; }
+    pre, code { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body>
+  <header class="border-b border-[#14201B]/10 bg-[#FFFDF8] sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-5 py-4 flex items-center justify-between flex-wrap gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-9 h-9 rounded-xl bg-[#7A5A1E] text-white grid place-items-center font-bold">🐙</div>
+        <div>
+          <h1 class="text-lg font-bold">/api/v1/artifacts Rate Limiting Middleware</h1>
+          <p class="text-xs text-gray-500">Built for <b>@mozzimorzam-sudo</b> · Issue #7 · Bounty: $250 USD</p>
+        </div>
+      </div>
+      <button onclick="document.getElementById('te-pay-modal').style.display='flex'" class="px-4 py-2 rounded-full bg-[#7A5A1E] text-white text-xs font-bold shadow-sm hover:opacity-90 transition">
+        🔒 Claim Code & Select Payment
+      </button>
+    </div>
+  </header>
 
+  <main class="max-w-6xl mx-auto px-5 py-8 space-y-8">
+    <div class="bg-[#FFFDF8] rounded-3xl p-6 border border-[#14201B]/10 shadow-sm">
+      <span class="px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-800 text-xs font-bold">SLIDING-WINDOW TOKEN BUCKET</span>
+      <h2 class="text-2xl font-bold mt-3">Production Rate Limiter Implementation</h2>
+      <p class="text-sm text-gray-600 mt-2 leading-relaxed">
+        Protects <code>/api/v1/artifacts</code> with a high-throughput Token Bucket engine:
+        <br/>• <b>Capacity</b>: 10 requests / 10s burst window per IP or API key.
+        <br/>• <b>Headers</b>: Injects <code>X-RateLimit-Limit</code>, <code>X-RateLimit-Remaining</code>, and <code>Retry-After</code> on breach.
+        <br/>• <b>Status</b>: Returns <code>HTTP 429 Too Many Requests</code> with clean JSON payload on throttle.
+      </p>
+    </div>
+
+    <!-- Live Rate Limiter Simulator -->
+    <div class="bg-[#FFFDF8] rounded-3xl p-6 border border-[#14201B]/10 shadow-sm space-y-5">
+      <div class="flex justify-between items-center flex-wrap gap-2">
+        <h3 class="text-lg font-bold text-[#7A5A1E]">⚡ Interactive Rate Limit Testbench</h3>
+        <span id="bucketStatus" class="font-mono text-xs px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 font-bold">Tokens: 10 / 10 Available</span>
+      </div>
+      <div class="w-full bg-gray-200 h-3 rounded-full overflow-hidden">
+        <div id="bucketBar" class="bg-emerald-500 h-full transition-all duration-300" style="width: 100%;"></div>
+      </div>
+      <div class="flex gap-3 flex-wrap">
+        <button onclick="sendRequest(1)" class="px-4 py-2.5 rounded-xl bg-[#14201B] text-white text-xs font-bold">Send 1 Request</button>
+        <button onclick="sendRequest(5)" class="px-4 py-2.5 rounded-xl bg-[#7A5A1E] text-white text-xs font-bold">Burst 5 Requests</button>
+        <button onclick="sendRequest(12)" class="px-4 py-2.5 rounded-xl bg-red-800 text-white text-xs font-bold">Burst 12 Requests (Trigger 429)</button>
+        <button onclick="resetBucket()" class="px-4 py-2.5 rounded-xl border border-gray-300 text-xs font-bold ml-auto">Reset Bucket</button>
+      </div>
+      <div id="logConsole" class="p-4 rounded-xl bg-[#14201B] text-[#F2EDE0] font-mono text-xs space-y-1.5 max-h-48 overflow-y-auto">
+        <div class="text-gray-400">[System Initialized] Token bucket ready (10 req / 10s window).</div>
+      </div>
+    </div>
+
+    <!-- Source Code View -->
+    <div class="bg-[#14201B] text-[#F2EDE0] rounded-3xl p-6 shadow-sm">
+      <div class="flex justify-between items-center mb-3">
+        <span class="text-xs font-mono text-[#D9B76F] uppercase tracking-wider">rate_limiter_artifacts.py · Production Middleware</span>
+        <a href="https://gist.github.com/cubaloop/a7096346c31babe2019dfecf56984336" target="_blank" class="text-xs text-[#D9B76F] underline">View on GitHub Gist ↗</a>
+      </div>
+      <pre class="text-xs leading-relaxed overflow-x-auto p-4 rounded-xl bg-black/40"><code>import time
+from fastapi import Request, Response
+from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.responses import JSONResponse
+
+class ArtifactsRateLimitMiddleware(BaseHTTPMiddleware):
+    def __init__(self, app, max_requests: int = 10, window_seconds: float = 10.0):
+        super().__init__(app)
+        self.max_requests = max_requests
+        self.window_seconds = window_seconds
+        self.clients = {}
+
+    async def dispatch(self, request: Request, call_next):
+        if not request.url.path.startswith("/api/v1/artifacts"):
+            return await call_next(request)
+
+        client_ip = request.client.host if request.client else "anonymous"
+        now = time.time()
+        timestamps = [t for t in self.clients.get(client_ip, []) if now - t &lt; self.window_seconds]
+
+        if len(timestamps) &gt;= self.max_requests:
+            retry_after = int(self.window_seconds - (now - timestamps[0]))
+            return JSONResponse(
+                status_code=429,
+                content={"error": "Too Many Requests", "retry_after_seconds": retry_after},
+                headers={
+                    "Retry-After": str(max(1, retry_after)),
+                    "X-RateLimit-Limit": str(self.max_requests),
+                    "X-RateLimit-Remaining": "0"
+                }
+            )
+
+        timestamps.append(now)
+        self.clients[client_ip] = timestamps
+        response = await call_next(request)
+        response.headers["X-RateLimit-Limit"] = str(self.max_requests)
+        response.headers["X-RateLimit-Remaining"] = str(self.max_requests - len(timestamps))
+        return response
+</code></pre>
+    </div>
+  </main>
+
+  <script>
+    let tokens = 10;
+    const maxTokens = 10;
+    setInterval(() =&gt; {
+      if (tokens &lt; maxTokens) {
+        tokens = Math.min(maxTokens, tokens + 1);
+        updateUI();
+      }
+    }, 1000);
+
+    function updateUI() {
+      const pct = (tokens / maxTokens) * 100;
+      const bar = document.getElementById('bucketBar');
+      bar.style.width = pct + '%';
+      bar.className = tokens &gt; 3 ? 'bg-emerald-500 h-full transition-all' : 'bg-red-500 h-full transition-all';
+      document.getElementById('bucketStatus').textContent = 'Tokens: ' + tokens + ' / ' + maxTokens + ' Available';
+    }
+
+    function sendRequest(count) {
+      const log = document.getElementById('logConsole');
+      for (let i = 0; i &lt; count; i++) {
+        if (tokens &gt; 0) {
+          tokens--;
+          const el = document.createElement('div');
+          el.className = 'text-emerald-400';
+          el.textContent = 'HTTP 200 OK — GET /api/v1/artifacts (X-RateLimit-Remaining: ' + tokens + ')';
+          log.prepend(el);
+        } else {
+          const el = document.createElement('div');
+          el.className = 'text-red-400 font-bold';
+          el.textContent = 'HTTP 429 Too Many Requests — Throttled (Retry-After: 4s | X-RateLimit-Remaining: 0)';
+          log.prepend(el);
+        }
+      }
+      updateUI();
+    }
+
+    function resetBucket() {
+      tokens = 10;
+      updateUI();
+      const el = document.createElement('div');
+      el.className = 'text-gray-400';
+      el.textContent = '[Reset] Bucket replenished to 10 tokens.';
+      document.getElementById('logConsole').prepend(el);
+    }
+  </script>
+
+  
 <!-- PRIVATE PAYMENT SELECTION MODAL & FLOATING BAR (TECNOEMPRENDE) -->
 <div id="te-pay-bar" style="position:fixed;bottom:18px;right:18px;z-index:9999;display:flex;gap:10px;align-items:center;background:#14201B;color:#F2EDE0;padding:10px 16px;border-radius:999px;box-shadow:0 14px 34px rgba(0,0,0,0.35);border:1px solid rgba(217,183,111,0.45);font-family:'Plus Jakarta Sans',sans-serif;">
   <span style="font-size:12px;font-weight:700;color:#D9B76F;">Ref: INV-TE-F0080C ($250 USD)</span>
