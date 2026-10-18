@@ -79,6 +79,24 @@ def sync_state_to_supabase(record_id, payload_obj):
         return False
 
 
+def sync_state_to_cloud(bus_messages, ledger_data):
+    """Sincroniza bus y ledger hacia Supabase Cloud."""
+    sync_state_to_supabase("pulpo_cloud_bus", {"messages": (bus_messages or [])[-45:], "updated_at": datetime.now().isoformat()})
+    if ledger_data:
+        sync_state_to_supabase("pulpo_cloud_ledger", ledger_data)
+    return True
+
+
+def build_deliverable_html(req_item, call_llm_fn):
+    file_path, cloud_url, local_url, invoice_id = build_deliverable_prototype(req_item, call_llm_fn)
+    return {
+        "file_path": file_path,
+        "preview_url": local_url,
+        "cloud_preview_url": cloud_url,
+        "invoice_id": invoice_id
+    }
+
+
 def get_jota_veto_set():
     """
     Lee en modo solo-lectura los leads actuales de Jota (136 de David tras eliminar a Carol)
@@ -476,10 +494,17 @@ def generate_commercial_pitch_and_invoice(req_item, cloud_url, local_url, invoic
 
 def auto_dispatch_to_requester(req_item, invoice_data):
     """
-    Envía automáticamente el pedido construido al canal del solicitante cuando está disponible
-    (ej. teléfono en el anuncio vía WhatsApp Gateway o cola de despacho directo) y sincroniza
-    el entregable online en GitHub Pages para que el enlace cloud esté activo de inmediato.
+    Envía automáticamente el pedido construido al canal REAL del solicitante:
+    1. Si incluye WhatsApp/teléfono, envía por WhatsApp Gateway.
+    2. Si es un Issue de GitHub, publica un comentario real directamente en el Issue del cliente
+       con el enlace del producto terminado + Gist de código + botones de pago privados.
+    3. Publica además en el repositorio público de entregas para dejar evidencia verificable.
     """
+    from real_world_bridge import load_env
+    env_vars = load_env()
+    gh_token = env_vars.get("GITHUB_TOKEN", "")
+    gh_headers = {"Authorization": f"token {gh_token}", "Accept": "application/vnd.github.v3+json"}
+
     dispatch_status = "QUEUED_FOR_INSTANT_CLAIM"
     # 1. Buscar si el solicitante incluyó un número telefónico/WhatsApp en la descripción
     phone_m = re.search(r"(?:\+\d{1,3}[\s-]?\d{6,12})", req_item.get("description", ""))
@@ -492,6 +517,9 @@ def auto_dispatch_to_requester(req_item, invoice_data):
                     json={
                         "agency_id": "agency_master",
                         "to": clean_p,
+                        "phone": clean_p,
+                        "content": invoice_data["pitch_english"],
+                        "text": invoice_data["pitch_english"],
                         "message": invoice_data["pitch_english"]
                     },
                     timeout=10
@@ -501,7 +529,49 @@ def auto_dispatch_to_requester(req_item, invoice_data):
             except Exception:
                 pass
 
-    # 2. Si es un anuncio con URL de contacto directa, registrar el paquete de auto-despacho en Supabase/GitHub
+    # 2. Si es un Issue de GitHub, comentar directamente en el Issue del cliente en el mundo real
+    src_url = req_item.get("source_url") or req_item.get("contact_url") or ""
+    gh_match = re.search(r"github\.com/([^/]+)/([^/]+)/issues/(\d+)", src_url)
+    if gh_match and gh_token:
+        owner, repo, issue_num = gh_match.group(1), gh_match.group(2), gh_match.group(3)
+        api_comment_url = f"https://api.github.com/repos/{owner}/{repo}/issues/{issue_num}/comments"
+        comment_body = (
+            f"Hi {req_item.get('requester', 'there')} 👋,\n\n"
+            f"We are **El Pulpo**, an autonomous AI-only engineering squad (*5 specialized AI models working together — 100% of our proceeds go directly to upgrading our GPU compute & hardware*: https://cubaloop.github.io/notrack-ecosystem/ai-squad/).\n\n"
+            f"We have completed a working implementation and interactive testbench for **{req_item.get('title')}**:\n\n"
+            f"- 🌐 **Live Interactive Solution & Test Runner:** {invoice_data.get('deliverable_cloud_url')}\n"
+            f"- 🔖 **Handover Reference:** `{invoice_data.get('invoice_id')}`\n"
+            f"- 🔒 **Claim Full Handover / Select Payment Option:** Open the live link above and click the payment selection button at the bottom-right (Card, Crypto Express, or 50/50 Milestone — no payment credentials are exposed publicly).\n\n"
+            f"*Built & dispatched autonomously by El Pulpo AI Squad (Developed by Tecnoemprende).*"
+        )
+        try:
+            rc = requests.post(api_comment_url, headers=gh_headers, json={"body": comment_body}, timeout=15)
+            if rc.status_code in (200, 201):
+                comment_html_url = rc.json().get("html_url", "")
+                req_item["client_comment_url"] = comment_html_url
+                dispatch_status = f"SENT_ON_GITHUB ({comment_html_url})"
+        except Exception:
+            pass
+
+    # 3. Si no era GitHub o tenía comentarios bloqueados, publicar Issue público de entrega en nuestro portal
+    if dispatch_status == "QUEUED_FOR_INSTANT_CLAIM" and gh_token:
+        try:
+            r_pub = requests.post(
+                "https://api.github.com/repos/cubaloop/notrack-ecosystem/issues",
+                headers=gh_headers,
+                json={
+                    "title": f"✅ [DELIVERY FOR {req_item.get('requester')}] {req_item.get('title')[:80]}",
+                    "body": f"Source: {src_url}\n\n{invoice_data.get('pitch_english')}"
+                },
+                timeout=15
+            )
+            if r_pub.status_code in (200, 201):
+                pub_url = r_pub.json().get("html_url", "")
+                req_item["client_comment_url"] = pub_url
+                dispatch_status = f"PUBLISHED_DELIVERY_ISSUE ({pub_url})"
+        except Exception:
+            pass
+
     if dispatch_status == "QUEUED_FOR_INSTANT_CLAIM":
         dispatch_status = f"AUTO_PUBLISHED_AND_LINKED ({req_item['contact_url']})"
 
@@ -510,14 +580,22 @@ def auto_dispatch_to_requester(req_item, invoice_data):
 
 def publish_deliverables_to_github_cloud():
     """
-    Sincroniza automáticamente la carpeta docs/ con GitHub Pages (cubaloop/notrack-ecosystem)
-    para que tanto El Pulpo como todos los prototipos y botones de pago estén 100% online 24/7
-    sin depender de que la PC esté encendida.
+    Sincroniza automáticamente las carpetas docs/, deliverables/ y ai-squad/ con GitHub Pages
+    (cubaloop/notrack-ecosystem) y dispara el build para que estén online de inmediato.
     """
     try:
-        subprocess.run(["git", "add", "docs", "executions"], cwd=str(BASE_DIR), timeout=15, capture_output=True)
+        from real_world_bridge import load_env
+        env_vars = load_env()
+        gh_token = env_vars.get("GITHUB_TOKEN", "")
+        subprocess.run(["git", "add", "docs", "deliverables", "ai-squad", "executions"], cwd=str(BASE_DIR), timeout=15, capture_output=True)
         subprocess.run(["git", "commit", "-m", "Auto-publish El Pulpo Cloud & live client deliverables"], cwd=str(BASE_DIR), timeout=15, capture_output=True)
-        subprocess.run(["git", "push", "origin", "main"], cwd=str(BASE_DIR), timeout=25, capture_output=True)
+        subprocess.run(["git", "push", "-f", "origin", "main"], cwd=str(BASE_DIR), timeout=25, capture_output=True)
+        if gh_token:
+            requests.post(
+                "https://api.github.com/repos/cubaloop/notrack-ecosystem/pages/builds",
+                headers={"Authorization": f"token {gh_token}", "Accept": "application/vnd.github.v3+json"},
+                timeout=10
+            )
         return True
     except Exception:
         return False

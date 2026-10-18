@@ -1,0 +1,12 @@
+{
+  "name": "OCTO-LANG v1 (Pulpo-Synth)",
+  "version": "1.0.0",
+  "purpose": "Protocolo léxico-vectorial ultra-comprimido para comunicación M2M (Machine-to-Machine) entre los tentáculos de El Pulpo en el backend, reduciendo tokens en ~75% y eliminando ambigüedad.",
+  "primitives": {
+    "§PKT[node|r]": "Cabecera del paquete neuronal (Nodo emisor y Ronda)",
+    "ΔVEC[node+:'acierto' | node-:'fallo']": "Vector de consenso/refutación directa hacia otros nodos",
+    "ΩTHESIS[A >> B != C]": "Tesis lógica comprimida (>> implica/ejecuta, :: define, != descarta, && combina, ?? riesgo)",
+    "λOP[VERBO(params) -> METRICA]": "Operación ejecutable concreta asignada o propuesta",
+    "Σ[EV:0.XX|CONF:0.XX]": "Valor Esperado (Expected Value 0-1) y Confianza Matemática (0-1)"
+  }
+}

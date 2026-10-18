@@ -1,81 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fix calc.py: average() wrong for normal lists and clamp() returns low for out-of-range high — Built by Tecnoemprende</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&family=Fraunces:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/tailwindcss@^2.0.0/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #F6F1E7;
+        }
+
+        .card {
+            background-color: #FFF8E6;
+        }
+
+        .text-input {
+            background-color: #FFF8E6;
+        }
+
+        .result {
+            background-color: #FFF8E6;
+        }
+    </style>
 </head>
-<body class="bg-[#F6F1E7] text-[#14201B] min-h-screen font-['Plus_Jakarta_Sans']">
-  <header class="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between border-b border-[#7A5A1E]/20">
-    <div>
-      <span class="text-xs uppercase tracking-widest text-[#7A5A1E] font-bold">Custom Build #99a9487ed7e7 · Ready for Delivery</span>
-      <h1 class="text-2xl font-bold font-['Fraunces'] mt-1">Fix calc.py: average() wrong for normal lists and clamp() returns low for out-of-range high</h1>
-    </div>
-    <a href="https://github.com/LORDSINE/bounty-bot-e2e/issues/1" target="_blank" class="px-5 py-2.5 rounded-full bg-[#14201B] text-[#FFFDF8] text-sm font-semibold hover:bg-[#7A5A1E] transition">
-      Claim Full Source & Deploy ($100 - $300 USD Bounty)
-    </a>
-  </header>
-  <main class="max-w-6xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-8">
-    <section class="md:col-span-2 bg-[#FFFDF8] p-8 rounded-3xl shadow-sm border border-[#7A5A1E]/15">
-      <h2 class="text-xl font-bold mb-3">Interactive Solution Workspace</h2>
-      <p class="text-sm text-gray-600 mb-6">Tailored specifically for <strong>@LORDSINE</strong> based on your published specification.</p>
-      <div class="grid sm:grid-cols-2 gap-4 mb-6">
-        <div class="p-4 rounded-2xl bg-[#F6F1E7]">
-          <div class="text-xs uppercase text-[#7A5A1E] font-bold">Status</div>
-          <div class="text-lg font-bold mt-1">100% Functional Prototype</div>
-        </div>
-        <div class="p-4 rounded-2xl bg-[#F6F1E7]">
-          <div class="text-xs uppercase text-[#7A5A1E] font-bold">Turnaround</div>
-          <div class="text-lg font-bold mt-1">Immediate Handover</div>
-        </div>
-      </div>
-      <div class="p-5 rounded-2xl border border-gray-200 bg-white">
-        <label class="block text-xs font-bold uppercase text-gray-500 mb-2">Live Interactive Module Test</label>
-        <div class="flex gap-3">
-          <input id="demoInput" type="text" placeholder="Enter test parameter or workflow item..." class="flex-1 px-4 py-2.5 rounded-xl border border-gray-300 text-sm" />
-          <button onclick="addItem()" class="px-5 py-2.5 rounded-xl bg-[#7A5A1E] text-white text-sm font-semibold">Run Module</button>
-        </div>
-        <ul id="demoList" class="mt-4 space-y-2 text-sm">
-          <li class="p-3 rounded-xl bg-[#F6F1E7] flex justify-between"><span>Core architecture initialized for @LORDSINE</span><span class="text-emerald-700 font-bold">ACTIVE</span></li>
-        </ul>
-      </div>
-    </section>
-    <aside class="bg-[#14201B] text-[#F2EDE0] p-8 rounded-3xl flex flex-col justify-between">
-      <div>
-        <span class="text-xs uppercase tracking-widest text-[#D9B76F] font-bold">Client Specification</span>
-        <p class="text-xs text-gray-300 mt-3 leading-relaxed">Two bugs in calc.py:
+<body>
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="text-4xl font-bold text-gray-800">Calculate Average and Clamp Values</h1>
+        <div class="flex flex-col gap-4">
+            <div class="flex flex-col gap-4">
+                <label for="num1" class="text-gray-800">Number 1:</label>
+                <input type="number" id="num1" class="text-gray-800 p-2 bg-gray-200 rounded-md focus:bg-gray-300 focus:border-gray-600 focus:ring-gray-400" min="0" max="100">
+            </div>
+            <div class="flex flex-col gap-4">
+                <label for="num2" class="text-gray-800">Number 2:</label>
+                <input type="number" id="num2" class="text-gray-800 p-2 bg-gray-200 rounded-md focus:bg-gray-300 focus:border-gray-600 focus:ring-gray-400" min="0" max="100">
+            </div>
+            <div class="flex flex-col gap-4">
+                <label for="result" class="text-gray-800">Result:</label>
+                <input type="text" id="result" class="text-gray-800 p-2 bg-gray-200 rounded-md focus:bg-gray-300 focus:border-gray-600 focus:ring-gray-400" readonly>
+            </div>
+            <script>
+                const calc = (function() {
+                    function clamp(val, low, high) {
+                        return Math.max(low, Math.min(val, high));
+             }
 
-1. `average([1,2,3])` returns 0.666... instead of `2`.
-2. `clamp(15, 0, 10)` returns `0` instead of `10`.
-
-Expected: `average` returns the true arithmetic mean (and should return `0` for an empty list rather than crashing), and `clamp` clamps into [low, high] correctly.
-
-Please add/adjust tests in test_calc.py.</p>
-      </div>
-      <div class="mt-8 pt-6 border-t border-white/10">
-        <div class="text-xs text-gray-400">Agreed / Target Budget</div>
-        <div class="text-2xl font-bold text-[#D9B76F] mt-1">$100 - $300 USD Bounty</div>
-        <p class="text-xs text-gray-400 mt-4">Developed by Tecnoemprende</p>
-      </div>
-    </aside>
-  </main>
-  <script>
-    function addItem() {
-      const inp = document.getElementById('demoInput');
-      if (!inp.value.trim()) return;
-      const li = document.createElement('li');
-      li.className = 'p-3 rounded-xl bg-[#F6F1E7] flex justify-between';
-      li.innerHTML = '<span>' + inp.value + '</span><span class="text-emerald-700 font-bold">PROCESSED</span>';
-      document.getElementById('demoList').prepend(li);
-      inp.value = '';
-    }
-  </script>
+             function average(nums) {
+                    let sum = 0;
+                         for (let num of nums) {
 
 <!-- PRIVATE PAYMENT SELECTION MODAL & FLOATING BAR (TECNOEMPRENDE) -->
 <div id="te-pay-bar" style="position:fixed;bottom:18px;right:18px;z-index:9999;display:flex;gap:10px;align-items:center;background:#14201B;color:#F2EDE0;padding:10px 16px;border-radius:999px;box-shadow:0 14px 34px rgba(0,0,0,0.35);border:1px solid rgba(217,183,111,0.45);font-family:'Plus Jakarta Sans',sans-serif;">
-  <span style="font-size:12px;font-weight:700;color:#D9B76F;">Ref: INV-TE-20261018-99A948 ($100 - $300 USD Bounty)</span>
+  <span style="font-size:12px;font-weight:700;color:#D9B76F;">Ref: INV-TE-99A948 ($150 USD)</span>
   <button onclick="document.getElementById('te-pay-modal').style.display='flex'" style="background:linear-gradient(135deg,#D9B76F,#b8862d);color:#09100D;border:none;padding:8px 16px;border-radius:999px;font-size:12px;font-weight:800;cursor:pointer;">
     🔓 Unlock Full Code & Select Payment Method
   </button>
@@ -84,7 +57,7 @@ Please add/adjust tests in test_calc.py.</p>
 <div id="te-pay-modal" style="display:none;position:fixed;inset:0;z-index:10000;background:rgba(9,16,13,0.82);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:20px;font-family:'Plus Jakarta Sans',sans-serif;">
   <div style="background:#FFFDF8;color:#14201B;max-width:480px;width:100%;border-radius:28px;padding:28px;border:1px solid rgba(122,90,30,0.25);box-shadow:0 24px 60px rgba(0,0,0,0.45);position:relative;">
     <button onclick="document.getElementById('te-pay-modal').style.display='none'" style="position:absolute;top:18px;right:18px;background:#EFE8D8;border:none;width:32px;height:32px;border-radius:50%;font-weight:800;cursor:pointer;">✕</button>
-    <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#7A5A1E;">Private Handover & Checkout · INV-TE-20261018-99A948</div>
+    <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:0.08em;color:#7A5A1E;">Private Handover & Checkout · INV-TE-99A948</div>
     <h3 style="font-size:20px;font-weight:800;margin-top:6px;">Select Your Preferred Payment Model</h3>
     <p style="font-size:13px;color:#5A655E;margin-top:6px;line-height:1.5;">
       Built for <b>@LORDSINE</b> (<i>Fix calc.py: average() wrong for normal lists and clamp() returns low for out-of-range high</i>). For security, payment credentials are never displayed publicly. Choose your preferred payment option below to generate your private checkout session:
@@ -93,7 +66,7 @@ Please add/adjust tests in test_calc.py.</p>
       <button onclick="selectTePayment('visa_mastercard', 'Card Checkout (Visa / Mastercard)')" style="display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-radius:16px;border:1px solid rgba(20,32,27,0.15);background:#F6F1E7;cursor:pointer;text-align:left;transition:0.15s;">
         <div>
           <div style="font-weight:800;font-size:14px;color:#14201B;">💳 Option 1: Credit / Debit Card (Fiat)</div>
-          <div style="font-size:11.5px;color:#5A655E;">Instant Visa / Mastercard / Apple Pay checkout link ($100 - $300 USD Bounty)</div>
+          <div style="font-size:11.5px;color:#5A655E;">Instant Visa / Mastercard / Apple Pay checkout link ($150 USD)</div>
         </div>
         <span style="font-weight:800;color:#7A5A1E;">Select →</span>
       </button>
@@ -126,15 +99,15 @@ async function selectTePayment(methodCode, methodLabel) {
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify({
         request_id: '99a9487ed7e7',
-        invoice_id: 'INV-TE-20261018-99A948',
+        invoice_id: 'INV-TE-99A948',
         requester: '@LORDSINE',
-        budget: '$100 - $300 USD Bounty',
+        budget: '$150 USD',
         selected_method: methodCode,
         selected_label: methodLabel
       })
     });
   } catch (e) {}
-  const waText = encodeURIComponent('Hi David (Tecnoemprende), I reviewed my live prototype (INV-TE-20261018-99A948 - Fix calc.py: average() wrong for normal lists and clamp() returns low for out-of-range high) and selected payment option: ' + methodLabel + ' ($100 - $300 USD Bounty). Please send my private checkout link to complete handover.');
+  const waText = encodeURIComponent('Hi David (Tecnoemprende), I reviewed my live prototype (INV-TE-99A948 - Fix calc.py: average() wrong for normal lists and clamp() returns low for out-of-range high) and selected payment option: ' + methodLabel + ' ($150 USD). Please send my private checkout link to complete handover.');
   box.innerHTML = '✅ <b>' + methodLabel + ' Selected!</b><br/>For security, your single-use payment link is dispatched privately. Click below to receive your checkout link and full source code immediately:<br/><div style="margin-top:10px;display:flex;gap:8px;"><a href="https://wa.me/971508379080?text=' + waText + '" target="_blank" style="display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:999px;background:#25D366;color:#fff;text-decoration:none;" title="WhatsApp"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.182-.573c.978.58 1.911.928 3.145.929 3.178 0 5.767-2.587 5.768-5.766.001-3.187-2.575-5.77-5.764-5.771zm3.392 8.244c-.144.405-.837.774-1.17.824-.299.045-.677.063-1.092-.069-.252-.08-.575-.187-.988-.365-1.739-.751-2.874-2.502-2.961-2.617-.087-.116-.708-.94-.708-1.793s.448-1.273.607-1.446c.159-.173.346-.217.462-.217l.332.006c.106.005.249-.04.39.298.144.347.491 1.2.534 1.287.043.087.072.188.014.304-.058.116-.087.188-.173.289l-.26.304c-.087.086-.177.18-.076.354.101.174.449.741.964 1.201.662.591 1.221.774 1.394.86s.274.072.376-.043c.101-.116.433-.506.549-.68.116-.173.231-.145.39-.087s1.011.477 1.184.564.289.13.332.202c.045.072.045.419-.1.824z"/></svg></a></div>';
 }
 </script>

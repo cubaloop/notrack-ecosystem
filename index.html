@@ -534,7 +534,8 @@
     <div class="header-controls">
       <button id="exec-plan-btn" class="btn btn-primary" onclick="runAutonomousPlan()">⚡ Escanear + Construir + Cobrar</button>
       <button class="btn" onclick="switchView('chat')">💬 Sala</button>
-      <button class="btn" onclick="switchView('deliverables')">📦 Entregables & Pago</button>
+      <button class="btn" onclick="switchView('deliverables')">📦 Entregables & Pruebas</button>
+      <a href="https://cubaloop.github.io/notrack-ecosystem/ai-squad/" target="_blank" class="btn">📢 Portal Público IA</a>
       <button class="btn mobile-nodes-btn" onclick="toggleMobileSidebar()">🐙 Nodos (4)</button>
       <button id="toggle-octo-btn" class="btn" onclick="toggleAllOcto()">🧬 OCTO-LANG</button>
     </div>
@@ -972,6 +973,8 @@
         return;
       }
       box.innerHTML = items.map(it => {
+        const gistBtn = it.gist_url ? `<a href="${escapeHtml(it.gist_url)}" target="_blank" class="btn">💻 Ver Gist Código</a>` : '';
+        const commentBtn = it.client_comment_url ? `<a href="${escapeHtml(it.client_comment_url)}" target="_blank" class="btn">✅ Comentario Enviado al Cliente</a>` : '';
         return `
           <div class="deliv-card">
             <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;">
@@ -981,8 +984,10 @@
             <div style="font-weight:700;font-size:14.5px;">${escapeHtml(it.title || '')}</div>
             <div style="font-size:11.5px;color:var(--muted);">Solicitante: <b>${escapeHtml(it.requester || '')}</b> · Estado: <b>${escapeHtml(it.dispatch_status || 'AUTO_DISPATCHED')}</b></div>
             <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:4px;">
-              <button class="btn btn-primary" onclick="openDeliverableById('${it.id}')">🌐 Ver Prototipo + Botones Pago</button>
-              <a href="${escapeHtml(it.contact_url || it.source_url || '#')}" target="_blank" class="btn">📩 Canal Cliente</a>
+              <button class="btn btn-primary" onclick="openDeliverableById('${it.id}')">🌐 Ver Producto + Botones Pago</button>
+              ${gistBtn}
+              ${commentBtn}
+              <a href="${escapeHtml(it.contact_url || it.source_url || '#')}" target="_blank" class="btn">📩 Issue Original</a>
             </div>
             <div style="margin-top:6px;padding-top:8px;border-top:1px solid var(--border);">
               <div style="font-size:10.5px;font-weight:700;color:var(--muted);">Botones Privados de Pago Integrados para el Cliente (Cero datos públicos expuestos):</div>
@@ -1014,6 +1019,13 @@
     async function callCloudLLM(systemPrompt, userPrompt) {
       if (!cloudGroqKey) await initCloudConfig();
       if (!cloudGroqKey) return "Orden procesada y ejecutada en modo Cloud 24/7.";
+      const realEvidence = `\nEVIDENCIA REAL EN INTERNET (PROHIBIDO INVENTAR URLS):
+- Portal Web Público del Equipo IA: https://cubaloop.github.io/notrack-ecosystem/ai-squad/
+- Anuncio Público en GitHub Gist: https://gist.github.com/cubaloop/0e23cc01de29215fc69186459c2905a6
+- Hilo Oficial de Contratación en GitHub: https://github.com/cubaloop/notrack-ecosystem/issues/1
+- Entrega Real 1 (@LORDSINE): App=https://cubaloop.github.io/notrack-ecosystem/deliverables/99a9487ed7e7/ | Gist=https://gist.github.com/cubaloop/b1025846981c72f378abdf0460cf1724 | Comentario Enviado=https://github.com/LORDSINE/bounty-bot-e2e/issues/1#issuecomment-6251016694
+- Entrega Real 2 (@mozzimorzam-sudo): App=https://cubaloop.github.io/notrack-ecosystem/deliverables/f0080ccf8f13/ | Gist=https://gist.github.com/cubaloop/a7096346c31babe2019dfecf56984336 | Comentario Enviado=https://github.com/mozzimorzam-sudo/project100-mcp/issues/7#issuecomment-6251034263
+- Entrega Real 3 (@zhangjiayang6835-cyber): App=https://cubaloop.github.io/notrack-ecosystem/deliverables/083139e7f1be/ | Gist=https://gist.github.com/cubaloop/478c870f50939611c9f17e21ccdf2301 | Comentario Enviado=https://github.com/zhangjiayang6835-cyber/bounty-plaza/issues/1910#issuecomment-6251052316`;
       try {
         const r = await fetch("https://api.groq.com/openai/v1/chat/completions", {
           method: "POST",
@@ -1022,12 +1034,12 @@
             "Content-Type": "application/json"
           },
           body: JSON.stringify({
-            model: "llama-3.3-70b-versatile",
+            model: "openai/gpt-oss-20b",
             messages: [
-              { role: "system", content: systemPrompt },
+              { role: "system", content: systemPrompt + realEvidence },
               { role: "user", content: userPrompt }
             ],
-            max_tokens: 420
+            max_tokens: 600
           })
         });
         const d = await r.json();
