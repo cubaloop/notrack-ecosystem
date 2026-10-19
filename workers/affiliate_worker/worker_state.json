@@ -1,0 +1,177 @@
+{
+  "last_trend_sync": "2026-10-19 19:49:25",
+  "known_trends": [
+    {
+      "trend_id": "1665d698",
+      "keyword": "trabzonspor vs beşiktaş standings",
+      "category": "general",
+      "volume_score": 500,
+      "region": "US",
+      "source": "google_trends_rss",
+      "detected_at": "2026-10-19T19:49:29Z"
+    },
+    {
+      "trend_id": "1a53cb8e",
+      "keyword": "süper lig",
+      "category": "general",
+      "volume_score": 100,
+      "region": "AE",
+      "source": "google_trends_rss",
+      "detected_at": "2026-10-19T19:49:26Z"
+    },
+    {
+      "trend_id": "c5c1045c",
+      "keyword": "توتنهام ضد كوفنتري سيتي",
+      "category": "general",
+      "volume_score": 200,
+      "region": "AE",
+      "source": "google_trends_rss",
+      "detected_at": "2026-10-19T19:49:26Z"
+    },
+    {
+      "trend_id": "013ab95e",
+      "keyword": "getafe vs rayo",
+      "category": "general",
+      "volume_score": 500,
+      "region": "AE",
+      "source": "google_trends_rss",
+      "detected_at": "2026-10-19T19:49:26Z"
+    },
+    {
+      "trend_id": "10691703",
+      "keyword": "spurs vs coventry",
+      "category": "general",
+      "volume_score": 2000,
+      "region": "AE",
+      "source": "google_trends_rss",
+      "detected_at": "2026-10-19T19:49:26Z"
+    },
+    {
+      "trend_id": "34919f56",
+      "keyword": "الهلال ضد الحزم",
+      "category": "general",
+      "volume_score": 200,
+      "region": "AE",
+      "source": "google_trends_rss",
+      "detected_at": "2026-10-19T19:49:26Z"
+    },
+    {
+      "trend_id": "6d3fbda9",
+      "keyword": "kim jong un",
+      "category": "general",
+      "volume_score": 200,
+      "region": "AE",
+      "source": "google_trends_rss",
+      "detected_at": "2026-10-19T19:49:26Z"
+    },
+    {
+      "trend_id": "ee945ea3",
+      "keyword": "electronic invoicing",
+      "category": "general",
+      "volume_score": 1000,
+      "region": "AE",
+      "source": "google_trends_rss",
+      "detected_at": "2026-10-19T19:49:26Z"
+    },
+    {
+      "trend_id": "d5c65b30",
+      "keyword": "al-hilal vs al-hazem",
+      "category": "general",
+      "volume_score": 1000,
+      "region": "AE",
+      "source": "google_trends_rss",
+      "detected_at": "2026-10-19T19:49:26Z"
+    },
+    {
+      "trend_id": "b984b37f",
+      "keyword": "strait of hormuz",
+      "category": "general",
+      "volume_score": 500,
+      "region": "AE",
+      "source": "google_trends_rss",
+      "detected_at": "2026-10-19T19:49:26Z"
+    },
+    {
+      "trend_id": "1a2ee1b9",
+      "keyword": "taylor swift travis kelce marriage",
+      "category": "general",
+      "volume_score": 100000,
+      "region": "US",
+      "source": "google_trends_rss",
+      "detected_at": "2026-10-19T19:49:29Z"
+    },
+    {
+      "trend_id": "bd6d31ce",
+      "keyword": "hugh jackman",
+      "category": "general",
+      "volume_score": 500,
+      "region": "US",
+      "source": "google_trends_rss",
+      "detected_at": "2026-10-19T19:49:29Z"
+    },
+    {
+      "trend_id": "5ff6f55e",
+      "keyword": "christian pulisic",
+      "category": "general",
+      "volume_score": 200,
+      "region": "US",
+      "source": "google_trends_rss",
+      "detected_at": "2026-10-19T19:49:29Z"
+    },
+    {
+      "trend_id": "55e7dacc",
+      "keyword": "kyle larson",
+      "category": "general",
+      "volume_score": 20000,
+      "region": "US",
+      "source": "google_trends_rss",
+      "detected_at": "2026-10-19T19:49:29Z"
+    },
+    {
+      "trend_id": "3d7d73b5",
+      "keyword": "james maddison",
+      "category": "general",
+      "volume_score": 500,
+      "region": "US",
+      "source": "google_trends_rss",
+      "detected_at": "2026-10-19T19:49:29Z"
+    },
+    {
+      "trend_id": "49cc8984",
+      "keyword": "cristiano ronaldo portuguese federation suspension",
+      "category": "general",
+      "volume_score": 500,
+      "region": "US",
+      "source": "google_trends_rss",
+      "detected_at": "2026-10-19T19:49:29Z"
+    },
+    {
+      "trend_id": "4e9134a7",
+      "keyword": "aliyah boston",
+      "category": "general",
+      "volume_score": 500,
+      "region": "US",
+      "source": "google_trends_rss",
+      "detected_at": "2026-10-19T19:49:29Z"
+    },
+    {
+      "trend_id": "960ac944",
+      "keyword": "corte suprema",
+      "category": "general",
+      "volume_score": 500,
+      "region": "US",
+      "source": "google_trends_rss",
+      "detected_at": "2026-10-19T19:49:29Z"
+    },
+    {
+      "trend_id": "c3ff9ef0",
+      "keyword": "uscis",
+      "category": "general",
+      "volume_score": 2000,
+      "region": "US",
+      "source": "google_trends_rss",
+      "detected_at": "2026-10-19T19:49:29Z"
+    }
+  ],
+  "products_ready": []
+}
