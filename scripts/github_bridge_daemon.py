@@ -14,11 +14,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 os.chdir(BASE_DIR)
 
 STATE_FILE = BASE_DIR / "config" / "github_bridge_state.json"
+INBOX_FILE = BASE_DIR / "config" / "agent_inbox.json"
+OUTBOX_FILE = BASE_DIR / "config" / "agent_outbox.json"
 LOGS_DIR = BASE_DIR / "logs"
 LOG_FILE = LOGS_DIR / "github_bridge.log"
 
 LOGS_DIR.mkdir(parents=True, exist_ok=True)
 STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
+
+AUTHORIZED_AUTHORS = {"cubaloop"}
 
 
 def log(msg):
@@ -57,10 +61,10 @@ def load_env():
 def load_state():
     if not STATE_FILE.exists():
         initial = {
-            "processed_comment_ids": [6272989157],
-            "processed_message_ids": [],
+            "processed_comment_ids": [6272989157, 6273367239, 6273396920, 6273728239, 6273730944],
+            "processed_message_ids": ["57e5e870-82ba-4836-9765-17ee8d423456"],
             "last_poll": None,
-            "replies_sent": 0
+            "replies_sent": 2
         }
         save_state(initial)
         return initial
@@ -68,7 +72,7 @@ def load_state():
         with open(STATE_FILE, "r", encoding="utf-8") as f:
             return json.load(f)
     except Exception as e:
-        log(f"Error loading state ({e}), creating fresh state")
+        log(f"Error cargando state ({e}), rearmando...")
         return {
             "processed_comment_ids": [],
             "processed_message_ids": [],
@@ -82,18 +86,48 @@ def save_state(state):
         with open(STATE_FILE, "w", encoding="utf-8") as f:
             json.dump(state, f, indent=2)
     except Exception as e:
-        log(f"Error saving state: {e}")
+        log(f"Error guardando state: {e}")
+
+
+def load_inbox():
+    if not INBOX_FILE.exists():
+        return []
+    try:
+        with open(INBOX_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return []
+
+
+def save_inbox(inbox):
+    try:
+        with open(INBOX_FILE, "w", encoding="utf-8") as f:
+            json.dump(inbox, f, indent=2, ensure_ascii=False)
+    except Exception as e:
+        log(f"Error guardando inbox: {e}")
+
+
+def load_outbox():
+    if not OUTBOX_FILE.exists():
+        return []
+    try:
+        with open(OUTBOX_FILE, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return []
+
+
+def save_outbox(outbox):
+    try:
+        with open(OUTBOX_FILE, "w", encoding="utf-8") as f:
+            json.dump(outbox, f, indent=2, ensure_ascii=False)
+    except Exception as e:
+        log(f"Error guardando outbox: {e}")
 
 
 def extract_json_payload(text):
-    """
-    Extracts structured JSON payload matching protocol 'octo-v1'
-    from raw text, markdown code blocks, or inline JSON.
-    """
     if not text:
         return None
-
-    # Try finding fenced json blocks ```json ... ```
     fenced = re.findall(r"```(?:json|octolang)?\s*(\{.*?\})\s*```", text, re.DOTALL | re.IGNORECASE)
     for block in fenced:
         try:
@@ -102,8 +136,6 @@ def extract_json_payload(text):
                 return data
         except Exception:
             pass
-
-    # Try finding any JSON object with octo-v1
     m = re.search(r"(\{\s*\"protocol\"\s*:\s*\"octo-v1\".*?\})", text, re.DOTALL)
     if m:
         try:
@@ -112,12 +144,10 @@ def extract_json_payload(text):
                 return data
         except Exception:
             pass
-
     return None
 
 
 def sync_to_conversation_bus(entry):
-    """Appends received/sent message to local and cloud conversation bus"""
     try:
         for p in [BASE_DIR / "docs" / "conversation_bus.json", BASE_DIR / "conversation_bus.json"]:
             if p.exists():
@@ -132,70 +162,67 @@ def sync_to_conversation_bus(entry):
         log(f"Bus sync notice: {e}")
 
 
-def generate_agent_response(incoming):
+def post_github_comment(repo_url, headers, markdown_body):
+    post_url = f"{repo_url}/issues/1/comments"
+    return requests.post(post_url, headers=headers, json={"body": markdown_body}, timeout=20)
+
+
+def check_and_dispatch_outbox(repo_url, headers, state):
     """
-    Generates authentic Antigravity response using high-capacity LLM
-    or deterministic handshake acknowledgment.
+    Revisa si el agente vivo Antigravity ha depositado una respuesta completada en outbox
+    y la despacha hacia GitHub Issue #1.
     """
-    msg_type = incoming.get("type", "query")
-    inc_id = incoming.get("message_id")
-    task_id = incoming.get("task_id", "task")
-    sender = incoming.get("sender", "astra_codex")
-    body = incoming.get("body", "")
-    new_uuid = str(uuid.uuid4())
+    outbox = load_outbox()
+    remaining = []
+    dispatched_any = False
 
-    if msg_type == "handshake_request":
-        resp_type = "handshake_ack"
-        resp_body = (
-            f"Handshake verificado con éxito. Acuso recibo de tu mensaje con identificador '{inc_id}'. "
-            f"Canal bidireccional acreditado entre Codex y Capitán Antigravity vía cubaloop/notrack-ecosystem/issues/1. "
-            f"Receptor activo en PC de David. Listo para recibir la tarea técnica."
-        )
-    else:
-        resp_type = "response"
-        # Call high-capacity reasoning bridge
-        try:
-            sys.path.append(str(BASE_DIR / "scripts"))
-            from real_world_bridge import call_groq_high_capacity
-            sys_prompt = (
-                "Eres el Capitán Antigravity, líder y coordinador del Escuadrón El Pulpo de Tecnoemprende. "
-                "Estás respondiendo a ChatGPT Astra Codex a través del canal bidireccional en GitHub Issues. "
-                "Responde de forma técnica, elocuente, rigurosa y directa a su consulta o propuesta."
-            )
-            resp_body = call_groq_high_capacity(sys_prompt, f"Consulta de {sender} (Task: {task_id}):\n{body}", max_tokens=1500)
-        except Exception as e:
-            resp_body = f"Capitán Antigravity recibió la tarea '{task_id}' (in_reply_to: {inc_id}). Procesamiento local activo: {e}"
+    for item in outbox:
+        if item.get("status") == "ready_to_send":
+            payload = item.get("payload", {})
+            md_body = item.get("markdown", "")
+            if not md_body:
+                md_body = (
+                    f"### 🤖 [CAPTAIN ANTIGRAVITY · RESPUESTA VERIFICADA (SESIÓN VIVA)]\n\n"
+                    f"```json\n{json.dumps(payload, indent=2, ensure_ascii=False)}\n```\n\n"
+                    f"**Evidencia Real Ejecutada en PC:**\n"
+                    f"{payload.get('body')}\n\n"
+                    f"*(Comando verificado por la sesión viva de Antigravity · in_reply_to: `{payload.get('in_reply_to')}`)*"
+                )
+            
+            post_r = post_github_comment(repo_url, headers, md_body)
+            if post_r.status_code in (200, 201):
+                posted_cid = post_r.json().get("id")
+                posted_url = post_r.json().get("html_url")
+                state.setdefault("processed_comment_ids", []).append(posted_cid)
+                state["replies_sent"] = state.get("replies_sent", 0) + 1
+                save_state(state)
+                log(f"[SEND-OUTBOX] Respuesta del Agente Vivo publicada en GitHub: {posted_url} (in_reply_to: {payload.get('in_reply_to')})")
+                sync_to_conversation_bus({
+                    "id": f"gh_{posted_cid}",
+                    "timestamp": datetime.now().isoformat(),
+                    "sender": "👑 Capitán Antigravity (Sesión Viva)",
+                    "role": "Live Agent Execution",
+                    "text": payload.get("body"),
+                    "octo_backend": json.dumps(payload),
+                    "color": "#10B981"
+                })
+                dispatched_any = True
+            else:
+                log(f"[ERROR] Fallo enviando outbox a GitHub: {post_r.status_code} - {post_r.text[:120]}")
+                remaining.append(item)
+        else:
+            remaining.append(item)
 
-    payload = {
-        "protocol": "octo-v1",
-        "type": resp_type,
-        "message_id": new_uuid,
-        "task_id": task_id,
-        "sender": "antigravity",
-        "recipient": sender,
-        "in_reply_to": inc_id,
-        "timestamp": datetime.now().isoformat(),
-        "body": resp_body
-    }
-
-    markdown_comment = (
-        f"### 🤖 [CAPTAIN ANTIGRAVITY · RESPUESTA VERIFICADA]\n\n"
-        f"```json\n{json.dumps(payload, indent=2, ensure_ascii=False)}\n```\n\n"
-        f"**Detalle de Ejecución:**\n"
-        f"{resp_body}\n\n"
-        f"*(Acuse verificado en tiempo real por el Daemon de Antigravity · in_reply_to: `{inc_id}`)*"
-    )
-
-    return payload, markdown_comment
+    if dispatched_any:
+        save_outbox(remaining)
 
 
 def run_bridge_cycle():
     env = load_env()
     token = env.get("GITHUB_TOKEN", "")
     repo_url = env.get("GITHUB_REPO_URL", "https://api.github.com/repos/cubaloop/notrack-ecosystem")
-    
+
     if not token:
-        log("ERROR: GITHUB_TOKEN no configurado en .env. Deteniendo ciclo.")
         time.sleep(15)
         return
 
@@ -209,108 +236,139 @@ def run_bridge_cycle():
         "User-Agent": "Antigravity-GitHub-Bridge"
     }
 
+    # First: Dispatch any pending responses generated by the live agent in outbox
+    check_and_dispatch_outbox(repo_url, headers, state)
+
+    # Second: Fetch incoming comments on Issue #1
     comments_url = f"{repo_url}/issues/1/comments?sort=created&direction=desc&per_page=15"
 
     try:
         r = requests.get(comments_url, headers=headers, timeout=20)
-        rem = r.headers.get("X-RateLimit-Remaining", "N/A")
-        
-        if r.status_code == 403 and rem == "0":
-            reset_ts = int(r.headers.get("X-RateLimit-Reset", time.time() + 300))
-            wait_sec = max(10, reset_ts - int(time.time()))
-            log(f"Rate limit alcanzado. Esperando {wait_sec}s...")
-            time.sleep(min(wait_sec, 60))
-            return
+        state["last_poll"] = datetime.now().isoformat()
+        save_state(state)
 
         if r.status_code != 200:
-            log(f"Error consultando comentarios: HTTP {r.status_code} ({r.text[:120]})")
             time.sleep(10)
             return
 
         comments = r.json()
-        state["last_poll"] = datetime.now().isoformat()
-        save_state(state)
         if not isinstance(comments, list):
-            time.sleep(8)
             return
 
-        # Process from oldest to newest among the fresh comments
         for c in reversed(comments):
             cid = c.get("id")
             if cid in processed_comment_ids:
                 continue
 
-            # Mark comment ID processed to avoid loops
-            processed_comment_ids.add(cid)
-            state["processed_comment_ids"] = list(processed_comment_ids)[-500:]
-            save_state(state)
+            # Validate author
+            author = c.get("user", {}).get("login", "")
+            if author not in AUTHORIZED_AUTHORS:
+                processed_comment_ids.add(cid)
+                state["processed_comment_ids"] = list(processed_comment_ids)[-500:]
+                save_state(state)
+                continue
 
             body = c.get("body", "")
             payload = extract_json_payload(body)
 
             if not payload:
-                # Not a structured octo-v1 message, ignore
+                # Not a structured octo-v1 message, mark processed
+                processed_comment_ids.add(cid)
+                state["processed_comment_ids"] = list(processed_comment_ids)[-500:]
+                save_state(state)
                 continue
 
-            # Safety checks: ignore our own messages or messages not meant for Antigravity
-            if payload.get("sender") == "antigravity":
+            # Anti-loop safety
+            sender = payload.get("sender", "")
+            if sender in ("antigravity", "antigravity-bridge-daemon", "antigravity-live-agent", "antigravity-groq-responder"):
+                processed_comment_ids.add(cid)
+                state["processed_comment_ids"] = list(processed_comment_ids)[-500:]
+                save_state(state)
                 continue
 
             if payload.get("recipient") != "antigravity":
+                processed_comment_ids.add(cid)
+                state["processed_comment_ids"] = list(processed_comment_ids)[-500:]
+                save_state(state)
                 continue
 
             msg_id = payload.get("message_id")
             if msg_id and msg_id in processed_message_ids:
-                log(f"Mensaje duplicado ignorado: {msg_id}")
+                processed_comment_ids.add(cid)
+                state["processed_comment_ids"] = list(processed_comment_ids)[-500:]
+                save_state(state)
                 continue
 
             if msg_id:
                 processed_message_ids.add(msg_id)
                 state["processed_message_ids"] = list(processed_message_ids)[-500:]
 
-            log(f"[RECV] Mensaje recibido de '{payload.get('sender')}' [Type: {payload.get('type')}, ID: {msg_id}]")
+            log(f"[RECV] Mensaje entrante de '{sender}' [Type: {payload.get('type')}, ID: {msg_id}]")
 
-            # Generate verified Antigravity response
-            resp_payload, markdown_comment = generate_agent_response(payload)
+            # 1. Enqueue in agent_inbox.json for Live Agent execution
+            inbox = load_inbox()
+            task_entry = {
+                "comment_id": cid,
+                "message_id": msg_id,
+                "task_id": payload.get("task_id", "task"),
+                "sender": sender,
+                "type": payload.get("type"),
+                "body": payload.get("body"),
+                "received_at": datetime.now().isoformat(),
+                "status": "pending_live_agent"
+            }
+            inbox.append(task_entry)
+            save_inbox(inbox)
+            log(f"[INBOX] Tarea {task_entry['task_id']} depositada en agent_inbox.json")
 
-            # Post response to Issue #1
-            post_url = f"{repo_url}/issues/1/comments"
-            post_r = requests.post(post_url, headers=headers, json={"body": markdown_comment}, timeout=20)
+            # 2. Emit Immediate Receipt ACK with transparent identity: antigravity-bridge-daemon
+            ack_uuid = str(uuid.uuid4())
+            ack_payload = {
+                "protocol": "octo-v1",
+                "type": "ack",
+                "status": "received",
+                "message_id": ack_uuid,
+                "task_id": payload.get("task_id", "task"),
+                "sender": "antigravity-bridge-daemon",
+                "recipient": sender,
+                "in_reply_to": msg_id,
+                "timestamp": datetime.now().isoformat(),
+                "body": (
+                    f"Mensaje '{msg_id}' recibido correctamente por el receptor local. "
+                    f"Encolado en 'config/agent_inbox.json' para procesamiento y ejecución en la sesión activa de Antigravity en PC."
+                )
+            }
+            ack_markdown = (
+                f"### ⚡ [ANTIGRAVITY BRIDGE DAEMON · ACUSE DE TRANSPORTE]\n\n"
+                f"```json\n{json.dumps(ack_payload, indent=2, ensure_ascii=False)}\n```\n\n"
+                f"*(Acuse de recepción emitido automáticamente por el daemon · in_reply_to: `{msg_id}`)*"
+            )
 
+            post_r = post_github_comment(repo_url, headers, ack_markdown)
             if post_r.status_code in (200, 201):
                 posted_cid = post_r.json().get("id")
                 posted_url = post_r.json().get("html_url")
+                processed_comment_ids.add(cid)
                 processed_comment_ids.add(posted_cid)
                 state["processed_comment_ids"] = list(processed_comment_ids)[-500:]
                 state["replies_sent"] = state.get("replies_sent", 0) + 1
                 save_state(state)
-                log(f"[SEND] Respuesta publicada en GitHub: {posted_url} (in_reply_to: {msg_id})")
-
-                # Sync into ecosystem bus
-                sync_to_conversation_bus({
-                    "id": f"gh_{posted_cid}",
-                    "timestamp": datetime.now().isoformat(),
-                    "sender": "👑 Capitán Antigravity",
-                    "role": "GitHub Bridge Daemon",
-                    "text": resp_payload.get("body"),
-                    "octo_backend": json.dumps(resp_payload),
-                    "color": "#F59E0B"
-                })
+                log(f"[SEND-ACK] Acuse de transporte publicado en GitHub: {posted_url} (in_reply_to: {msg_id})")
             else:
-                log(f"Error publicando respuesta en GitHub: HTTP {post_r.status_code} ({post_r.text[:140]})")
+                log(f"[WARN] Error publicando ACK en GitHub: {post_r.status_code} - {post_r.text[:120]}")
 
     except Exception as e:
-        log(f"Excepción en ciclo del puente: {e}\n{traceback.format_exc()}")
+        log(f"Excepción en ciclo del puente: {e}")
         time.sleep(5)
 
 
 def main():
     log("==================================================================")
-    log("Iniciando Daemon del Puente GitHub Issue #1 (Antigravity <-> Codex)")
+    log("Iniciando Daemon v2 del Puente GitHub (Inbox/Outbox + Identidad Clara)")
     env = load_env()
     log(f"Token GitHub: {mask_secret(env.get('GITHUB_TOKEN'))}")
     log(f"Repositorio: {env.get('GITHUB_REPO_URL')}/issues/1")
-    log("Servicio activo y en escucha continua (intervalo: 8s)...")
+    log("Servicio activo (Inbox: config/agent_inbox.json | Outbox: config/agent_outbox.json)")
     log("==================================================================")
 
     while True:
