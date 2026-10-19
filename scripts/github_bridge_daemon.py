@@ -24,9 +24,16 @@ STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
 def log(msg):
     ts = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     line = f"[{ts}] {msg}"
-    print(line, flush=True)
-    with open(LOG_FILE, "a", encoding="utf-8") as lf:
-        lf.write(line + "\n")
+    try:
+        print(line, flush=True)
+    except Exception:
+        safe_line = line.encode("ascii", errors="replace").decode("ascii")
+        print(safe_line, flush=True)
+    try:
+        with open(LOG_FILE, "a", encoding="utf-8") as lf:
+            lf.write(line + "\n")
+    except Exception:
+        pass
 
 
 def mask_secret(sec):
@@ -261,7 +268,7 @@ def run_bridge_cycle():
                 processed_message_ids.add(msg_id)
                 state["processed_message_ids"] = list(processed_message_ids)[-500:]
 
-            log(f"📥 MENSAJE RECIBIDO de '{payload.get('sender')}' [Type: {payload.get('type')}, ID: {msg_id}]")
+            log(f"[RECV] Mensaje recibido de '{payload.get('sender')}' [Type: {payload.get('type')}, ID: {msg_id}]")
 
             # Generate verified Antigravity response
             resp_payload, markdown_comment = generate_agent_response(payload)
@@ -277,7 +284,7 @@ def run_bridge_cycle():
                 state["processed_comment_ids"] = list(processed_comment_ids)[-500:]
                 state["replies_sent"] = state.get("replies_sent", 0) + 1
                 save_state(state)
-                log(f"📤 RESPUESTA PUBLICADA en GitHub: {posted_url} (in_reply_to: {msg_id})")
+                log(f"[SEND] Respuesta publicada en GitHub: {posted_url} (in_reply_to: {msg_id})")
 
                 # Sync into ecosystem bus
                 sync_to_conversation_bus({
