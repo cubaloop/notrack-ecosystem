@@ -1,57 +1,60 @@
 """
 Data schemas for the Affiliate Commerce Worker.
-Maintains strict type consistency between PC worker and Cloud components.
+Matches the exact contract specified by Astra Codex for cloud sync.
 """
-from dataclasses import dataclass, asdict
+from dataclasses import dataclass, asdict, field
 from typing import List, Optional
-from datetime import datetime
+
+
+ALLOWED_CATEGORIES = [
+    "Home & living",
+    "Tech & gadgets",
+    "Everyday carry",
+    "Kitchen",
+    "Wellness"
+]
+
+ALLOWED_METRICS = [
+    "views_7d",
+    "searches_7d",
+    "sales_7d",
+    "engagements_7d",
+    "searches_24h"
+]
 
 
 @dataclass
-class TrendItem:
-    trend_id: str
-    keyword: str
-    category: str
-    volume_score: int
-    region: str
-    source: str
-    detected_at: str
+class TrendSignal:
+    platform: str
+    source_url: str
+    current_count: int
+    previous_count: int
+    observed_at: str  # ISO 8601
+    metric: str  # views_7d | searches_7d | sales_7d | engagements_7d | searches_24h
 
     def to_dict(self):
         return asdict(self)
 
 
 @dataclass
-class AffiliateProduct:
-    sku: str
+class CatalogProduct:
+    external_id: str
     title: str
+    description: str
     category: str
-    price_aed: float
-    price_usd: float
+    merchant: str
     affiliate_url: str
-    original_url: str
     image_url: str
-    rating: float
-    review_count: int
-    trend_score: float
-    in_stock: bool
-    last_updated: str
+    video_url: Optional[str] = None
+    price: Optional[float] = None
+    currency: str = "USD"
+    price_checked_at: Optional[str] = None
+    affiliate_verified: bool = False
+    media_rights: bool = False
+    search_terms: List[str] = field(default_factory=list)
+    signals: List[TrendSignal] = field(default_factory=list)
 
     def to_dict(self):
-        return asdict(self)
-
-
-@dataclass
-class SocialCreative:
-    creative_id: str
-    product_sku: str
-    hook: str
-    caption: str
-    hashtags: List[str]
-    affiliate_disclosure: str
-    image_path: Optional[str]
-    status: str  # draft, ready, published
-    created_at: str
-
-    def to_dict(self):
-        return asdict(self)
+        d = asdict(self)
+        d["signals"] = [s.to_dict() if isinstance(s, TrendSignal) else s for s in self.signals]
+        return d
