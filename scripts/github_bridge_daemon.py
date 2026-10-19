@@ -81,12 +81,23 @@ def load_state():
         }
 
 
-def save_state(state):
+def atomic_json_dump(file_path, data, indent=2, ensure_ascii=False):
+    tmp_file = file_path.with_suffix(f".tmp.{os.getpid()}")
     try:
-        with open(STATE_FILE, "w", encoding="utf-8") as f:
-            json.dump(state, f, indent=2)
+        with open(tmp_file, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=indent, ensure_ascii=ensure_ascii)
+        tmp_file.replace(file_path)
     except Exception as e:
-        log(f"Error guardando state: {e}")
+        log(f"Error escritura atómica en {file_path.name}: {e}")
+        try:
+            if tmp_file.exists():
+                tmp_file.unlink()
+        except Exception:
+            pass
+
+
+def save_state(state):
+    atomic_json_dump(STATE_FILE, state, indent=2, ensure_ascii=False)
 
 
 def load_inbox():
@@ -100,11 +111,7 @@ def load_inbox():
 
 
 def save_inbox(inbox):
-    try:
-        with open(INBOX_FILE, "w", encoding="utf-8") as f:
-            json.dump(inbox, f, indent=2, ensure_ascii=False)
-    except Exception as e:
-        log(f"Error guardando inbox: {e}")
+    atomic_json_dump(INBOX_FILE, inbox, indent=2, ensure_ascii=False)
 
 
 def load_outbox():
@@ -118,11 +125,7 @@ def load_outbox():
 
 
 def save_outbox(outbox):
-    try:
-        with open(OUTBOX_FILE, "w", encoding="utf-8") as f:
-            json.dump(outbox, f, indent=2, ensure_ascii=False)
-    except Exception as e:
-        log(f"Error guardando outbox: {e}")
+    atomic_json_dump(OUTBOX_FILE, outbox, indent=2, ensure_ascii=False)
 
 
 def extract_json_payload(text):
@@ -240,19 +243,24 @@ def run_bridge_cycle():
     check_and_dispatch_outbox(repo_url, headers, state)
 
     # Second: Fetch incoming comments on Issue #1
-    comments_url = f"{repo_url}/issues/1/comments?sort=created&direction=desc&per_page=15"
-
+    comments = []
     try:
-        r = requests.get(comments_url, headers=headers, timeout=20)
+        for page in range(1, 3):
+            url = f"{repo_url}/issues/1/comments?sort=created&direction=desc&per_page=30&page={page}"
+            r = requests.get(url, headers=headers, timeout=20)
+            if r.status_code == 200:
+                page_data = r.json()
+                if isinstance(page_data, list):
+                    comments.extend(page_data)
+                    if len(page_data) < 30:
+                        break
+            else:
+                break
+
         state["last_poll"] = datetime.now().isoformat()
         save_state(state)
 
-        if r.status_code != 200:
-            time.sleep(10)
-            return
-
-        comments = r.json()
-        if not isinstance(comments, list):
+        if not comments:
             return
 
         for c in reversed(comments):
