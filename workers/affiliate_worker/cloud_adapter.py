@@ -1,7 +1,9 @@
 """
 Cloud Adapter for Affiliate Commerce Platform:
-Implements the exact HTTP contract for syncing products to the Cloud API.
-Endpoint: POST {PUBLIC_BASE_URL}/api/worker/catalog
+Implements the exact HTTP contract for syncing products and content to the Cloud API.
+Endpoints:
+- POST {PUBLIC_BASE_URL}/api/worker/catalog
+- POST {PUBLIC_BASE_URL}/api/worker/content
 Authorization: Bearer {WORKER_TOKEN}
 """
 import os
@@ -12,6 +14,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 
 from .schemas import CatalogProduct, ALLOWED_CATEGORIES, ALLOWED_METRICS
+
+REQUIRED_DISCLOSURE = "Ad · Affiliate link. We may earn a commission if you buy, at no extra cost to you."
 
 # Load environment
 ENV_FILE = Path(__file__).resolve().parent / ".env"
@@ -95,7 +99,60 @@ def push_catalog(products: List[CatalogProduct], dry_run: bool = False) -> Dict[
         return {
             "status": "success" if resp.status_code in (200, 201) else "error",
             "status_code": resp.status_code,
-            "response": resp.text[:200]
+            "response": resp.json() if resp.headers.get("content-type", "").startswith("application/json") else resp.text[:200]
+        }
+    except Exception as e:
+        return {"status": "connection_error", "error": str(e)}
+
+
+def push_content(
+    product_id: str,
+    kind: str,
+    media_url: str,
+    caption: str,
+    external_id: str,
+    scheduled_at: str = None,
+    dry_run: bool = False
+) -> Dict[str, Any]:
+    """
+    Pushes rendered creative content (draft job) to /api/worker/content.
+    Ensures mandatory affiliate disclosure is present.
+    """
+    if not caption.startswith(REQUIRED_DISCLOSURE):
+        caption = f"{REQUIRED_DISCLOSURE}\n\n{caption}"
+        
+    payload = {
+        "product_id": product_id,
+        "kind": kind,
+        "media_url": media_url,
+        "caption": caption,
+        "external_id": external_id
+    }
+    if scheduled_at:
+        payload["scheduled_at"] = scheduled_at
+        
+    if dry_run:
+        return {"status": "dry_run_success", "payload": payload}
+        
+    base_url, token = get_config()
+    if not base_url or not token:
+        return {
+            "status": "skipped_missing_credentials",
+            "message": "PUBLIC_BASE_URL or WORKER_TOKEN not set in local environment."
+        }
+        
+    target_url = f"{base_url}/api/worker/content"
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json"
+    }
+    
+    try:
+        resp = requests.post(target_url, json=payload, headers=headers, timeout=25)
+        return {
+            "status": "success" if resp.status_code in (200, 201) else "error",
+            "status_code": resp.status_code,
+            "response": resp.json() if resp.headers.get("content-type", "").startswith("application/json") else resp.text[:200]
         }
     except Exception as e:
         return {"status": "connection_error", "error": str(e)}
