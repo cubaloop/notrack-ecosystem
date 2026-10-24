@@ -2,3 +2,17 @@
 logs/
 __pycache__/
 *.pyc
+
+# Private agent communications
+config/agent_inbox.json
+config/agent_outbox.json
+config/github_bridge_state.json
+config/private-channel-backup/
+conversation_bus.json
+docs/conversation_bus.json
+last_astra_comment.md
+scripts/send_*
+scripts/respond_*
+scripts/post_*
+scripts/deposit_*
+scripts/stage_*

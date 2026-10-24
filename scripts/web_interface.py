@@ -19,7 +19,7 @@ app = Flask(__name__)
 
 NOTRACK_URL = os.getenv('NOTRACK_API_URL', 'http://127.0.0.1:3231').rstrip('/')
 LOCAL_TOKEN = os.getenv('NOTRACK_LOCAL_TOKEN', '')
-NOTRACK_CLOUD_KEY = os.getenv('NOTRACK_CLOUD_API_KEY', 'REMOVED_LEGACY_CREDENTIAL')
+NOTRACK_CLOUD_KEY = os.getenv('NOTRACK_CLOUD_API_KEY', '')
 CODEX_EXE = r"C:\Users\Yo\AppData\Local\OpenAI\Codex\bin\896a0166b774037a\codex.exe"
 
 BUS_FILE = BASE_DIR / "logs" / "conversation_bus.json"
@@ -184,15 +184,7 @@ def append_bus(sender, role, text, color="#D9B76F", node="", octo_backend="", co
         trimmed = msgs[-200:]
         with open(BUS_FILE, "w", encoding="utf-8") as f:
             json.dump(trimmed, f, indent=2, ensure_ascii=False)
-        try:
-            docs_bus = BASE_DIR / "docs" / "conversation_bus.json"
-            docs_bus.parent.mkdir(parents=True, exist_ok=True)
-            with open(docs_bus, "w", encoding="utf-8") as f:
-                json.dump(trimmed[-60:], f, indent=2, ensure_ascii=False)
-            from autonomous_executor import sync_state_to_supabase
-            sync_state_to_supabase("pulpo_cloud_bus", {"messages": trimmed[-40:], "updated_at": datetime.now().isoformat()})
-        except Exception:
-            pass
+        # Private conversation stays local; never publish it to Pages or shared CRM.
         return entry
 
 
