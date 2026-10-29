@@ -285,12 +285,12 @@
   
     /* Ultra-Luxury Obsidian / Emerald Glass Navbar */
     .nav-glass {
-      background: rgba(6, 17, 13, 0.85) !important;
+      background: rgba(6, 17, 13, 0.90) !important;
       -webkit-backdrop-filter: blur(24px) saturate(180%);
       backdrop-filter: blur(24px) saturate(180%);
-      border: 1px solid rgba(217, 183, 111, 0.25) !important;
+      border: 1px solid rgba(217, 183, 111, 0.28) !important;
       box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.75);
-      color: #F6F1E7 !important;
+      color: #F6F1E7;
     }
     .nav-glass .brand-title {
       color: #FFFFFF !important;
@@ -298,20 +298,86 @@
     .nav-glass .brand-sub {
       color: #D9B76F !important;
     }
-    .nav-glass nav a {
-      color: rgba(246, 241, 231, 0.8) !important;
+    .nav-glass > nav a {
+      color: rgba(246, 241, 231, 0.88) !important;
     }
-    .nav-glass nav a:hover {
-      color: #FFFFFF !important;
+    .nav-glass > nav a:hover {
+      color: #D9B76F !important;
     }
-    .nav-glass .icon-btn {
+    .nav-glass > div > .icon-btn,
+    .nav-glass > div > div > .icon-btn {
       color: #F6F1E7 !important;
-      border-color: rgba(217, 183, 111, 0.25) !important;
+      border-color: rgba(217, 183, 111, 0.3) !important;
       background: rgba(246, 241, 231, 0.08) !important;
     }
-    .nav-glass .icon-btn:hover {
+    .nav-glass > div > .icon-btn:hover,
+    .nav-glass > div > div > .icon-btn:hover {
       background: rgba(217, 183, 111, 0.2) !important;
       border-color: #D9B76F !important;
+    }
+
+    /* High-Contrast Mobile Dropdown Menu & Language Menu (WCAG AAA > 14:1 in Light & Dark) */
+    #menuPanel,
+    #langDropdown {
+      background: var(--surface) !important;
+      color: var(--ink) !important;
+      border: 1px solid var(--line) !important;
+      box-shadow: 0 28px 60px -15px rgba(0, 0, 0, 0.45) !important;
+    }
+    #menuPanel nav a,
+    #menuPanel nav a span,
+    #menuPanel nav a font {
+      color: var(--ink) !important;
+      font-weight: 600 !important;
+    }
+    #menuPanel nav a:hover,
+    #menuPanel nav a:hover span,
+    #menuPanel nav a:hover font {
+      color: var(--brass) !important;
+    }
+    #langDropdown button,
+    #langDropdown button span,
+    #langDropdown button font {
+      color: var(--ink) !important;
+      font-weight: 600 !important;
+    }
+    #langDropdown button:hover {
+      background: var(--bg2) !important;
+      color: var(--brass) !important;
+    }
+    #menuPanel .eyebrow,
+    #menuPanel .eyebrow font {
+      color: var(--brass) !important;
+      font-weight: 700 !important;
+    }
+    #menuPanel button:not(.btn-primary):not(.seg-active),
+    #menuPanel button:not(.btn-primary):not(.seg-active) span,
+    #menuPanel button:not(.btn-primary):not(.seg-active) font {
+      color: var(--ink) !important;
+      font-weight: 700 !important;
+    }
+    #menuPanel button.seg-active,
+    #menuPanel button.seg-active span,
+    #menuPanel button.seg-active font {
+      background: var(--emerald) !important;
+      color: #FFFFFF !important;
+    }
+    #menuPanel .icon-btn,
+    #menuPanel .icon-btn i {
+      color: var(--ink) !important;
+      background: var(--bg2) !important;
+      border: 1px solid var(--line) !important;
+    }
+    #hero .glass {
+      background: rgba(9, 16, 13, 0.88) !important;
+      color: #F6F1E7 !important;
+      border: 1px solid rgba(217, 183, 111, 0.35) !important;
+    }
+    #hero .glass strong {
+      color: #FFFFFF !important;
+    }
+    #hero .glass .muted {
+      color: #D9B76F !important;
     }
   </style>
 </head>
@@ -339,10 +405,10 @@
     <div class="nav-glass max-w-6xl mx-auto rounded-full px-3 sm:px-5 py-2 flex items-center justify-between gap-2 relative" style="box-shadow:var(--shadow)">
 
       <a href="#hero" class="flex items-center gap-3 ps-1">
-        <span class="w-10 h-10 rounded-full flex items-center justify-center display text-xl font-semibold" style="background:var(--emerald);color:#D9B76F">S</span>
+        <span class="w-10 h-10 rounded-full flex items-center justify-center display text-xl font-semibold" style="background:var(--emerald);color:#D9B76F">A</span>
         <span class="leading-tight">
           <span class="display font-semibold text-base sm:text-lg block brand-title notranslate" translate="no" data-i18n="brand_name">ADRES TURKISH</span>
-          <span class="text-[9px] sm:text-[10px] uppercase font-semibold block" style="color:var(--brass);letter-spacing:.22em" data-i18n="brand_sub">Gents Saloon • Dubai</span>
+          <span class="text-[9px] sm:text-[10px] uppercase font-semibold block brand-sub" style="color:#D9B76F;letter-spacing:.22em" data-i18n="brand_sub">Gents Salon • Dubai</span>
         </span>
       </a>
 
@@ -377,25 +443,25 @@
       </div>
 
       <!-- Dropdown menu: links + language + theme -->
-      <div id="menuPanel" class="hidden absolute top-full end-0 mt-3 w-[min(92vw,22rem)] card !rounded-3xl p-5 z-50">
-        <nav class="flex flex-col text-base display font-medium">
-          <a href="#services" onclick="toggleMenu()" class="py-3 border-b flex items-center justify-between" style="border-color:var(--line)"><span data-i18n="nav_services">Services</span><i class="fas fa-arrow-right text-xs flip" style="color:var(--brass)"></i></a>
-          <a href="#amenities" onclick="toggleMenu()" class="py-3 border-b flex items-center justify-between" style="border-color:var(--line)"><span data-i18n="nav_amenities">Amenities</span><i class="fas fa-arrow-right text-xs flip" style="color:var(--brass)"></i></a>
-          <a href="#reviews" onclick="toggleMenu()" class="py-3 border-b flex items-center justify-between" style="border-color:var(--line)"><span data-i18n="nav_reviews">Reviews (4.8★)</span><i class="fas fa-arrow-right text-xs flip" style="color:var(--brass)"></i></a>
-          <a href="#location" onclick="toggleMenu()" class="py-3 flex items-center justify-between"><span data-i18n="nav_location">Location</span><i class="fas fa-arrow-right text-xs flip" style="color:var(--brass)"></i></a>
+      <div id="menuPanel" class="hidden absolute top-full end-0 mt-3 w-[min(92vw,22rem)] card !rounded-3xl p-5 z-50" style="background:var(--surface);color:var(--ink)">
+        <nav class="flex flex-col text-base display font-medium" style="color:var(--ink)">
+          <a href="#services" onclick="toggleMenu()" class="py-3 border-b flex items-center justify-between" style="border-color:var(--line);color:var(--ink)"><span data-i18n="nav_services" style="color:var(--ink)">Services</span><i class="fas fa-arrow-right text-xs flip" style="color:var(--brass)"></i></a>
+          <a href="#amenities" onclick="toggleMenu()" class="py-3 border-b flex items-center justify-between" style="border-color:var(--line);color:var(--ink)"><span data-i18n="nav_amenities" style="color:var(--ink)">Amenities</span><i class="fas fa-arrow-right text-xs flip" style="color:var(--brass)"></i></a>
+          <a href="#reviews" onclick="toggleMenu()" class="py-3 border-b flex items-center justify-between" style="border-color:var(--line);color:var(--ink)"><span data-i18n="nav_reviews" style="color:var(--ink)">Reviews (4.8★)</span><i class="fas fa-arrow-right text-xs flip" style="color:var(--brass)"></i></a>
+          <a href="#location" onclick="toggleMenu()" class="py-3 flex items-center justify-between" style="color:var(--ink)"><span data-i18n="nav_location" style="color:var(--ink)">Location</span><i class="fas fa-arrow-right text-xs flip" style="color:var(--brass)"></i></a>
         </nav>
 
         <div class="mt-4 pt-4 border-t grid grid-cols-2 gap-3" style="border-color:var(--line)">
           <div>
             <span class="eyebrow block mb-2" data-i18n="menu_lang">Language</span>
             <div class="flex rounded-full p-1" style="background:var(--bg2)">
-              <button onclick="changeLang('en')" id="mLangEn" class="flex-1 py-2 rounded-full text-xs font-bold">EN</button>
-              <button onclick="changeLang('ar')" id="mLangAr" class="flex-1 py-2 rounded-full text-xs font-bold font-arabic">العربية</button>
+              <button onclick="changeLang('en')" id="mLangEn" translate="no" class="notranslate flex-1 py-2 rounded-full text-xs font-bold">EN</button>
+              <button onclick="changeLang('ar')" id="mLangAr" translate="no" class="notranslate flex-1 py-2 rounded-full text-xs font-bold font-arabic">العربية</button>
             </div>
           </div>
           <div>
             <span class="eyebrow block mb-2" data-i18n="menu_theme">Appearance</span>
-            <button onclick="toggleTheme()" class="w-full py-2.5 rounded-full text-xs font-bold flex items-center justify-center gap-2" style="background:var(--bg2)">
+            <button onclick="toggleTheme()" class="w-full py-2.5 rounded-full text-xs font-bold flex items-center justify-center gap-2" style="background:var(--bg2);color:var(--ink)">
               <i class="fas fa-sun ico-sun"></i><i class="fas fa-moon ico-moon"></i>
               <span class="ico-moon" data-i18n="theme_dark">Dark</span><span class="ico-sun" data-i18n="theme_light">Light</span>
             </button>
@@ -404,7 +470,7 @@
 
         <div class="mt-4 flex items-center gap-3">
           <button onclick="toggleMenu();openBookingModal()" class="btn-primary flex-1" data-i18n="btn_book_nav">Book Appointment</button>
-          <button onclick="toggleMenu();openAdminModal()" class="icon-btn" aria-label="Admin"><i class="fas fa-lock text-[11px]"></i></button>
+          <button onclick="toggleMenu();openAdminModal()" class="icon-btn" style="color:var(--ink);background:var(--bg2);border-color:var(--line)" aria-label="Admin"><i class="fas fa-lock text-[11px]" style="color:var(--ink)"></i></button>
         </div>
       </div>
     </div>
@@ -908,10 +974,10 @@
       },
       ar: {
         preview_badge: "معاينة حصرية:",
-        preview_salon: "صالون أدريس التركي للرجال (بورت سعيد، ديرة)",
+        preview_salon: "صالون أدريس التركي للرجال (البرشاء الأولى، دبي)",
         preview_cta_sub: "احصل على هذا الموقع الرسمي بنطاقك الخاص مقابل 1,000 درهم فقط",
         preview_btn: "تفعيل الموقع",
-        marquee_text: "✦ مفتوح يومياً من 9:00 صباحاً حتى 1:00 صباحاً ✦ نرحب بجميع الزوار والحجوزات ✦ بورت سعيد، ديرة، دبي",
+        marquee_text: "✦ مفتوح يومياً من 9:00 صباحاً حتى 1:00 صباحاً ✦ نرحب بجميع الزوار والحجوزات ✦ البرشاء الأولى، دبي",
         brand_name: "صالون أدريس التركي",
         brand_sub: "للرجال • دبي",
         nav_services: "الخدمات",
@@ -921,16 +987,16 @@
         btn_book_nav: "حجز موعد",
         hero_reviews_badge: "• 1,009 تقييم حقيقي على خرائط جوجل",
         hero_title: 'فن الحلاقة الفاخرة و <span class="bg-gradient-to-r from-amber-700 via-gold-500 to-amber-600 dark:from-gold-300 dark:via-amber-400 dark:to-gold-500 bg-clip-text text-transparent">العناية الملكية</span>',
-        hero_desc: "يقع في مبروكة، بورت سعيد، ديرة. قصات شعر دقيقة، نحت اللحية بالفوطة الساخنة، حمام مغربي تقليدي وعناية تنفيذية VIP في أجواء نادي خاص راقٍ.",
+        hero_desc: "يقع في مبنى الراحة، البرشاء الأولى، دبي. قصات شعر دقيقة، نحت اللحية بالفوطة الساخنة، حمام مغربي تقليدي وعناية تنفيذية VIP في أجواء نادي خاص راقٍ.",
         btn_book_hero: "احجز موعدك الآن",
         btn_explore_hero: "استعرض قائمة الخدمات",
         stat_hours_val: "9 ص – 1 ص",
         stat_hours_lbl: "مفتوح يومياً",
-        stat_loc_val: "بورت سعيد",
+        stat_loc_val: "البرشاء 1",
         stat_loc_lbl: "البرشاء • دبي",
         stat_rate_val: "4.8★",
         stat_rate_lbl: "1,009 تقييم",
-        amenity_coffee_title: "ركن القهوة الإيطالية",
+        amenity_coffee_title: "ركن القهوة المختصة",
         amenity_coffee_sub: "قهوة وشاي عربي مجاني",
         amenity_hammam_title: "جناح الحمام المغربي",
         amenity_hammam_sub: "طقوس البخار والتقشير الخاص",
@@ -950,13 +1016,13 @@
         reviews_link_btn: "عرض 1,009 تقييماً على جوجل",
         review_1_text: '"أفضل حلاق في البرشاء بلا منازع. التدرج دقيق جداً، الطاقم محترم والخدمة بالفوطة الساخنة ممتازة بعد يوم عمل طويل."',
         review_2_text: '"آتي إلى هنا دائماً للحمام المغربي وتشذيب اللحية. صالون نظيف وراقٍ ومفتوح حتى الواحدة صباحاً وهو أمر مناسب جداً."',
-        review_3_text: '"5 نجوم على الدقة والاهتمام بأدق التفاصيل. أسعار ممتازة مقارنة بالجودة العالية المقدمة. حلاقي الدائم في بورت سعيد."',
+        review_3_text: '"5 نجوم على الدقة والاهتمام بأدق التفاصيل. أسعار ممتازة مقارنة بالجودة العالية المقدمة. حلاقي الدائم في البرشاء الأولى."',
         verified_client: "عميل معتمد على جوجل",
         regular_client: "عميل دائم",
         loc_badge: "تفضل بزيارتنا",
         loc_title: "الموقع وساعات العمل",
         loc_address_title: "صالون أدريس التركي للرجال",
-        loc_address_sub: "بناية مبروكة، شارع 1B، بورت سعيد، ديرة، دبي، الإمارات",
+        loc_address_sub: "محل 4، مبنى الراحة، البرشاء الأولى، البرشاء، دبي، الإمارات",
         loc_hours_title: "ساعات العمل الرسمية",
         loc_hours_sub: "يومياً من الساعة 9:00 صباحاً حتى 1:00 صباحاً (خدمة مستمرة)",
         btn_maps: "فتح في خرائط جوجل",
@@ -1468,19 +1534,19 @@
       footer_tag: "Bespoke grooming in the heart of Al Barsha."
     });
     Object.assign(translations.ar, {
-      hero_eyebrow: "البرشاء ١ · ديرة · دبي",
+      hero_eyebrow: "البرشاء الأولى · دبي",
       hero_title: 'فنّ العناية <em class="brass-text">بالرجل الأنيق</em>',
       mq_1: "قصّة شعر مميّزة", mq_2: "تهذيب اللحية الملكي", mq_3: "الحمّام المغربي", mq_4: "تنظيف البشرة بالفحم", mq_5: "صالة كبار الزوار",
       sec_menu_title: "خدمات الحلاقة الراقية",
       exp_badge: "التجربة", exp_title: "أكثر من مجرّد قصّة شعر.",
       atmosphere_title: "واحة من الراحة الفاخرة في البرشاء",
       stat_score: "تقييم الضيوف", stat_guests: "تقييم على جوجل", stat_hours16: "ساعة عناية يومياً", stat_rituals: "طقوس مميّزة",
-      reviews_title: "ثقة أهل ديرة، كرسيّاً بعد كرسي.",
+      reviews_title: "ثقة أهل البرشاء، كرسيّاً بعد كرسي.",
       reviews_note: "كل تقييم من ضيوف حقيقيين على خرائط جوجل. اطّلع على آرائهم.",
       loc_title: "الموقع وساعات العمل",
       cta_title: "كرسيّك بانتظارك.", cta_sub: "تفضّل في أي يوم حتى الواحدة صباحاً، أو احجز موعدك في ثوانٍ.",
       menu_lang: "اللغة", menu_theme: "المظهر", theme_dark: "داكن", theme_light: "فاتح",
-      footer_tag: "عناية راقية في قلب ديرة."
+      footer_tag: "عناية راقية في قلب البرشاء."
     });
     /* re-apply now that extra keys exist */
     applyLanguage(currentLang);
