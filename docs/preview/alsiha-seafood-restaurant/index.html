@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Alsiha seafood restaurant | Bespoke Grooming &amp; Royal Barbering Dubai</title>
+  <title>Alsiha seafood restaurant | Authentic Seafood & Charcoal Grill • Dubai</title>
   <meta name="description" content="Dubai's bespoke gentlemen's salon in Al Barsha First, Dubai. Precision haircuts, royal beard sculpting, authentic Moroccan bath and VIP care. Open daily until 1 AM.">
   <meta name="theme-color" content="#F6F1E7">
 
@@ -408,7 +408,7 @@
         <span class="w-10 h-10 rounded-full flex items-center justify-center display text-xl font-semibold" style="background:var(--emerald);color:#D9B76F">A</span>
         <span class="leading-tight">
           <span class="display font-semibold text-base sm:text-lg block brand-title notranslate" translate="no" data-i18n="brand_name">ALSIHA SEAFOOD RESTAURANT</span>
-          <span class="text-[9px] sm:text-[10px] uppercase font-semibold block brand-sub" style="color:#D9B76F;letter-spacing:.22em" data-i18n="brand_sub">Fine Seafood & Grill • Dubai</span>
+          <span class="text-[9px] sm:text-[10px] uppercase font-semibold block brand-sub" style="color:#D9B76F;letter-spacing:.22em" data-i18n="brand_sub">Fresh Seafood & Grill • Dubai</span>
         </span>
       </a>
 
@@ -528,7 +528,7 @@
       <div class="lg:col-span-5 relative reveal mx-auto w-full max-w-md lg:max-w-none">
         <div class="arch-ring">
           <div class="arch aspect-[4/5]">
-            <img src="hero.jpg" alt="Alsiha seafood restaurant interior, Dubai" class="w-full h-full object-cover" fetchpriority="high">
+            <img src="hero.jpg?v=3" alt="Alsiha seafood restaurant interior, Dubai" class="w-full h-full object-cover" fetchpriority="high">
           </div>
         </div>
         <div class="glass rounded-2xl px-4 py-3 absolute -start-2 sm:-start-6 bottom-14 flex items-center gap-3" style="box-shadow:var(--shadow)">
@@ -585,7 +585,7 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
       <article class="reveal relative overflow-hidden rounded-3xl lg:col-span-7 lg:row-span-2 min-h-[540px] lg:min-h-[560px] group" style="box-shadow:var(--shadow);border:1px solid var(--line)">
-        <img src="lounge.jpg" alt="ADRES Turkish VIP gentlemen’s lounge" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" loading="lazy">
+        <img src="lounge.jpg?v=3" alt="Alsiha seafood restaurant VIP Suite" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" loading="lazy">
         <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(6,16,12,.92) 0%,rgba(6,16,12,.45) 45%,rgba(6,16,12,0) 75%)"></div>
         <div class="absolute inset-x-0 bottom-0 p-7 sm:p-10 text-[#F6F1E7]">
           <span class="eyebrow block mb-3" style="color:#D9B76F" data-i18n="atmosphere_badge">Private Gentlemen's Club</span>
@@ -599,7 +599,7 @@
       </article>
 
       <article class="reveal relative overflow-hidden rounded-3xl lg:col-span-5 aspect-[4/3] group" style="box-shadow:var(--shadow);border:1px solid var(--line)">
-        <img src="bath.jpg" alt="Private Moroccan hammam suite" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" loading="lazy">
+        <img src="bath.jpg?v=3" alt="Private Moroccan hammam suite" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" loading="lazy">
         <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(6,16,12,.88) 0%,rgba(6,16,12,0) 65%)"></div>
         <div class="absolute bottom-0 p-6 text-[#F6F1E7]">
           <h3 class="display text-2xl font-medium" data-i18n="amenity_hammam_title">Private Moroccan Suite</h3>
@@ -915,7 +915,7 @@
         preview_btn: "Activate Website",
         marquee_text: "✦ OPEN DAILY 9:00 AM – 1:00 AM ✦ WALK-INS & ONLINE RESERVATIONS ✦ AL BARSHA FIRST, DUBAI",
         brand_name: "ALSIHA SEAFOOD RESTAURANT",
-        brand_sub: "Fine Seafood & Grill • Dubai",
+        brand_sub: "Fresh Seafood & Grill • Dubai",
         nav_services: "Services",
         nav_amenities: "Amenities",
         nav_reviews: "Reviews (4.7★)",
@@ -1118,7 +1118,7 @@
     // State Variables
     let currentLang = localStorage.getItem('alsiha_seafo_lang') || 'en';
     let currentTheme = localStorage.getItem('alsiha_seafo_theme_v2') || 'light';
-    let services = JSON.parse(localStorage.getItem('alsiha_seafo_services')) || DEFAULT_SERVICES;
+    let services = JSON.parse(localStorage.getItem('alsiha_seafo_services_v3')) || DEFAULT_SERVICES;
     let currentFilterIdx = 0;
     let orders = JSON.parse(localStorage.getItem('alsiha_seafo_orders')) || [];
     let currentCompressedPhoto = null;
@@ -1400,7 +1400,7 @@
       };
 
       services.unshift(newSvc);
-      localStorage.setItem('alsiha_seafo_services', JSON.stringify(services));
+      localStorage.setItem('alsiha_seafo_services_v3', JSON.stringify(services));
       
       document.getElementById('svcName').value = '';
       document.getElementById('svcPrice').value = '';
@@ -1417,7 +1417,7 @@
     function deleteServiceItem(id) {
       if (!confirm('Delete this service?')) return;
       services = services.filter(s => String(s.id) !== String(id));
-      localStorage.setItem('alsiha_seafo_services', JSON.stringify(services));
+      localStorage.setItem('alsiha_seafo_services_v3', JSON.stringify(services));
       renderServices();
       renderAdminServices();
     }
@@ -1504,7 +1504,7 @@
           const d = JSON.parse(evt.target.result);
           if (d.services) services = d.services;
           if (d.orders) orders = d.orders;
-          localStorage.setItem('alsiha_seafo_services', JSON.stringify(services));
+          localStorage.setItem('alsiha_seafo_services_v3', JSON.stringify(services));
           localStorage.setItem('alsiha_seafo_orders', JSON.stringify(orders));
           renderServices();
           renderAdminServices();
@@ -1578,50 +1578,10 @@
     }, { threshold: .15 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   </script>
-<!-- STEALTH_TELEMETRY_SENSOR -->
-<script>
-(function(){
-  try {
-    var slug = 'alsiha-seafood-restaurant';
-    var sid = sessionStorage.getItem('_aether_sid');
-    if (!sid) {
-      sid = 's_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now();
-      sessionStorage.setItem('_aether_sid', sid);
-    }
-    var start = Date.now();
-    var dev = /Mobi|Android|iPhone/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
-    
-    function sendPing(ev) {
-      var dur = Math.round((Date.now() - start) / 1000);
-      var payload = JSON.stringify({
-        slug: slug,
-        session_id: sid,
-        event: ev || 'heartbeat',
-        duration_sec: dur,
-        device: dev
-      });
-      if (navigator.sendBeacon) {
-        var blob = new Blob([payload], { type: 'application/json' });
-        navigator.sendBeacon('/api/telemetry/ping', blob);
-      } else {
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/api/telemetry/ping', true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(payload);
-      }
-    }
-
-    sendPing('enter');
-    setInterval(function(){ sendPing('heartbeat'); }, 20000);
-    window.addEventListener('visibilitychange', function(){
-      if (document.visibilityState === 'hidden') sendPing('leave');
-    });
-    window.addEventListener('beforeunload', function(){ sendPing('leave'); });
-  } catch(e) {}
-})();
-</script>
 
     <script>
+      /* HARVEY V3 1-TO-1 BESPOKE NICHE OVERRIDE: SEAFOOD RESTAURANT */
+      try { localStorage.removeItem('alsiha_seafo_services'); localStorage.removeItem('alsiha_seafo_services_v2'); } catch(e) {}
       DEFAULT_SERVICES.splice(0, DEFAULT_SERVICES.length,
         {
           id: "svc-1",
@@ -1633,7 +1593,7 @@
           category_ar: "أطباق ملكية",
           desc_en: "Fresh jumbo tiger prawns, charcoal-grilled hamour fillet, calamari, and lobster tail served with saffron rice.",
           desc_ar: "روبيان جامبو طازج، فيليه هامور مشوي على الفحم، كالاماري وذيل لوبستر مع أرز الصيادية بالزعفران.",
-          image: "lounge.jpg",
+          image: "lounge.jpg?v=3",
           badge_en: "Chef's Signature",
           badge_ar: "الأكثر طلباً"
         },
@@ -1647,7 +1607,7 @@
           category_ar: "مشويات بحرية",
           desc_en: "Whole or fillet local Arabian hamour marinated in citrus herbs and grilled over natural charcoal.",
           desc_ar: "سمك هامور خليجي طازج متبل بالأعشاب والليمون ومشوي على الفحم الطبيعي.",
-          image: "haircut.jpg",
+          image: "haircut.jpg?v=3",
           badge_en: "Fresh Daily",
           badge_ar: "صيد اليوم"
         },
@@ -1661,7 +1621,7 @@
           category_ar: "مشويات بحرية",
           desc_en: "Butterflied jumbo tiger prawns glazed with lemon-garlic herb butter and charred to perfection.",
           desc_ar: "روبيان جامبو مشوي بصلصة الزبدة والثوم والليمون الطازج.",
-          image: "beard.jpg",
+          image: "beard.jpg?v=3",
           badge_en: "Guest Favorite",
           badge_ar: "مفضل الضيوف"
         },
@@ -1675,7 +1635,7 @@
           category_ar: "أطباق ملكية",
           desc_en: "Whole Atlantic lobster baked in a rich creamy parmesan crust with aromatic coastal herbs.",
           desc_ar: "لوبستر كامل مخبوز بالفرن مع صلصة الكريمة الغنية وجبن البارميزان الفاخر.",
-          image: "bath.jpg",
+          image: "bath.jpg?v=3",
           badge_en: "Luxury Selection",
           badge_ar: "اختيار فاخر"
         },
@@ -1689,29 +1649,87 @@
           category_ar: "المقبلات والشوربات",
           desc_en: "Velvety artisan soup brimming with shrimp, calamari, and fresh fillets alongside hot oven bread.",
           desc_ar: "شوربة غنية بالروبيان والكالاماري وقطع السمك الطازج تقدم مع الخبز الساخن.",
-          image: "facial.jpg",
+          image: "facial.jpg?v=3",
           badge_en: "Artisan Recipe",
           badge_ar: "وصفة خاصة"
         }
       );
       DEFAULT_CATEGORIES_EN.splice(0, DEFAULT_CATEGORIES_EN.length, "All", "Royal Platters", "Signature Grills", "Catch of the Day");
       DEFAULT_CATEGORIES_AR.splice(0, DEFAULT_CATEGORIES_AR.length, "الكل", "أطباق ملكية", "مشويات بحرية", "المقبلات والشوربات");
-      services = DEFAULT_SERVICES;
+      services = JSON.parse(localStorage.getItem('alsiha_seafo_services_v3')) || DEFAULT_SERVICES;
       Object.assign(translations.en, {
         brand_name: "ALSIHA SEAFOOD RESTAURANT",
         brand_sub: "Fresh Seafood & Grill • Dubai",
         btn_book_nav: "Reserve Table",
         btn_book_hero: "Reserve Table",
+        btn_book_lounge: "Reserve Table",
         book_action: "Order / Reserve",
         hero_eyebrow: "Hor Al Anz, Deira \u00b7 Dubai",
         hero_title: 'The art of authentic <em class="brass-text">fresh seafood &amp; dining</em>',
         hero_desc: "Welcome to Alsiha seafood restaurant in Hor Al Anz, Deira \u00b7 Dubai. Daily wild-caught fish, charcoal-grilled jumbo prawns, lobster thermidor, and warm Arabian hospitality.",
         mq_1: "Daily Fresh Catch", mq_2: "Charcoal Grilled Hamour", mq_3: "Jumbo Tiger Prawns", mq_4: "Lobster Thermidor", mq_5: "VIP Family Dining",
+        sec_menu_title: "Signature seafood menu",
+        sec_menu_sub: "Hand-selected daily from the Arabian Gulf, seasoned with authentic coastal spices, and grilled to order over natural charcoal.",
+        exp_badge: "The Culinary Experience",
+        exp_title: "More than a meal — a coastal feast.",
+        atmosphere_badge: "VIP Family & Majlis Dining",
+        atmosphere_title: "Authentic maritime hospitality in Hor Al Anz",
+        atmosphere_desc: "Choose your fresh catch directly from our crushed-ice market counter and enjoy it grilled, baked in clay, or Thermidor-style in our warm dining hall.",
+        amenity_hammam_title: "Oven-Baked Specialties",
+        amenity_hammam_sub: "Lobster Thermidor & clay-pot seafood tagines",
+        amenity_coffee_title: "Fresh Arabic Bread & Mezze",
+        amenity_coffee_sub: "Baked hot to order with signature tahini & salads",
+        amenity_hygiene_title: "100% Daily Wild-Caught",
+        amenity_hygiene_sub: "Sourced fresh every morning from local fishermen",
+        stat_hours16: "Hours open daily",
+        stat_rituals: "Signature platters",
+        reviews_title: "Celebrated across Hor Al Anz for Dubai's freshest seafood.",
+        cta_title: "Your table is waiting.",
+        cta_sub: "Dine in with family and friends or order fresh delivery via WhatsApp in seconds.",
+        footer_tag: "Authentic fresh seafood & charcoal grills in Hor Al Anz, Dubai.",
+        loc_address_title: "Alsiha seafood restaurant",
+        loc_address_sub: "building royal house - showroom no.5 5th St - Hor Al Anz East - Deira - Dubai"
+      });
+      Object.assign(translations.ar, {
+        brand_name: "Alsiha seafood restaurant",
+        brand_sub: "مأكولات بحرية طازجة ومشويات • دبي",
+        btn_book_nav: "احجز طاولة",
+        btn_book_hero: "احجز طاولة",
+        btn_book_lounge: "احجز طاولة",
+        book_action: "اطلب / احجز",
+        hero_eyebrow: "دبي · الإمارات العربية المتحدة",
+        hero_title: 'فنّ المأكولات البحرية <em class="brass-text">الطازجة والمشويات الملكية</em>',
+        hero_desc: "أشهى الأسماك الطازجة اليومية والروبيان الجامبو المشوي على الفحم واللوبستر في أجواء ضيافة عربية أصيلة.",
+        mq_1: "صيد اليوم الطازج", mq_2: "هامور مشوي على الفحم", mq_3: "روبيان تايجر جامبو", mq_4: "لوبستر ثيرميدور", mq_5: "جلسات عائلية راقية",
+        sec_menu_title: "قائمة ثمار البحر الملكية",
+        sec_menu_sub: "أسماك وثمار بحر طازجة تُختار يومياً وتُطهى على الفحم الطبيعي أو بالفرن بالتتبيلة الخاصة.",
+        exp_badge: "تجربة الضيافة",
+        exp_title: "أكثر من مجرد وجبة — وليمة بحرية أصيلة.",
+        atmosphere_badge: "ضيافة عائلية فاخرة",
+        atmosphere_title: "أصالة المذاق البحري في قلب دبي",
+        atmosphere_desc: "اختر أسماكك الطازجة مباشرة من منصة الثلج ليتم تحضيرها فوراً حسب رغبتك مع الأرز بالزعفران والخبز الساخن.",
+        amenity_hammam_title: "طواجن ولوبستر بالفرن",
+        amenity_hammam_sub: "لوبستر ثيرميدور وطواجن بحرية غنية",
+        amenity_coffee_title: "خبز عربي ساخن ومقبلات",
+        amenity_coffee_sub: "يُخبز طازجاً مع الطحينة والسلطات اليومية",
+        amenity_hygiene_title: "صيد طازج 100% يومياً",
+        amenity_hygiene_sub: "من بحر الخليج مباشرة إلى مائدتك",
+        reviews_title: "الوجهة المفضلة لعشاق السمك والمأكولات البحرية في دبي.",
+        cta_title: "طاولتك بانتظارك.",
+        cta_sub: "تفضل بزيارتنا أو احجز طاولتك واطلب عبر واتساب في ثوانٍ.",
+        footer_tag: "مأكولات بحرية طازجة ومشويات على الفحم في قلب دبي.",
         loc_address_title: "Alsiha seafood restaurant",
         loc_address_sub: "building royal house - showroom no.5 5th St - Hor Al Anz East - Deira - Dubai"
       });
       applyLanguage(currentLang);
     </script>
-    
+
+    <!-- UNIVERSAL SPY VISITOR TRACKER V2 (RULE 14) -->
+    <script>
+      window.SPY_SITE_ID = "jota-preview-alsiha-seafood-restaurant";
+      window.SPY_SITE_NAME = "Jota Beta Preview: Alsiha seafood restaurant";
+      window.SPY_SITE_CATEGORY = "jota_preview";
+    </script>
+    <script src="spy-tracker.js"></script>
 </body>
 </html>

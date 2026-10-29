@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>M&M Gents Salon | Bespoke Grooming &amp; Royal Barbering Dubai</title>
+  <title>M&M Gents Salon | Bespoke Grooming & Royal Barbering • Dubai</title>
   <meta name="description" content="Dubai's bespoke gentlemen's salon in Al Barsha First, Dubai. Precision haircuts, royal beard sculpting, authentic Moroccan bath and VIP care. Open daily until 1 AM.">
   <meta name="theme-color" content="#F6F1E7">
 
@@ -528,7 +528,7 @@
       <div class="lg:col-span-5 relative reveal mx-auto w-full max-w-md lg:max-w-none">
         <div class="arch-ring">
           <div class="arch aspect-[4/5]">
-            <img src="hero.jpg" alt="M&M Gents Salon interior, Dubai" class="w-full h-full object-cover" fetchpriority="high">
+            <img src="hero.jpg?v=3" alt="M&M Gents Salon interior, Dubai" class="w-full h-full object-cover" fetchpriority="high">
           </div>
         </div>
         <div class="glass rounded-2xl px-4 py-3 absolute -start-2 sm:-start-6 bottom-14 flex items-center gap-3" style="box-shadow:var(--shadow)">
@@ -585,7 +585,7 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
       <article class="reveal relative overflow-hidden rounded-3xl lg:col-span-7 lg:row-span-2 min-h-[540px] lg:min-h-[560px] group" style="box-shadow:var(--shadow);border:1px solid var(--line)">
-        <img src="lounge.jpg" alt="ADRES Turkish VIP gentlemen’s lounge" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" loading="lazy">
+        <img src="lounge.jpg?v=3" alt="M&M Gents Salon VIP Suite" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" loading="lazy">
         <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(6,16,12,.92) 0%,rgba(6,16,12,.45) 45%,rgba(6,16,12,0) 75%)"></div>
         <div class="absolute inset-x-0 bottom-0 p-7 sm:p-10 text-[#F6F1E7]">
           <span class="eyebrow block mb-3" style="color:#D9B76F" data-i18n="atmosphere_badge">Private Gentlemen's Club</span>
@@ -599,7 +599,7 @@
       </article>
 
       <article class="reveal relative overflow-hidden rounded-3xl lg:col-span-5 aspect-[4/3] group" style="box-shadow:var(--shadow);border:1px solid var(--line)">
-        <img src="bath.jpg" alt="Private Moroccan hammam suite" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" loading="lazy">
+        <img src="bath.jpg?v=3" alt="Private Moroccan hammam suite" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" loading="lazy">
         <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(6,16,12,.88) 0%,rgba(6,16,12,0) 65%)"></div>
         <div class="absolute bottom-0 p-6 text-[#F6F1E7]">
           <h3 class="display text-2xl font-medium" data-i18n="amenity_hammam_title">Private Moroccan Suite</h3>
@@ -1118,7 +1118,7 @@
     // State Variables
     let currentLang = localStorage.getItem('mm_gents_sal_lang') || 'en';
     let currentTheme = localStorage.getItem('mm_gents_sal_theme_v2') || 'light';
-    let services = JSON.parse(localStorage.getItem('mm_gents_sal_services')) || DEFAULT_SERVICES;
+    let services = JSON.parse(localStorage.getItem('mm_gents_sal_services_v3')) || DEFAULT_SERVICES;
     let currentFilterIdx = 0;
     let orders = JSON.parse(localStorage.getItem('mm_gents_sal_orders')) || [];
     let currentCompressedPhoto = null;
@@ -1400,7 +1400,7 @@
       };
 
       services.unshift(newSvc);
-      localStorage.setItem('mm_gents_sal_services', JSON.stringify(services));
+      localStorage.setItem('mm_gents_sal_services_v3', JSON.stringify(services));
       
       document.getElementById('svcName').value = '';
       document.getElementById('svcPrice').value = '';
@@ -1417,7 +1417,7 @@
     function deleteServiceItem(id) {
       if (!confirm('Delete this service?')) return;
       services = services.filter(s => String(s.id) !== String(id));
-      localStorage.setItem('mm_gents_sal_services', JSON.stringify(services));
+      localStorage.setItem('mm_gents_sal_services_v3', JSON.stringify(services));
       renderServices();
       renderAdminServices();
     }
@@ -1504,7 +1504,7 @@
           const d = JSON.parse(evt.target.result);
           if (d.services) services = d.services;
           if (d.orders) orders = d.orders;
-          localStorage.setItem('mm_gents_sal_services', JSON.stringify(services));
+          localStorage.setItem('mm_gents_sal_services_v3', JSON.stringify(services));
           localStorage.setItem('mm_gents_sal_orders', JSON.stringify(orders));
           renderServices();
           renderAdminServices();
@@ -1578,47 +1578,37 @@
     }, { threshold: .15 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   </script>
-<!-- STEALTH_TELEMETRY_SENSOR -->
-<script>
-(function(){
-  try {
-    var slug = 'mm-gents-salon';
-    var sid = sessionStorage.getItem('_aether_sid');
-    if (!sid) {
-      sid = 's_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now();
-      sessionStorage.setItem('_aether_sid', sid);
-    }
-    var start = Date.now();
-    var dev = /Mobi|Android|iPhone/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
-    
-    function sendPing(ev) {
-      var dur = Math.round((Date.now() - start) / 1000);
-      var payload = JSON.stringify({
-        slug: slug,
-        session_id: sid,
-        event: ev || 'heartbeat',
-        duration_sec: dur,
-        device: dev
-      });
-      if (navigator.sendBeacon) {
-        var blob = new Blob([payload], { type: 'application/json' });
-        navigator.sendBeacon('/api/telemetry/ping', blob);
-      } else {
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/api/telemetry/ping', true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(payload);
-      }
-    }
 
-    sendPing('enter');
-    setInterval(function(){ sendPing('heartbeat'); }, 20000);
-    window.addEventListener('visibilitychange', function(){
-      if (document.visibilityState === 'hidden') sendPing('leave');
-    });
-    window.addEventListener('beforeunload', function(){ sendPing('leave'); });
-  } catch(e) {}
-})();
-</script>
+    <script>
+      /* HARVEY V3 1-TO-1 BESPOKE NICHE OVERRIDE: GENTS BARBER SALON */
+      try { localStorage.removeItem('mm_gents_sal_services'); localStorage.removeItem('mm_gents_sal_services_v2'); } catch(e) {}
+      DEFAULT_SERVICES.forEach(s => { if (s.image && !s.image.includes('?')) s.image = s.image + '?v=3'; });
+      services = JSON.parse(localStorage.getItem('mm_gents_sal_services_v3')) || DEFAULT_SERVICES;
+      Object.assign(translations.en, {
+        brand_name: "M&M GENTS SALON",
+        brand_sub: "Gents Salon • Dubai",
+        hero_eyebrow: "Al Karama \u00b7 Dubai",
+        atmosphere_title: "An oasis of bespoke comfort in Al Karama",
+        reviews_title: "Trusted across Al Karama, one chair at a time.",
+        footer_tag: "Bespoke gentlemen's grooming in the heart of Al Karama, Dubai.",
+        loc_address_title: "M&M Gents Salon",
+        loc_address_sub: "Shop no 15 - 35 17B St - opp. Amer Center / Karama Medical Fitness Center - Al Karama - Dubai"
+      });
+      Object.assign(translations.ar, {
+        brand_name: "M&M Gents Salon",
+        brand_sub: "صالون رجالي فاخر • دبي",
+        loc_address_title: "M&M Gents Salon",
+        loc_address_sub: "Shop no 15 - 35 17B St - opp. Amer Center / Karama Medical Fitness Center - Al Karama - Dubai"
+      });
+      applyLanguage(currentLang);
+    </script>
+
+    <!-- UNIVERSAL SPY VISITOR TRACKER V2 (RULE 14) -->
+    <script>
+      window.SPY_SITE_ID = "jota-preview-mm-gents-salon";
+      window.SPY_SITE_NAME = "Jota Beta Preview: M&M Gents Salon";
+      window.SPY_SITE_CATEGORY = "jota_preview";
+    </script>
+    <script src="spy-tracker.js"></script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ADRES Turkish Gents Salon | Bespoke Grooming &amp; Royal Barbering Dubai</title>
+  <title>ADRES TURKISH GENTS GENTS SALON | Bespoke Grooming & Royal Barbering • Dubai</title>
   <meta name="description" content="Dubai's bespoke gentlemen's salon in Al Barsha First, Dubai. Precision haircuts, royal beard sculpting, authentic Moroccan bath and VIP care. Open daily until 1 AM.">
   <meta name="theme-color" content="#F6F1E7">
 
@@ -11,9 +11,9 @@
   <script>
     (function () {
       var q = new URLSearchParams(location.search);
-      if (q.get('theme')) localStorage.setItem('adres_theme_v2', q.get('theme'));
-      if (q.get('lang')) localStorage.setItem('adres_lang', q.get('lang'));
-      var t = localStorage.getItem('adres_theme_v2') || 'light';
+      if (q.get('theme')) localStorage.setItem('adres_turkis_theme_v2', q.get('theme'));
+      if (q.get('lang')) localStorage.setItem('adres_turkis_lang', q.get('lang'));
+      var t = localStorage.getItem('adres_turkis_theme_v2') || 'light';
       if (t === 'dark') document.documentElement.classList.add('dark');
       document.documentElement.classList.add('js');
     })();
@@ -285,12 +285,12 @@
   
     /* Ultra-Luxury Obsidian / Emerald Glass Navbar */
     .nav-glass {
-      background: rgba(6, 17, 13, 0.85) !important;
+      background: rgba(6, 17, 13, 0.90) !important;
       -webkit-backdrop-filter: blur(24px) saturate(180%);
       backdrop-filter: blur(24px) saturate(180%);
-      border: 1px solid rgba(217, 183, 111, 0.25) !important;
+      border: 1px solid rgba(217, 183, 111, 0.28) !important;
       box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.75);
-      color: #F6F1E7 !important;
+      color: #F6F1E7;
     }
     .nav-glass .brand-title {
       color: #FFFFFF !important;
@@ -298,20 +298,86 @@
     .nav-glass .brand-sub {
       color: #D9B76F !important;
     }
-    .nav-glass nav a {
-      color: rgba(246, 241, 231, 0.8) !important;
+    .nav-glass > nav a {
+      color: rgba(246, 241, 231, 0.88) !important;
     }
-    .nav-glass nav a:hover {
-      color: #FFFFFF !important;
+    .nav-glass > nav a:hover {
+      color: #D9B76F !important;
     }
-    .nav-glass .icon-btn {
+    .nav-glass > div > .icon-btn,
+    .nav-glass > div > div > .icon-btn {
       color: #F6F1E7 !important;
-      border-color: rgba(217, 183, 111, 0.25) !important;
+      border-color: rgba(217, 183, 111, 0.3) !important;
       background: rgba(246, 241, 231, 0.08) !important;
     }
-    .nav-glass .icon-btn:hover {
+    .nav-glass > div > .icon-btn:hover,
+    .nav-glass > div > div > .icon-btn:hover {
       background: rgba(217, 183, 111, 0.2) !important;
       border-color: #D9B76F !important;
+    }
+
+    /* High-Contrast Mobile Dropdown Menu & Language Menu (WCAG AAA > 14:1 in Light & Dark) */
+    #menuPanel,
+    #langDropdown {
+      background: var(--surface) !important;
+      color: var(--ink) !important;
+      border: 1px solid var(--line) !important;
+      box-shadow: 0 28px 60px -15px rgba(0, 0, 0, 0.45) !important;
+    }
+    #menuPanel nav a,
+    #menuPanel nav a span,
+    #menuPanel nav a font {
+      color: var(--ink) !important;
+      font-weight: 600 !important;
+    }
+    #menuPanel nav a:hover,
+    #menuPanel nav a:hover span,
+    #menuPanel nav a:hover font {
+      color: var(--brass) !important;
+    }
+    #langDropdown button,
+    #langDropdown button span,
+    #langDropdown button font {
+      color: var(--ink) !important;
+      font-weight: 600 !important;
+    }
+    #langDropdown button:hover {
+      background: var(--bg2) !important;
+      color: var(--brass) !important;
+    }
+    #menuPanel .eyebrow,
+    #menuPanel .eyebrow font {
+      color: var(--brass) !important;
+      font-weight: 700 !important;
+    }
+    #menuPanel button:not(.btn-primary):not(.seg-active),
+    #menuPanel button:not(.btn-primary):not(.seg-active) span,
+    #menuPanel button:not(.btn-primary):not(.seg-active) font {
+      color: var(--ink) !important;
+      font-weight: 700 !important;
+    }
+    #menuPanel button.seg-active,
+    #menuPanel button.seg-active span,
+    #menuPanel button.seg-active font {
+      background: var(--emerald) !important;
+      color: #FFFFFF !important;
+    }
+    #menuPanel .icon-btn,
+    #menuPanel .icon-btn i {
+      color: var(--ink) !important;
+      background: var(--bg2) !important;
+      border: 1px solid var(--line) !important;
+    }
+    #hero .glass {
+      background: rgba(9, 16, 13, 0.88) !important;
+      color: #F6F1E7 !important;
+      border: 1px solid rgba(217, 183, 111, 0.35) !important;
+    }
+    #hero .glass strong {
+      color: #FFFFFF !important;
+    }
+    #hero .glass .muted {
+      color: #D9B76F !important;
     }
   </style>
 </head>
@@ -323,7 +389,7 @@
       <div class="flex items-center gap-2">
         <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
         <span class="uppercase tracking-widest opacity-80" data-i18n="preview_badge">Preview:</span>
-        <span class="font-semibold" style="color:#D9B76F" data-i18n="preview_salon">ADRES Turkish Gents Salon (Al Barsha First, Dubai)</span>
+        <span class="font-semibold" style="color:#D9B76F" data-i18n="preview_salon">ADRES TURKISH GENTS GENTS SALON (Al Barsha First · Dubai)</span>
       </div>
       <div class="flex items-center gap-3">
         <span class="opacity-75 hidden md:inline" data-i18n="preview_cta_sub">Claim this official website with custom domain for 1,000 AED</span>
@@ -339,10 +405,10 @@
     <div class="nav-glass max-w-6xl mx-auto rounded-full px-3 sm:px-5 py-2 flex items-center justify-between gap-2 relative" style="box-shadow:var(--shadow)">
 
       <a href="#hero" class="flex items-center gap-3 ps-1">
-        <span class="w-10 h-10 rounded-full flex items-center justify-center display text-xl font-semibold" style="background:var(--emerald);color:#D9B76F">S</span>
+        <span class="w-10 h-10 rounded-full flex items-center justify-center display text-xl font-semibold" style="background:var(--emerald);color:#D9B76F">A</span>
         <span class="leading-tight">
-          <span class="display font-semibold text-base sm:text-lg block brand-title notranslate" translate="no" data-i18n="brand_name">ADRES TURKISH</span>
-          <span class="text-[9px] sm:text-[10px] uppercase font-semibold block" style="color:var(--brass);letter-spacing:.22em" data-i18n="brand_sub">Gents Saloon • Dubai</span>
+          <span class="display font-semibold text-base sm:text-lg block brand-title notranslate" translate="no" data-i18n="brand_name">ADRES TURKISH GENTS</span>
+          <span class="text-[9px] sm:text-[10px] uppercase font-semibold block brand-sub" style="color:#D9B76F;letter-spacing:.22em" data-i18n="brand_sub">Gents Salon • Dubai</span>
         </span>
       </a>
 
@@ -377,25 +443,25 @@
       </div>
 
       <!-- Dropdown menu: links + language + theme -->
-      <div id="menuPanel" class="hidden absolute top-full end-0 mt-3 w-[min(92vw,22rem)] card !rounded-3xl p-5 z-50">
-        <nav class="flex flex-col text-base display font-medium">
-          <a href="#services" onclick="toggleMenu()" class="py-3 border-b flex items-center justify-between" style="border-color:var(--line)"><span data-i18n="nav_services">Services</span><i class="fas fa-arrow-right text-xs flip" style="color:var(--brass)"></i></a>
-          <a href="#amenities" onclick="toggleMenu()" class="py-3 border-b flex items-center justify-between" style="border-color:var(--line)"><span data-i18n="nav_amenities">Amenities</span><i class="fas fa-arrow-right text-xs flip" style="color:var(--brass)"></i></a>
-          <a href="#reviews" onclick="toggleMenu()" class="py-3 border-b flex items-center justify-between" style="border-color:var(--line)"><span data-i18n="nav_reviews">Reviews (4.8★)</span><i class="fas fa-arrow-right text-xs flip" style="color:var(--brass)"></i></a>
-          <a href="#location" onclick="toggleMenu()" class="py-3 flex items-center justify-between"><span data-i18n="nav_location">Location</span><i class="fas fa-arrow-right text-xs flip" style="color:var(--brass)"></i></a>
+      <div id="menuPanel" class="hidden absolute top-full end-0 mt-3 w-[min(92vw,22rem)] card !rounded-3xl p-5 z-50" style="background:var(--surface);color:var(--ink)">
+        <nav class="flex flex-col text-base display font-medium" style="color:var(--ink)">
+          <a href="#services" onclick="toggleMenu()" class="py-3 border-b flex items-center justify-between" style="border-color:var(--line);color:var(--ink)"><span data-i18n="nav_services" style="color:var(--ink)">Services</span><i class="fas fa-arrow-right text-xs flip" style="color:var(--brass)"></i></a>
+          <a href="#amenities" onclick="toggleMenu()" class="py-3 border-b flex items-center justify-between" style="border-color:var(--line);color:var(--ink)"><span data-i18n="nav_amenities" style="color:var(--ink)">Amenities</span><i class="fas fa-arrow-right text-xs flip" style="color:var(--brass)"></i></a>
+          <a href="#reviews" onclick="toggleMenu()" class="py-3 border-b flex items-center justify-between" style="border-color:var(--line);color:var(--ink)"><span data-i18n="nav_reviews" style="color:var(--ink)">Reviews (4.8★)</span><i class="fas fa-arrow-right text-xs flip" style="color:var(--brass)"></i></a>
+          <a href="#location" onclick="toggleMenu()" class="py-3 flex items-center justify-between" style="color:var(--ink)"><span data-i18n="nav_location" style="color:var(--ink)">Location</span><i class="fas fa-arrow-right text-xs flip" style="color:var(--brass)"></i></a>
         </nav>
 
         <div class="mt-4 pt-4 border-t grid grid-cols-2 gap-3" style="border-color:var(--line)">
           <div>
             <span class="eyebrow block mb-2" data-i18n="menu_lang">Language</span>
             <div class="flex rounded-full p-1" style="background:var(--bg2)">
-              <button onclick="changeLang('en')" id="mLangEn" class="flex-1 py-2 rounded-full text-xs font-bold">EN</button>
-              <button onclick="changeLang('ar')" id="mLangAr" class="flex-1 py-2 rounded-full text-xs font-bold font-arabic">العربية</button>
+              <button onclick="changeLang('en')" id="mLangEn" translate="no" class="notranslate flex-1 py-2 rounded-full text-xs font-bold">EN</button>
+              <button onclick="changeLang('ar')" id="mLangAr" translate="no" class="notranslate flex-1 py-2 rounded-full text-xs font-bold font-arabic">العربية</button>
             </div>
           </div>
           <div>
             <span class="eyebrow block mb-2" data-i18n="menu_theme">Appearance</span>
-            <button onclick="toggleTheme()" class="w-full py-2.5 rounded-full text-xs font-bold flex items-center justify-center gap-2" style="background:var(--bg2)">
+            <button onclick="toggleTheme()" class="w-full py-2.5 rounded-full text-xs font-bold flex items-center justify-center gap-2" style="background:var(--bg2);color:var(--ink)">
               <i class="fas fa-sun ico-sun"></i><i class="fas fa-moon ico-moon"></i>
               <span class="ico-moon" data-i18n="theme_dark">Dark</span><span class="ico-sun" data-i18n="theme_light">Light</span>
             </button>
@@ -404,7 +470,7 @@
 
         <div class="mt-4 flex items-center gap-3">
           <button onclick="toggleMenu();openBookingModal()" class="btn-primary flex-1" data-i18n="btn_book_nav">Book Appointment</button>
-          <button onclick="toggleMenu();openAdminModal()" class="icon-btn" aria-label="Admin"><i class="fas fa-lock text-[11px]"></i></button>
+          <button onclick="toggleMenu();openAdminModal()" class="icon-btn" style="color:var(--ink);background:var(--bg2);border-color:var(--line)" aria-label="Admin"><i class="fas fa-lock text-[11px]" style="color:var(--ink)"></i></button>
         </div>
       </div>
     </div>
@@ -462,7 +528,7 @@
       <div class="lg:col-span-5 relative reveal mx-auto w-full max-w-md lg:max-w-none">
         <div class="arch-ring">
           <div class="arch aspect-[4/5]">
-            <img src="hero.jpg" alt="ADRES Turkish Gents Salon interior, Dubai" class="w-full h-full object-cover" fetchpriority="high">
+            <img src="hero.jpg?v=3" alt="ADRES TURKISH GENTS GENTS SALON interior, Dubai" class="w-full h-full object-cover" fetchpriority="high">
           </div>
         </div>
         <div class="glass rounded-2xl px-4 py-3 absolute -start-2 sm:-start-6 bottom-14 flex items-center gap-3" style="box-shadow:var(--shadow)">
@@ -519,7 +585,7 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
       <article class="reveal relative overflow-hidden rounded-3xl lg:col-span-7 lg:row-span-2 min-h-[540px] lg:min-h-[560px] group" style="box-shadow:var(--shadow);border:1px solid var(--line)">
-        <img src="lounge.jpg" alt="ADRES Turkish VIP gentlemen’s lounge" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" loading="lazy">
+        <img src="lounge.jpg?v=3" alt="ADRES TURKISH GENTS GENTS SALON VIP Suite" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" loading="lazy">
         <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(6,16,12,.92) 0%,rgba(6,16,12,.45) 45%,rgba(6,16,12,0) 75%)"></div>
         <div class="absolute inset-x-0 bottom-0 p-7 sm:p-10 text-[#F6F1E7]">
           <span class="eyebrow block mb-3" style="color:#D9B76F" data-i18n="atmosphere_badge">Private Gentlemen's Club</span>
@@ -533,7 +599,7 @@
       </article>
 
       <article class="reveal relative overflow-hidden rounded-3xl lg:col-span-5 aspect-[4/3] group" style="box-shadow:var(--shadow);border:1px solid var(--line)">
-        <img src="bath.jpg" alt="Private Moroccan hammam suite" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" loading="lazy">
+        <img src="bath.jpg?v=3" alt="Private Moroccan hammam suite" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" loading="lazy">
         <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(6,16,12,.88) 0%,rgba(6,16,12,0) 65%)"></div>
         <div class="absolute bottom-0 p-6 text-[#F6F1E7]">
           <h3 class="display text-2xl font-medium" data-i18n="amenity_hammam_title">Private Moroccan Suite</h3>
@@ -578,7 +644,7 @@
       <div class="lg:col-span-7 relative">
         <h2 class="display font-medium text-3xl sm:text-4xl leading-tight mb-4" data-i18n="reviews_title">Trusted across Al Barsha, one chair at a time.</h2>
         <p class="opacity-85 leading-relaxed mb-8 max-w-xl" data-i18n="reviews_note">Every rating comes from real guests on Google Maps. Read what they say.</p>
-        <a href="https://www.google.com/maps/place/ADRES+TURKISH+GENTS+SALON/data=!4m7!3m6!1s0x3e5f6bc007e17021:0xf3a970a88ce75f28!8m2!3d25.1162802!4d55.2041611!16s%2Fg%2F11bbwx061w!19sChIJIXDhB8BrXz4RKF_njKhwqfM?authuser=0&hl=en" target="_blank" rel="noopener noreferrer" class="btn-primary" style="background:#D9B76F;color:#14201B;box-shadow:none">
+        <a href="https://www.google.com/maps/place/ADRES+TURKISH+GENTS+SALON/data=!4m7!3m6!1s0x3e5f6bc007e17021:0xf3a970a88ce75f28!8m2!3d25.1162802!4d55.2041611!16s%2Fg%2F11bbwx061w!19sChIJIXDhB8BrXz4RKF_njKhwqfM?authuser=0&hl=en&g_ep=EgoyMDI2MTAwNS4wIJJjKgBIAVAD&rclk=1" target="_blank" rel="noopener noreferrer" class="btn-primary" style="background:#D9B76F;color:#14201B;box-shadow:none">
           <i class="fab fa-google"></i><span data-i18n="reviews_link_btn">View 1,009 Reviews on Google</span>
         </a>
       </div>
@@ -594,7 +660,7 @@
         <div class="space-y-6">
           <div class="flex items-start gap-4">
             <span class="w-11 h-11 shrink-0 rounded-full flex items-center justify-center" style="background:var(--emerald);color:#D9B76F"><i class="fas fa-location-dot"></i></span>
-            <div><strong class="display text-lg block" data-i18n="loc_address_title">ADRES Turkish Gents Salon</strong><span class="muted text-sm" data-i18n="loc_address_sub">Shop 4, Al Raha Building, Al Barsha First, Al Barsha, Dubai, UAE</span></div>
+            <div><strong class="display text-lg block" data-i18n="loc_address_title">ADRES TURKISH GENTS GENTS SALON</strong><span class="muted text-sm" data-i18n="loc_address_sub">Al Raha Building - Shop 4 - Al Barsha First - Al Barsha - Dubai</span></div>
           </div>
           <div class="flex items-start gap-4">
             <span class="w-11 h-11 shrink-0 rounded-full flex items-center justify-center" style="background:var(--emerald);color:#D9B76F"><i class="far fa-clock"></i></span>
@@ -602,12 +668,12 @@
           </div>
         </div>
         <div class="mt-9 flex flex-wrap items-center gap-3">
-          <a href="https://www.google.com/maps/place/ADRES+TURKISH+GENTS+SALON/data=!4m7!3m6!1s0x3e5f6bc007e17021:0xf3a970a88ce75f28!8m2!3d25.1162802!4d55.2041611!16s%2Fg%2F11bbwx061w!19sChIJIXDhB8BrXz4RKF_njKhwqfM?authuser=0&hl=en" target="_blank" rel="noopener noreferrer" class="btn-primary"><i class="fas fa-location-arrow"></i><span data-i18n="btn_maps">Open in Google Maps</span></a>
+          <a href="https://www.google.com/maps/place/ADRES+TURKISH+GENTS+SALON/data=!4m7!3m6!1s0x3e5f6bc007e17021:0xf3a970a88ce75f28!8m2!3d25.1162802!4d55.2041611!16s%2Fg%2F11bbwx061w!19sChIJIXDhB8BrXz4RKF_njKhwqfM?authuser=0&hl=en&g_ep=EgoyMDI2MTAwNS4wIJJjKgBIAVAD&rclk=1" target="_blank" rel="noopener noreferrer" class="btn-primary"><i class="fas fa-location-arrow"></i><span data-i18n="btn_maps">Open in Google Maps</span></a>
           <a href="https://wa.me/971504261841" target="_blank" rel="noopener noreferrer" class="wa-btn !w-12 !h-12" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
       </div>
       <div class="rounded-3xl overflow-hidden aspect-[4/3] border" style="border-color:var(--line)">
-        <iframe class="map-frame w-full h-full border-0" title="ADRES Turkish Gents Salon map" src="https://maps.google.com/maps?q=ADRES%20TURKISH%20GENTS%20SALON%20Al%20Barsha%20Dubai&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen loading="lazy"></iframe>
+        <iframe class="map-frame w-full h-full border-0" title="ADRES TURKISH GENTS GENTS SALON map" src="https://maps.google.com/maps?q=ADRES%20TURKISH%20GENTS%20SALON%20Al%20Barsha%20First%20%20Dubai&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen loading="lazy"></iframe>
       </div>
     </div>
   </section>
@@ -626,10 +692,10 @@
   <footer class="border-t" style="border-color:var(--line);background:var(--bg2)">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid md:grid-cols-3 gap-8 items-center text-sm">
       <div>
-        <span class="display text-2xl font-semibold block" data-i18n="brand_name">ADRES TURKISH</span>
+        <span class="display text-2xl font-semibold block" data-i18n="brand_name">ADRES TURKISH GENTS</span>
         <span class="muted" data-i18n="footer_tag">Bespoke grooming in the heart of Al Barsha.</span>
       </div>
-      <div class="muted md:text-center">© 2026 ADRES Turkish Gents Salon · Al Barsha First, Dubai</div>
+      <div class="muted md:text-center">© 2026 ADRES TURKISH GENTS GENTS SALON · Al Barsha First, Dubai</div>
       <div class="md:text-end font-semibold">Developed by <span style="color:var(--brass)">Tecnoemprende</span></div>
     </div>
   </footer>
@@ -685,7 +751,7 @@
         <span class="px-3 py-1 rounded-full bg-gold-400/20 text-amber-800 dark:text-gold-400 font-mono text-[10px] uppercase font-bold border border-gold-500/20">Official Launch Proposal</span>
         <h3 class="font-display font-black text-2xl text-stone-900 dark:text-white mt-2">CLAIM THIS OFFICIAL WEBSITE</h3>
         <p class="text-stone-600 dark:text-slate-300 text-xs mt-2 leading-relaxed">
-          Crafted exclusively for <strong>ADRES Turkish Gents Salon</strong>. Includes private admin dashboard to edit prices, upload photos from your smartphone, custom domain & annual support.
+          Crafted exclusively for <strong>ADRES TURKISH GENTS GENTS SALON</strong>. Includes private admin dashboard to edit prices, upload photos from your smartphone, custom domain & annual support.
         </p>
       </div>
 
@@ -724,7 +790,7 @@
         <form onsubmit="handleAdminLogin(event)" class="space-y-4 max-w-sm mx-auto text-xs">
           <div>
             <label class="block text-stone-700 dark:text-slate-300 mb-1">Email</label>
-            <input type="email" id="adminEmailInput" value="admin@adressalon.com" required class="w-full px-4 py-3 rounded-xl bg-stone-100 dark:bg-white/5 border border-stone-300 dark:border-white/10 text-stone-900 dark:text-white focus:outline-none focus:border-gold-500">
+            <input type="email" id="adminEmailInput" value="admin@adresturkishsa.com" required class="w-full px-4 py-3 rounded-xl bg-stone-100 dark:bg-white/5 border border-stone-300 dark:border-white/10 text-stone-900 dark:text-white focus:outline-none focus:border-gold-500">
           </div>
           <div>
             <label class="block text-stone-700 dark:text-slate-300 mb-1">Password</label>
@@ -844,11 +910,11 @@
     const translations = {
       en: {
         preview_badge: "Preview:",
-        preview_salon: "ADRES Turkish Gents Salon (Al Barsha First, Dubai)",
+        preview_salon: "ADRES TURKISH GENTS GENTS SALON (Al Barsha First · Dubai)",
         preview_cta_sub: "Claim this official website with custom domain for 1,000 AED",
         preview_btn: "Activate Website",
         marquee_text: "✦ OPEN DAILY 9:00 AM – 1:00 AM ✦ WALK-INS & ONLINE RESERVATIONS ✦ AL BARSHA FIRST, DUBAI",
-        brand_name: "ADRES TURKISH",
+        brand_name: "ADRES TURKISH GENTS",
         brand_sub: "Gents Saloon • Dubai",
         nav_services: "Services",
         nav_amenities: "Amenities",
@@ -891,8 +957,8 @@
         regular_client: "Frequent Guest",
         loc_badge: "Visit Us",
         loc_title: "HOURS & LOCATION",
-        loc_address_title: "ADRES Turkish Gents Salon",
-        loc_address_sub: "Shop 4, Al Raha Building, Al Barsha First, Al Barsha, Dubai, UAE",
+        loc_address_title: "ADRES TURKISH GENTS GENTS SALON",
+        loc_address_sub: "Al Raha Building - Shop 4 - Al Barsha First - Al Barsha - Dubai",
         loc_hours_title: "Operating Hours",
         loc_hours_sub: "Daily from 9:00 AM to 1:00 AM (Continuous Service)",
         btn_maps: "Open in Google Maps",
@@ -908,10 +974,10 @@
       },
       ar: {
         preview_badge: "معاينة حصرية:",
-        preview_salon: "صالون أدريس التركي للرجال (بورت سعيد، ديرة)",
+        preview_salon: "صالون أدريس التركي للرجال (البرشاء الأولى، دبي)",
         preview_cta_sub: "احصل على هذا الموقع الرسمي بنطاقك الخاص مقابل 1,000 درهم فقط",
         preview_btn: "تفعيل الموقع",
-        marquee_text: "✦ مفتوح يومياً من 9:00 صباحاً حتى 1:00 صباحاً ✦ نرحب بجميع الزوار والحجوزات ✦ بورت سعيد، ديرة، دبي",
+        marquee_text: "✦ مفتوح يومياً من 9:00 صباحاً حتى 1:00 صباحاً ✦ نرحب بجميع الزوار والحجوزات ✦ البرشاء الأولى، دبي",
         brand_name: "صالون أدريس التركي",
         brand_sub: "للرجال • دبي",
         nav_services: "الخدمات",
@@ -921,16 +987,16 @@
         btn_book_nav: "حجز موعد",
         hero_reviews_badge: "• 1,009 تقييم حقيقي على خرائط جوجل",
         hero_title: 'فن الحلاقة الفاخرة و <span class="bg-gradient-to-r from-amber-700 via-gold-500 to-amber-600 dark:from-gold-300 dark:via-amber-400 dark:to-gold-500 bg-clip-text text-transparent">العناية الملكية</span>',
-        hero_desc: "يقع في مبروكة، بورت سعيد، ديرة. قصات شعر دقيقة، نحت اللحية بالفوطة الساخنة، حمام مغربي تقليدي وعناية تنفيذية VIP في أجواء نادي خاص راقٍ.",
+        hero_desc: "يقع في مبنى الراحة، البرشاء الأولى، دبي. قصات شعر دقيقة، نحت اللحية بالفوطة الساخنة، حمام مغربي تقليدي وعناية تنفيذية VIP في أجواء نادي خاص راقٍ.",
         btn_book_hero: "احجز موعدك الآن",
         btn_explore_hero: "استعرض قائمة الخدمات",
         stat_hours_val: "9 ص – 1 ص",
         stat_hours_lbl: "مفتوح يومياً",
-        stat_loc_val: "بورت سعيد",
+        stat_loc_val: "البرشاء 1",
         stat_loc_lbl: "البرشاء • دبي",
         stat_rate_val: "4.8★",
         stat_rate_lbl: "1,009 تقييم",
-        amenity_coffee_title: "ركن القهوة الإيطالية",
+        amenity_coffee_title: "ركن القهوة المختصة",
         amenity_coffee_sub: "قهوة وشاي عربي مجاني",
         amenity_hammam_title: "جناح الحمام المغربي",
         amenity_hammam_sub: "طقوس البخار والتقشير الخاص",
@@ -950,13 +1016,13 @@
         reviews_link_btn: "عرض 1,009 تقييماً على جوجل",
         review_1_text: '"أفضل حلاق في البرشاء بلا منازع. التدرج دقيق جداً، الطاقم محترم والخدمة بالفوطة الساخنة ممتازة بعد يوم عمل طويل."',
         review_2_text: '"آتي إلى هنا دائماً للحمام المغربي وتشذيب اللحية. صالون نظيف وراقٍ ومفتوح حتى الواحدة صباحاً وهو أمر مناسب جداً."',
-        review_3_text: '"5 نجوم على الدقة والاهتمام بأدق التفاصيل. أسعار ممتازة مقارنة بالجودة العالية المقدمة. حلاقي الدائم في بورت سعيد."',
+        review_3_text: '"5 نجوم على الدقة والاهتمام بأدق التفاصيل. أسعار ممتازة مقارنة بالجودة العالية المقدمة. حلاقي الدائم في البرشاء الأولى."',
         verified_client: "عميل معتمد على جوجل",
         regular_client: "عميل دائم",
         loc_badge: "تفضل بزيارتنا",
         loc_title: "الموقع وساعات العمل",
         loc_address_title: "صالون أدريس التركي للرجال",
-        loc_address_sub: "بناية مبروكة، شارع 1B، بورت سعيد، ديرة، دبي، الإمارات",
+        loc_address_sub: "محل 4، مبنى الراحة، البرشاء الأولى، البرشاء، دبي، الإمارات",
         loc_hours_title: "ساعات العمل الرسمية",
         loc_hours_sub: "يومياً من الساعة 9:00 صباحاً حتى 1:00 صباحاً (خدمة مستمرة)",
         btn_maps: "فتح في خرائط جوجل",
@@ -1050,11 +1116,11 @@
     const DEFAULT_CATEGORIES_AR = ["الكل", "حلاقة", "لحية", "علاجات", "باقات VIP"];
 
     // State Variables
-    let currentLang = localStorage.getItem('adres_lang') || 'en';
-    let currentTheme = localStorage.getItem('adres_theme_v2') || 'light';
-    let services = JSON.parse(localStorage.getItem('adres_services')) || DEFAULT_SERVICES;
+    let currentLang = localStorage.getItem('adres_turkis_lang') || 'en';
+    let currentTheme = localStorage.getItem('adres_turkis_theme_v2') || 'light';
+    let services = JSON.parse(localStorage.getItem('adres_turkis_turkis_services_v3')) || DEFAULT_SERVICES;
     let currentFilterIdx = 0;
-    let orders = JSON.parse(localStorage.getItem('adres_orders')) || [];
+    let orders = JSON.parse(localStorage.getItem('adres_turkis_orders')) || [];
     let currentCompressedPhoto = null;
 
     // Boot App
@@ -1066,7 +1132,7 @@
     // Theme Management
     function applyTheme(theme) {
       currentTheme = theme;
-      localStorage.setItem('adres_theme_v2', theme);
+      localStorage.setItem('adres_turkis_theme_v2', theme);
       var mt = document.querySelector('meta[name=theme-color]'); if (mt) mt.setAttribute('content', theme === 'dark' ? '#09100D' : '#F6F1E7');
       if (theme === 'dark') {
         document.documentElement.classList.add('dark');
@@ -1087,7 +1153,7 @@
 
     function changeLang(lang) {
       currentLang = lang;
-      localStorage.setItem('adres_lang', lang);
+      localStorage.setItem('adres_turkis_lang', lang);
       document.getElementById('langDropdown').classList.add('hidden');
       applyLanguage(lang);
     }
@@ -1231,12 +1297,12 @@
       };
 
       orders.unshift(orderItem);
-      localStorage.setItem('adres_orders', JSON.stringify(orders));
+      localStorage.setItem('adres_turkis_orders', JSON.stringify(orders));
 
       const isAr = currentLang === 'ar';
       const waText = isAr
         ? encodeURIComponent(`مرحباً صالون أدريس التركي للرجال، أود حجز موعد:\n- الاسم: ${name}\n- الخدمة: ${service}\n- الموعد: ${time}`)
-        : encodeURIComponent(`Hello ADRES Turkish Gents Salon, I would like to book an appointment:\n- Name: ${name}\n- Service: ${service}\n- Preferred Time: ${time}`);
+        : encodeURIComponent(`Hello ADRES TURKISH GENTS GENTS SALON, I would like to book an appointment:\n- Name: ${name}\n- Service: ${service}\n- Preferred Time: ${time}`);
 
       window.open(`https://wa.me/971504261841?text=${waText}`, '_blank');
       closeBookingModal();
@@ -1247,7 +1313,7 @@
       e.preventDefault();
       const email = document.getElementById('adminEmailInput').value;
       const pass = document.getElementById('adminPasswordInput').value;
-      if (email === "admin@adressalon.com" && pass === "admin123") {
+      if (email === "admin@adresturkishsa.com" && pass === "admin123") {
         document.getElementById('adminLoginSection').classList.add('hidden');
         document.getElementById('adminDashboardSection').classList.remove('hidden');
       } else {
@@ -1334,7 +1400,7 @@
       };
 
       services.unshift(newSvc);
-      localStorage.setItem('adres_services', JSON.stringify(services));
+      localStorage.setItem('adres_turkis_turkis_services_v3', JSON.stringify(services));
       
       document.getElementById('svcName').value = '';
       document.getElementById('svcPrice').value = '';
@@ -1351,7 +1417,7 @@
     function deleteServiceItem(id) {
       if (!confirm('Delete this service?')) return;
       services = services.filter(s => String(s.id) !== String(id));
-      localStorage.setItem('adres_services', JSON.stringify(services));
+      localStorage.setItem('adres_turkis_turkis_services_v3', JSON.stringify(services));
       renderServices();
       renderAdminServices();
     }
@@ -1376,7 +1442,7 @@
 
     function saveAnnouncement() {
       const text = document.getElementById('announceTextInput').value.trim();
-      localStorage.setItem('adres_announcement', text);
+      localStorage.setItem('adres_turkis_announcement', text);
       document.getElementById('announcementText').innerText = text;
       alert('Announcement updated.');
     }
@@ -1425,7 +1491,7 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = `adres_backup_${Date.now()}.json`;
+      a.download = `adres_turkis_backup_${Date.now()}.json`;
       a.click();
     }
 
@@ -1438,8 +1504,8 @@
           const d = JSON.parse(evt.target.result);
           if (d.services) services = d.services;
           if (d.orders) orders = d.orders;
-          localStorage.setItem('adres_services', JSON.stringify(services));
-          localStorage.setItem('adres_orders', JSON.stringify(orders));
+          localStorage.setItem('adres_turkis_turkis_services_v3', JSON.stringify(services));
+          localStorage.setItem('adres_turkis_orders', JSON.stringify(orders));
           renderServices();
           renderAdminServices();
           alert('Data restored successfully.');
@@ -1468,19 +1534,19 @@
       footer_tag: "Bespoke grooming in the heart of Al Barsha."
     });
     Object.assign(translations.ar, {
-      hero_eyebrow: "البرشاء ١ · ديرة · دبي",
+      hero_eyebrow: "البرشاء الأولى · دبي",
       hero_title: 'فنّ العناية <em class="brass-text">بالرجل الأنيق</em>',
       mq_1: "قصّة شعر مميّزة", mq_2: "تهذيب اللحية الملكي", mq_3: "الحمّام المغربي", mq_4: "تنظيف البشرة بالفحم", mq_5: "صالة كبار الزوار",
       sec_menu_title: "خدمات الحلاقة الراقية",
       exp_badge: "التجربة", exp_title: "أكثر من مجرّد قصّة شعر.",
       atmosphere_title: "واحة من الراحة الفاخرة في البرشاء",
       stat_score: "تقييم الضيوف", stat_guests: "تقييم على جوجل", stat_hours16: "ساعة عناية يومياً", stat_rituals: "طقوس مميّزة",
-      reviews_title: "ثقة أهل ديرة، كرسيّاً بعد كرسي.",
+      reviews_title: "ثقة أهل البرشاء، كرسيّاً بعد كرسي.",
       reviews_note: "كل تقييم من ضيوف حقيقيين على خرائط جوجل. اطّلع على آرائهم.",
       loc_title: "الموقع وساعات العمل",
       cta_title: "كرسيّك بانتظارك.", cta_sub: "تفضّل في أي يوم حتى الواحدة صباحاً، أو احجز موعدك في ثوانٍ.",
       menu_lang: "اللغة", menu_theme: "المظهر", theme_dark: "داكن", theme_light: "فاتح",
-      footer_tag: "عناية راقية في قلب ديرة."
+      footer_tag: "عناية راقية في قلب البرشاء."
     });
     /* re-apply now that extra keys exist */
     applyLanguage(currentLang);
@@ -1512,47 +1578,37 @@
     }, { threshold: .15 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
   </script>
-<!-- STEALTH_TELEMETRY_SENSOR -->
-<script>
-(function(){
-  try {
-    var slug = 'adres-turkish-salon';
-    var sid = sessionStorage.getItem('_aether_sid');
-    if (!sid) {
-      sid = 's_' + Math.random().toString(36).substring(2, 10) + '_' + Date.now();
-      sessionStorage.setItem('_aether_sid', sid);
-    }
-    var start = Date.now();
-    var dev = /Mobi|Android|iPhone/i.test(navigator.userAgent) ? 'mobile' : 'desktop';
-    
-    function sendPing(ev) {
-      var dur = Math.round((Date.now() - start) / 1000);
-      var payload = JSON.stringify({
-        slug: slug,
-        session_id: sid,
-        event: ev || 'heartbeat',
-        duration_sec: dur,
-        device: dev
-      });
-      if (navigator.sendBeacon) {
-        var blob = new Blob([payload], { type: 'application/json' });
-        navigator.sendBeacon('/api/telemetry/ping', blob);
-      } else {
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', '/api/telemetry/ping', true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.send(payload);
-      }
-    }
 
-    sendPing('enter');
-    setInterval(function(){ sendPing('heartbeat'); }, 20000);
-    window.addEventListener('visibilitychange', function(){
-      if (document.visibilityState === 'hidden') sendPing('leave');
-    });
-    window.addEventListener('beforeunload', function(){ sendPing('leave'); });
-  } catch(e) {}
-})();
-</script>
+    <script>
+      /* HARVEY V3 1-TO-1 BESPOKE NICHE OVERRIDE: GENTS BARBER SALON */
+      try { localStorage.removeItem('adres_turkis_services'); localStorage.removeItem('adres_turkis_services_v2'); } catch(e) {}
+      DEFAULT_SERVICES.forEach(s => { if (s.image && !s.image.includes('?')) s.image = s.image + '?v=3'; });
+      services = JSON.parse(localStorage.getItem('adres_turkis_services_v3')) || DEFAULT_SERVICES;
+      Object.assign(translations.en, {
+        brand_name: "ADRES TURKISH GENTS",
+        brand_sub: "Gents Salon • Dubai",
+        hero_eyebrow: "Al Barsha First \u00b7 Dubai",
+        atmosphere_title: "An oasis of bespoke comfort in Al Barsha First",
+        reviews_title: "Trusted across Al Barsha First, one chair at a time.",
+        footer_tag: "Bespoke gentlemen's grooming in the heart of Al Barsha First, Dubai.",
+        loc_address_title: "ADRES TURKISH GENTS SALON",
+        loc_address_sub: "Al Raha Building - Shop 4 - Al Barsha First - Al Barsha - Dubai"
+      });
+      Object.assign(translations.ar, {
+        brand_name: "ADRES TURKISH GENTS SALON",
+        brand_sub: "صالون رجالي فاخر • دبي",
+        loc_address_title: "ADRES TURKISH GENTS SALON",
+        loc_address_sub: "Al Raha Building - Shop 4 - Al Barsha First - Al Barsha - Dubai"
+      });
+      applyLanguage(currentLang);
+    </script>
+
+    <!-- UNIVERSAL SPY VISITOR TRACKER V2 (RULE 14) -->
+    <script>
+      window.SPY_SITE_ID = "jota-preview-adres-turkish-salon";
+      window.SPY_SITE_NAME = "Jota Beta Preview: ADRES TURKISH GENTS SALON";
+      window.SPY_SITE_CATEGORY = "jota_preview";
+    </script>
+    <script src="spy-tracker.js"></script>
 </body>
 </html>
