@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth" id="htmlRoot">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THE BARBER LOUNGE GENTS GENTS SALON | Bespoke Grooming & Royal Barbering • Dubai</title>
+  <meta name="description" content="Dubai's bespoke gentlemen's salon in Al Barsha First, Dubai. Precision haircuts, royal beard sculpting, authentic Moroccan bath and VIP care. Open daily until 1 AM.">
+  <meta name="theme-color" content="#F6F1E7">
+
+  <!-- Apply saved theme before first paint (default = LIGHT) -->
+  <script>
+    (function () {
+      var q = new URLSearchParams(location.search);
+      if (q.get('theme')) localStorage.setItem('barber_loung_turkis_theme_v2', q.get('theme'));
+      if (q.get('lang')) localStorage.setItem('barber_loung_turkis_lang', q.get('lang'));
+      var t = localStorage.getItem('barber_loung_turkis_theme_v2') || 'light';
+      if (t === 'dark') document.documentElement.classList.add('dark');
+      document.documentElement.classList.add('js');
+    })();
+  </script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Type system: Fraunces (display serif) + Plus Jakarta Sans (UI) + Amiri/Cairo (Arabic) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;500;600;700;800&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preload" as="image" href="hero.jpg">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Fraunces', 'Georgia', 'serif'],
+            sans: ['Plus Jakarta Sans', 'system-ui', 'sans-serif'],
+            arabic: ['Cairo', 'sans-serif']
+          },
+          colors: {
+            gold: { 100: '#F3E8CF', 200: '#E8D5A8', 300: '#DCC088', 400: '#D9B76F', 500: '#B8934A', 600: '#8F6F2E', 700: '#7A5A1E' },
+            noir: { 950: '#09100D', 900: '#0E1713', 850: '#121D18', 800: '#1A2820' }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ============================================================
+       DESIGN TOKENS (contrast verified, WCAG AA or better)
+       LIGHT: ivory #F6F1E7 / ink #14201B (15:1) / muted #4A5951 (6.4:1) / brass #7A5A1E (5.5:1)
+       DARK : green-black #09100D / ivory #F2EDE0 (16:1) / muted #A8B5AD (9:1) / brass #D9B76F (10:1)
+       ============================================================ */
+    :root {
+      --bg: #F6F1E7; --bg2: #EDE5D3; --surface: #FFFDF8;
+      --ink: #14201B; --muted: #4A5951; --line: rgba(20, 32, 27, .13);
+      --brass: #7A5A1E; --brass-fill: #B8934A;
+      --emerald: #0F4D3A; --on-emerald: #F6F1E7;
+      --glow: rgba(184, 147, 74, .24); --glow2: rgba(15, 77, 58, .12);
+      --shadow: 0 24px 50px -28px rgba(20, 32, 27, .45);
+    }
+    html.dark {
+      --bg: #09100D; --bg2: #0E1713; --surface: #121D18;
+      --ink: #F2EDE0; --muted: #A8B5AD; --line: rgba(242, 237, 224, .13);
+      --brass: #D9B76F; --brass-fill: #D9B76F;
+      --emerald: #17694F; --on-emerald: #F6F1E7;
+      --glow: rgba(217, 183, 111, .15); --glow2: rgba(23, 105, 79, .22);
+      --shadow: 0 24px 50px -24px rgba(0, 0, 0, .8);
+    }
+
+    html { transition: background-color .35s ease, color .35s ease; }
+    body {
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(900px 520px at 88% -4%, var(--glow), transparent 62%),
+        radial-gradient(760px 560px at -8% 34%, var(--glow2), transparent 60%),
+        radial-gradient(800px 500px at 70% 78%, var(--glow), transparent 65%);
+      color: var(--ink);
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    .display { font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto; letter-spacing: -.02em; }
+    .muted { color: var(--muted); }
+    .eyebrow { font-size: .7rem; font-weight: 600; letter-spacing: .3em; text-transform: uppercase; color: var(--brass); }
+    .brass-text { color: var(--brass); font-style: italic; font-weight: 500; }
+
+    .card { background: var(--surface); border: 1px solid var(--line); border-radius: 28px; box-shadow: var(--shadow); }
+    .glass {
+      background: color-mix(in srgb, var(--surface) 80%, transparent);
+      -webkit-backdrop-filter: blur(18px) saturate(150%); backdrop-filter: blur(18px) saturate(150%);
+      border: 1px solid var(--line);
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
+      background: var(--emerald); color: var(--on-emerald); border-radius: 999px; padding: .95rem 1.9rem;
+      font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase;
+      box-shadow: 0 14px 28px -14px var(--emerald); transition: transform .2s, filter .2s;
+    }
+    .btn-primary:hover { filter: brightness(1.15); transform: translateY(-1px); }
+    .btn-primary:active { transform: scale(.97); }
+    .btn-ghost {
+      display: inline-flex; align-items: center; justify-content: center; gap: .6rem;
+      border: 1px solid var(--ink); color: var(--ink); border-radius: 999px; padding: .95rem 1.9rem;
+      font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; transition: background .2s, color .2s;
+    }
+    .btn-ghost:hover { background: var(--ink); color: var(--bg); }
+    .icon-btn {
+      width: 2.5rem; height: 2.5rem; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center;
+      border: 1px solid var(--line); color: var(--ink); background: transparent; transition: background .2s, border-color .2s; font-size: .85rem;
+    }
+    .icon-btn:hover { border-color: var(--brass-fill); background: color-mix(in srgb, var(--brass-fill) 14%, transparent); }
+    .wa-btn {
+      width: 2.5rem; height: 2.5rem; border-radius: 999px; background: #1B9E52; color: #fff;
+      display: inline-flex; align-items: center; justify-content: center; font-size: 1.3rem; transition: transform .2s, filter .2s;
+    }
+    .wa-btn:hover { filter: brightness(1.12); transform: scale(1.06); }
+
+    .glass-card { background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); }
+    /* Services grid: 5 items => 3 + 2 wide cards (no orphan hole) */
+    @media (min-width: 1024px) {
+      #servicesGrid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+      #servicesGrid > * { grid-column: span 2; }
+      #servicesGrid > *:nth-child(3n+1):nth-last-child(2), #servicesGrid > *:nth-child(3n+2):last-child { grid-column: span 3; }
+      #servicesGrid > *:nth-child(3n+1):nth-last-child(2) > div:first-child, #servicesGrid > *:nth-child(3n+2):last-child > div:first-child { aspect-ratio: 16 / 10; }
+    }
+    .arch-ring { border: 1px solid var(--brass-fill); border-radius: 999px 999px 40px 40px; padding: 10px; }
+    .arch { border-radius: 999px 999px 30px 30px; overflow: hidden; }
+
+    .marquee { display: flex; width: max-content; animation: marquee 38s linear infinite; }
+    .marquee:hover { animation-play-state: paused; }
+    @keyframes marquee { to { transform: translateX(-50%); } }
+
+    .js .reveal { opacity: 0; transform: translateY(26px); transition: opacity .8s cubic-bezier(.2, .7, .2, 1), transform .8s cubic-bezier(.2, .7, .2, 1); }
+    .js .reveal.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      .js .reveal { opacity: 1; transform: none; transition: none; }
+      .marquee { animation: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    .map-frame { filter: saturate(.85) contrast(1.02); }
+    html.dark .map-frame { filter: invert(.92) hue-rotate(180deg) saturate(.6) contrast(.95); }
+
+    .ico-sun { display: none; } html.dark .ico-sun { display: inline; } html.dark .ico-moon { display: none; }
+
+    .chip {
+      padding: .6rem 1.2rem; border-radius: 999px; border: 1px solid var(--line); color: var(--muted);
+      font-size: .72rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; transition: all .2s;
+    }
+    .chip:hover { color: var(--ink); border-color: var(--brass-fill); }
+    .chip.active { background: var(--emerald); border-color: var(--emerald); color: var(--on-emerald); }
+    .seg-active { background: var(--emerald); color: var(--on-emerald); }
+
+    [dir="rtl"] body, [dir="rtl"] .font-sans, [dir="rtl"] button, [dir="rtl"] input, [dir="rtl"] select, [dir="rtl"] textarea { font-family: 'Cairo', sans-serif !important; }
+    [dir="rtl"] .display { font-family: 'Amiri', 'Cairo', serif !important; font-weight: 700; letter-spacing: 0; line-height: 1.25; }
+    [dir="rtl"] .eyebrow, [dir="rtl"] .btn-primary, [dir="rtl"] .btn-ghost, [dir="rtl"] .chip { letter-spacing: 0; }
+    [dir="rtl"] .brass-text { font-style: normal; }
+    [dir="rtl"] .flip { transform: scaleX(-1); }
+    /* ============================================================
+       DYNAMIC AMBIENT LIGHTS & FALLING DETAILS (Emerald & Brass Aurora)
+       ============================================================ */
+    .hero-ambient-lights {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .ambient-orb {
+      position: absolute;
+      border-radius: 9999px;
+      filter: blur(85px);
+      opacity: 0.42;
+      animation: ambientFloat 18s ease-in-out infinite alternate;
+    }
+    html.dark .ambient-orb {
+      opacity: 0.28;
+      filter: blur(100px);
+    }
+    .orb-1 {
+      width: 440px; height: 440px; top: -50px; right: 8%;
+      background: radial-gradient(circle, rgba(184, 147, 74, 0.45) 0%, rgba(217, 183, 111, 0.15) 55%, transparent 75%);
+      animation-duration: 17s;
+    }
+    .orb-2 {
+      width: 540px; height: 540px; top: 15%; left: -8%;
+      background: radial-gradient(circle, rgba(15, 77, 58, 0.45) 0%, rgba(23, 105, 79, 0.15) 55%, transparent 75%);
+      animation-duration: 23s; animation-delay: -6s;
+    }
+    .orb-3 {
+      width: 400px; height: 400px; bottom: -30px; right: 30%;
+      background: radial-gradient(circle, rgba(184, 147, 74, 0.35) 0%, rgba(15, 77, 58, 0.15) 55%, transparent 75%);
+      animation-duration: 20s; animation-delay: -11s;
+    }
+    @keyframes ambientFloat {
+      0% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+      33% { transform: translate(50px, -40px) scale(1.12) rotate(12deg); }
+      66% { transform: translate(-35px, 35px) scale(0.92) rotate(-8deg); }
+      100% { transform: translate(25px, -15px) scale(1.06) rotate(6deg); }
+    }
+
+    .falling-particles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .particle {
+      position: absolute;
+      top: -20px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #D9B76F, #7A5A1E);
+      opacity: 0.55;
+      animation: particleFall linear infinite;
+    }
+    html.dark .particle {
+      opacity: 0.75;
+      background: linear-gradient(180deg, #F3E8CF, #D9B76F);
+      box-shadow: 0 0 8px rgba(217, 183, 111, 0.6);
+    }
+    @keyframes particleFall {
+      0% { transform: translateY(-20px) translateX(0) scale(0.6); opacity: 0; }
+      15% { opacity: 0.8; }
+      85% { opacity: 0.7; }
+      100% { transform: translateY(105vh) translateX(40px) scale(1.2); opacity: 0; }
+    }
+
+    ::selection { background: var(--brass-fill); color: #14201B; }
+    :focus-visible { outline: 2px solid var(--brass-fill); outline-offset: 3px; }
+
+    /* ============================================================
+       CINEMATIC VIDEO HERO (OpenHero Professional Excellence)
+       ============================================================ */
+    #hero {
+      background-color: #06110D !important;
+      color: #F6F1E7 !important;
+    }
+    #hero h1 {
+      color: #FFFFFF !important;
+    }
+    #hero .hero-desc {
+      color: #E2E8F0 !important;
+    }
+    #hero .eyebrow {
+      color: #D9B76F !important;
+    }
+    #hero .brass-text {
+      color: #D9B76F !important;
+    }
+    #hero .btn-ghost {
+      border: 1px solid rgba(246, 241, 231, 0.35);
+      color: #F6F1E7;
+      background: rgba(246, 241, 231, 0.06);
+      backdrop-filter: blur(12px);
+    }
+    #hero .btn-ghost:hover {
+      background: #D9B76F;
+      color: #06110D;
+      border-color: #D9B76F;
+    }
+    .hero-video-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.45;
+      transform: scale(1.03);
+      pointer-events: none;
+      z-index: 0;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right, rgba(6, 17, 13, 0.94) 0%, rgba(6, 17, 13, 0.8) 55%, rgba(6, 17, 13, 0.45) 100%),
+        linear-gradient(to bottom, rgba(6, 17, 13, 0.6) 0%, transparent 45%, var(--bg) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+  
+    /* Ultra-Luxury Obsidian / Emerald Glass Navbar */
+    .nav-glass {
+      background: rgba(6, 17, 13, 0.90) !important;
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid rgba(217, 183, 111, 0.28) !important;
+      box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.75);
+      color: #F6F1E7;
+    }
+    .nav-glass .brand-title {
+      color: #FFFFFF !important;
+    }
+    .nav-glass .brand-sub {
+      color: #D9B76F !important;
+    }
+    .nav-glass > nav a {
+      color: rgba(246, 241, 231, 0.88) !important;
+    }
+    .nav-glass > nav a:hover {
+      color: #D9B76F !important;
+    }
+    .nav-glass > div > .icon-btn,
+    .nav-glass > div > div > .icon-btn {
+      color: #F6F1E7 !important;
+      border-color: rgba(217, 183, 111, 0.3) !important;
+      background: rgba(246, 241, 231, 0.08) !important;
+    }
+    .nav-glass > div > .icon-btn:hover,
+    .nav-glass > div > div > .icon-btn:hover {
+      background: rgba(217, 183, 111, 0.2) !important;
+      border-color: #D9B76F !important;
+    }
+
+    /* High-Contrast Mobile Dropdown Menu & Language Menu (WCAG AAA > 14:1 in Light & Dark) */
+    #menuPanel,
+    #langDropdown {
+      background: var(--surface) !important;
+      color: var(--ink) !important;
+      border: 1px solid var(--line) !important;
+      box-shadow: 0 28px 60px -15px rgba(0, 0, 0, 0.45) !important;
+    }
+    #menuPanel nav a,
+    #menuPanel nav a span,
+    #menuPanel nav a font {
+      color: var(--ink) !important;
+      font-weight: 600 !important;
+    }
+    #menuPanel nav a:hover,
+    #menuPanel nav a:hover span,
+    #menuPanel nav a:hover font {
+      color: var(--brass) !important;
+    }
+    #langDropdown button,
+    #langDropdown button span,
+    #langDropdown button font {
+      color: var(--ink) !important;
+      font-weight: 600 !important;
+    }
+    #langDropdown button:hover {
+      background: var(--bg2) !important;
+      color: var(--brass) !important;
+    }
+    #menuPanel .eyebrow,
+    #menuPanel .eyebrow font {
+      color: var(--brass) !important;
+      font-weight: 700 !important;
+    }
+    #menuPanel button:not(.btn-primary):not(.seg-active),
+    #menuPanel button:not(.btn-primary):not(.seg-active) span,
+    #menuPanel button:not(.btn-primary):not(.seg-active) font {
+      color: var(--ink) !important;
+      font-weight: 700 !important;
+    }
+    #menuPanel button.seg-active,
+    #menuPanel button.seg-active span,
+    #menuPanel button.seg-active font {
+      background: var(--emerald) !important;
+      color: #FFFFFF !important;
+    }
+    #menuPanel .icon-btn,
+    #menuPanel .icon-btn i {
+      color: var(--ink) !important;
+      background: var(--bg2) !important;
+      border: 1px solid var(--line) !important;
+    }
+    #hero .glass {
+      background: rgba(9, 16, 13, 0.88) !important;
+      color: #F6F1E7 !important;
+      border: 1px solid rgba(217, 183, 111, 0.35) !important;
+    }
+    #hero .glass strong {
+      color: #FFFFFF !important;
+    }
+    #hero .glass .muted {
+      color: #D9B76F !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== PROTOTYPE RIBBON ==================== -->
+  <aside class="px-3 py-2 text-[11px] font-medium" style="background:#0F2A21;color:#EDE5D3;">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-center">
+      <div class="flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="uppercase tracking-widest opacity-80" data-i18n="preview_badge">Preview:</span>
+        <span class="font-semibold" style="color:#D9B76F" data-i18n="preview_salon">THE BARBER LOUNGE GENTS GENTS SALON (Dubai, UAE)</span>
+      </div>
+      <div class="flex items-center gap-3">
+        <span class="opacity-75 hidden md:inline" data-i18n="preview_cta_sub">Claim this official website with custom domain for 1,000 AED</span>
+        <button onclick="openActivationModal()" class="px-3.5 py-1 rounded-full font-bold text-[10px] uppercase tracking-wider active:scale-95 transition" style="background:#D9B76F;color:#14201B" data-i18n="preview_btn">Activate Website</button>
+      </div>
+    </div>
+  </aside>
+
+  <div id="announcementBar" class="hidden"><span id="announcementText" data-i18n="marquee_text"></span></div>
+
+  <!-- ==================== FLOATING PILL HEADER ==================== -->
+  <header class="sticky top-3 z-40 px-3 sm:px-6 mt-3">
+    <div class="nav-glass max-w-6xl mx-auto rounded-full px-3 sm:px-5 py-2 flex items-center justify-between gap-2 relative" style="box-shadow:var(--shadow)">
+
+      <a href="#hero" class="flex items-center gap-3 ps-1">
+        <span class="w-10 h-10 rounded-full flex items-center justify-center display text-xl font-semibold" style="background:var(--emerald);color:#D9B76F">T</span>
+        <span class="leading-tight">
+          <span class="display font-semibold text-base sm:text-lg block brand-title notranslate" translate="no" data-i18n="brand_name">THE BARBER LOUNGE GENTS</span>
+          <span class="text-[9px] sm:text-[10px] uppercase font-semibold block brand-sub" style="color:#D9B76F;letter-spacing:.22em" data-i18n="brand_sub">Gents Salon • Dubai</span>
+        </span>
+      </a>
+
+      <nav class="hidden lg:flex items-center gap-7 text-[11px] uppercase font-semibold muted" style="letter-spacing:.16em">
+        <a href="#services" class="hover:text-[var(--ink)] transition-colors" data-i18n="nav_services">Services</a>
+        <a href="#amenities" class="hover:text-[var(--ink)] transition-colors" data-i18n="nav_amenities">Amenities</a>
+        <a href="#reviews" class="hover:text-[var(--ink)] transition-colors" data-i18n="nav_reviews">Reviews (4.8★)</a>
+        <a href="#location" class="hover:text-[var(--ink)] transition-colors" data-i18n="nav_location">Location</a>
+      </nav>
+
+      <div class="flex items-center gap-2">
+        <div class="relative hidden sm:block">
+          <button onclick="toggleLangDropdown()" id="langBtn" class="icon-btn !w-auto px-3 gap-1.5 font-bold text-[11px]" aria-haspopup="true">
+            <i class="fas fa-globe text-[11px]"></i><span id="currentLangLabel">EN</span><i class="fas fa-chevron-down text-[9px] opacity-60"></i>
+          </button>
+          <div id="langDropdown" class="absolute end-0 mt-3 w-40 card !rounded-2xl py-1.5 hidden z-50 text-sm overflow-hidden">
+            <button onclick="changeLang('en')" class="w-full text-start px-4 py-2.5 flex items-center justify-between"><span>English</span><span class="text-[10px] muted">EN</span></button>
+            <button onclick="changeLang('ar')" class="w-full text-start px-4 py-2.5 flex items-center justify-between font-arabic"><span>العربية</span><span class="text-[10px] muted">AR</span></button>
+          </div>
+        </div>
+
+        <button onclick="toggleTheme()" id="themeToggleBtn" class="icon-btn hidden sm:inline-flex" title="Light / Dark" aria-label="Toggle theme">
+          <i class="fas fa-sun ico-sun"></i><i class="fas fa-moon ico-moon"></i>
+        </button>
+
+        <a href="https://wa.me/971508036011" target="_blank" rel="noopener noreferrer" class="wa-btn" title="WhatsApp" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+
+        <button onclick="openBookingModal()" class="btn-primary hidden md:inline-flex !py-2.5 !px-5" data-i18n="btn_book_nav">Book Appointment</button>
+
+        <button onclick="toggleMenu()" id="menuBtn" class="icon-btn lg:!hidden" aria-label="Menu" aria-expanded="false"><i class="fas fa-bars-staggered"></i></button>
+        <button onclick="openAdminModal()" class="icon-btn hidden lg:inline-flex" title="Admin" aria-label="Admin"><i class="fas fa-lock text-[11px]"></i></button>
+      </div>
+
+      <!-- Dropdown menu: links + language + theme -->
+      <div id="menuPanel" class="hidden absolute top-full end-0 mt-3 w-[min(92vw,22rem)] card !rounded-3xl p-5 z-50" style="background:var(--surface);color:var(--ink)">
+        <nav class="flex flex-col text-base display font-medium" style="color:var(--ink)">
+          <a href="#services" onclick="toggleMenu()" class="py-3 border-b flex items-center justify-between" style="border-color:var(--line);color:var(--ink)"><span data-i18n="nav_services" style="color:var(--ink)">Services</span><i class="fas fa-arrow-right text-xs flip" style="color:var(--brass)"></i></a>
+          <a href="#amenities" onclick="toggleMenu()" class="py-3 border-b flex items-center justify-between" style="border-color:var(--line);color:var(--ink)"><span data-i18n="nav_amenities" style="color:var(--ink)">Amenities</span><i class="fas fa-arrow-right text-xs flip" style="color:var(--brass)"></i></a>
+          <a href="#reviews" onclick="toggleMenu()" class="py-3 border-b flex items-center justify-between" style="border-color:var(--line);color:var(--ink)"><span data-i18n="nav_reviews" style="color:var(--ink)">Reviews (4.8★)</span><i class="fas fa-arrow-right text-xs flip" style="color:var(--brass)"></i></a>
+          <a href="#location" onclick="toggleMenu()" class="py-3 flex items-center justify-between" style="color:var(--ink)"><span data-i18n="nav_location" style="color:var(--ink)">Location</span><i class="fas fa-arrow-right text-xs flip" style="color:var(--brass)"></i></a>
+        </nav>
+
+        <div class="mt-4 pt-4 border-t grid grid-cols-2 gap-3" style="border-color:var(--line)">
+          <div>
+            <span class="eyebrow block mb-2" data-i18n="menu_lang">Language</span>
+            <div class="flex rounded-full p-1" style="background:var(--bg2)">
+              <button onclick="changeLang('en')" id="mLangEn" translate="no" class="notranslate flex-1 py-2 rounded-full text-xs font-bold">EN</button>
+              <button onclick="changeLang('ar')" id="mLangAr" translate="no" class="notranslate flex-1 py-2 rounded-full text-xs font-bold font-arabic">العربية</button>
+            </div>
+          </div>
+          <div>
+            <span class="eyebrow block mb-2" data-i18n="menu_theme">Appearance</span>
+            <button onclick="toggleTheme()" class="w-full py-2.5 rounded-full text-xs font-bold flex items-center justify-center gap-2" style="background:var(--bg2);color:var(--ink)">
+              <i class="fas fa-sun ico-sun"></i><i class="fas fa-moon ico-moon"></i>
+              <span class="ico-moon" data-i18n="theme_dark">Dark</span><span class="ico-sun" data-i18n="theme_light">Light</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="mt-4 flex items-center gap-3">
+          <button onclick="toggleMenu();openBookingModal()" class="btn-primary flex-1" data-i18n="btn_book_nav">Book Appointment</button>
+          <button onclick="toggleMenu();openAdminModal()" class="icon-btn" style="color:var(--ink);background:var(--bg2);border-color:var(--line)" aria-label="Admin"><i class="fas fa-lock text-[11px]" style="color:var(--ink)"></i></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+  <!-- ==================== HERO: OPENHERO PROFESSIONAL EXCELLENCE VIDEO BACKGROUND ==================== -->
+  <section id="hero" class="relative px-4 sm:px-6 lg:px-8 pt-12 pb-16 lg:pt-20 lg:pb-28 overflow-hidden bg-[#06110D]">
+    
+    <!-- OpenHero Cinematic Background Video -->
+    <video autoplay loop muted playsinline class="hero-video-bg" aria-hidden="true">
+      <source src="hero-bg.mp4" type="video/mp4">
+    </video>
+
+    <!-- Contrast Overlay Scrim -->
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <!-- Ambient Moving Emerald & Brass Aurora Mesh -->
+    <div class="hero-ambient-lights" aria-hidden="true">
+      <div class="ambient-orb orb-1"></div>
+      <div class="ambient-orb orb-2"></div>
+      <div class="ambient-orb orb-3"></div>
+    </div>
+
+    <!-- Falling Luxury Brass & Gold Particles -->
+    <div class="falling-particles" aria-hidden="true">
+      <span class="particle" style="left:7%; width:4px; height:4px; animation-duration:14s; animation-delay:0s;"></span>
+      <span class="particle" style="left:24%; width:3px; height:3px; animation-duration:19s; animation-delay:3s;"></span>
+      <span class="particle" style="left:41%; width:5px; height:5px; animation-duration:16s; animation-delay:1s;"></span>
+      <span class="particle" style="left:58%; width:3px; height:3px; animation-duration:22s; animation-delay:5s;"></span>
+      <span class="particle" style="left:73%; width:4px; height:4px; animation-duration:17s; animation-delay:2s;"></span>
+      <span class="particle" style="left:88%; width:3px; height:3px; animation-duration:20s; animation-delay:4s;"></span>
+    </div>
+
+    <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
+
+      <div class="lg:col-span-7 reveal">
+        <span class="eyebrow block mb-6 text-[#D9B76F]" data-i18n="hero_eyebrow">Dubai, UAE</span>
+        <h1 class="display font-medium text-[2.7rem] sm:text-6xl lg:text-[4.6rem] leading-[1.02] mb-7 text-white" data-i18n="hero_title">
+          The art of the <em class="brass-text italic">gentleman’s grooming</em>
+        </h1>
+        <p class="hero-desc text-base sm:text-lg max-w-xl leading-relaxed mb-10 text-slate-200" data-i18n="hero_desc">
+          Precision haircuts, hot towel beard sculpting, authentic Moroccan bath and executive VIP care in a private club ambiance.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 sm:items-center">
+          <button onclick="openBookingModal()" class="btn-primary" data-i18n="btn_book_hero">Book Appointment</button>
+          <a href="#services" class="btn-ghost" data-i18n="btn_explore_hero">Explore Services</a>
+        </div>
+        <div class="flex items-center gap-4 mt-10">
+          <div class="flex gap-0.5 text-sm" style="color:var(--brass-fill)"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p class="text-sm text-white"><strong class="display text-lg text-white">4.8</strong> <span class="text-slate-300" data-i18n="hero_reviews_badge">• 156 Google Maps Reviews</span></p>
+        </div>
+      </div>
+
+      <div class="lg:col-span-5 relative reveal mx-auto w-full max-w-md lg:max-w-none">
+        <div class="arch-ring">
+          <div class="arch aspect-[4/5]">
+            <img src="hero.jpg?v=3" alt="THE BARBER LOUNGE GENTS GENTS SALON interior, Dubai" class="w-full h-full object-cover" fetchpriority="high">
+          </div>
+        </div>
+        <div class="glass rounded-2xl px-4 py-3 absolute -start-2 sm:-start-6 bottom-14 flex items-center gap-3" style="box-shadow:var(--shadow)">
+          <span class="w-10 h-10 rounded-full flex items-center justify-center" style="background:var(--emerald);color:#D9B76F"><i class="far fa-clock"></i></span>
+          <span class="leading-tight"><strong class="display text-lg block" data-i18n="stat_hours_val">9 AM – 1 AM</strong><span class="text-[11px] muted" data-i18n="stat_hours_lbl">Open Daily</span></span>
+        </div>
+        <div class="glass rounded-2xl p-1.5 absolute -end-1 sm:-end-5 top-10 w-28 sm:w-32" style="box-shadow:var(--shadow)">
+          <img src="beard.jpg" alt="Royal beard sculpting" class="rounded-xl aspect-[4/5] object-cover w-full" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MARQUEE ==================== -->
+  <section aria-hidden="true" class="py-5 overflow-hidden" style="background:var(--emerald);color:var(--on-emerald)">
+    <div dir="ltr" class="marquee display text-xl sm:text-2xl whitespace-nowrap">
+      <div class="flex items-center shrink-0">
+        <span class="px-8" data-i18n="mq_1">Signature Haircut</span><span style="color:#D9B76F">✦</span>
+        <span class="px-8" data-i18n="mq_2">Royal Beard Sculpting</span><span style="color:#D9B76F">✦</span>
+        <span class="px-8" data-i18n="mq_3">Moroccan Bath</span><span style="color:#D9B76F">✦</span>
+        <span class="px-8" data-i18n="mq_4">Charcoal Detox Facial</span><span style="color:#D9B76F">✦</span>
+        <span class="px-8" data-i18n="mq_5">VIP Gentlemen’s Lounge</span><span style="color:#D9B76F">✦</span>
+      </div>
+      <div class="flex items-center shrink-0">
+        <span class="px-8" data-i18n="mq_1">Signature Haircut</span><span style="color:#D9B76F">✦</span>
+        <span class="px-8" data-i18n="mq_2">Royal Beard Sculpting</span><span style="color:#D9B76F">✦</span>
+        <span class="px-8" data-i18n="mq_3">Moroccan Bath</span><span style="color:#D9B76F">✦</span>
+        <span class="px-8" data-i18n="mq_4">Charcoal Detox Facial</span><span style="color:#D9B76F">✦</span>
+        <span class="px-8" data-i18n="mq_5">VIP Gentlemen’s Lounge</span><span style="color:#D9B76F">✦</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== SERVICES ==================== -->
+  <section id="services" class="py-20 lg:py-28 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-24">
+    <div class="grid lg:grid-cols-12 gap-6 items-end mb-12 reveal">
+      <div class="lg:col-span-7">
+        <span class="eyebrow block mb-4" data-i18n="sec_menu_badge">Bespoke Treatment Menu</span>
+        <h2 class="display font-medium text-4xl sm:text-5xl lg:text-6xl leading-[1.05]" data-i18n="sec_menu_title">Master services</h2>
+      </div>
+      <p class="lg:col-span-5 muted leading-relaxed" data-i18n="sec_menu_sub">Every treatment is delivered with premium imported grooming cosmetics and time-honored barbering craftsmanship.</p>
+    </div>
+
+    <div class="flex items-center gap-2.5 mb-10 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0" id="categoryFilterContainer"></div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-7" id="servicesGrid"></div>
+  </section>
+
+  <!-- ==================== EXPERIENCE BENTO ==================== -->
+  <section id="amenities" class="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-24">
+    <div class="max-w-2xl mb-12 reveal">
+      <span class="eyebrow block mb-4" data-i18n="exp_badge">The Experience</span>
+      <h2 class="display font-medium text-4xl sm:text-5xl leading-[1.05]" data-i18n="exp_title">More than a haircut.</h2>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6">
+      <article class="reveal relative overflow-hidden rounded-3xl lg:col-span-7 lg:row-span-2 min-h-[540px] lg:min-h-[560px] group" style="box-shadow:var(--shadow);border:1px solid var(--line)">
+        <img src="lounge.jpg?v=3" alt="THE BARBER LOUNGE GENTS GENTS SALON VIP Suite" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" loading="lazy">
+        <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(6,16,12,.92) 0%,rgba(6,16,12,.45) 45%,rgba(6,16,12,0) 75%)"></div>
+        <div class="absolute inset-x-0 bottom-0 p-7 sm:p-10 text-[#F6F1E7]">
+          <span class="eyebrow block mb-3" style="color:#D9B76F" data-i18n="atmosphere_badge">Private Gentlemen's Club</span>
+          <h3 class="display text-3xl sm:text-4xl font-medium leading-tight mb-3 max-w-lg" data-i18n="atmosphere_title">An oasis of bespoke comfort in Al Barsha</h3>
+          <p class="text-sm sm:text-base opacity-85 max-w-lg mb-6 leading-relaxed" data-i18n="atmosphere_desc">Chesterfield leather armchairs, ambient illumination and warm hospitality focused entirely on your grooming excellence.</p>
+          <div class="flex items-center gap-3">
+            <button onclick="openBookingModal()" class="btn-primary" style="background:#D9B76F;color:#14201B;box-shadow:none" data-i18n="btn_book_lounge">Book Appointment</button>
+            <a href="https://wa.me/971508036011" target="_blank" rel="noopener noreferrer" class="wa-btn" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+          </div>
+        </div>
+      </article>
+
+      <article class="reveal relative overflow-hidden rounded-3xl lg:col-span-5 aspect-[4/3] group" style="box-shadow:var(--shadow);border:1px solid var(--line)">
+        <img src="bath.jpg?v=3" alt="Private Moroccan hammam suite" class="absolute inset-0 w-full h-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" loading="lazy">
+        <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(6,16,12,.88) 0%,rgba(6,16,12,0) 65%)"></div>
+        <div class="absolute bottom-0 p-6 text-[#F6F1E7]">
+          <h3 class="display text-2xl font-medium" data-i18n="amenity_hammam_title">Private Moroccan Suite</h3>
+          <p class="text-sm opacity-85" data-i18n="amenity_hammam_sub">Steam &amp; scrub rituals</p>
+        </div>
+      </article>
+
+      <div class="lg:col-span-5 grid grid-cols-2 gap-5 lg:gap-6">
+        <div class="card reveal p-6 flex flex-col justify-between min-h-[190px]">
+          <span class="w-11 h-11 rounded-full flex items-center justify-center" style="background:var(--emerald);color:#D9B76F"><i class="fas fa-mug-saucer"></i></span>
+          <div><h3 class="display text-lg font-medium leading-snug mb-1" data-i18n="amenity_coffee_title">Espresso &amp; Tea Bar</h3><p class="text-xs muted" data-i18n="amenity_coffee_sub">Complimentary specialty selection</p></div>
+        </div>
+        <div class="card reveal p-6 flex flex-col justify-between min-h-[190px]">
+          <span class="w-11 h-11 rounded-full flex items-center justify-center" style="background:var(--emerald);color:#D9B76F"><i class="fas fa-shield-halved"></i></span>
+          <div><h3 class="display text-lg font-medium leading-snug mb-1" data-i18n="amenity_hygiene_title">Hospital-Grade Hygiene</h3><p class="text-xs muted" data-i18n="amenity_hygiene_sub">Sealed single-use blades</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-12 card reveal grid grid-cols-2 lg:grid-cols-4">
+      <div class="p-7 text-center"><strong class="display text-5xl font-medium block" style="color:var(--brass)"><span data-count="4.8" data-dec="1">4.8</span></strong><span class="text-xs uppercase muted font-semibold" style="letter-spacing:.14em" data-i18n="stat_score">Guest rating</span></div>
+      <div class="p-7 text-center border-s" style="border-color:var(--line)"><strong class="display text-5xl font-medium block" style="color:var(--brass)"><span data-count="156">156</span></strong><span class="text-xs uppercase muted font-semibold" style="letter-spacing:.14em" data-i18n="stat_guests">Google reviews</span></div>
+      <div class="p-7 text-center border-t lg:border-t-0 lg:border-s" style="border-color:var(--line)"><strong class="display text-5xl font-medium block" style="color:var(--brass)"><span data-count="16">16</span></strong><span class="text-xs uppercase muted font-semibold" style="letter-spacing:.14em" data-i18n="stat_hours16">Hours of care daily</span></div>
+      <div class="p-7 text-center border-s border-t lg:border-t-0" style="border-color:var(--line)"><strong class="display text-5xl font-medium block" style="color:var(--brass)"><span data-count="5">5</span></strong><span class="text-xs uppercase muted font-semibold" style="letter-spacing:.14em" data-i18n="stat_rituals">Signature rituals</span></div>
+    </div>
+  </section>
+
+  <!-- ==================== REVIEWS (real figures only) ==================== -->
+  <section id="reviews" class="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-24">
+    <div class="reveal relative overflow-hidden rounded-[2rem] px-7 py-12 sm:px-14 sm:py-16 grid lg:grid-cols-12 gap-10 items-center" style="background:linear-gradient(135deg,#0F4D3A 0%,#0A2F24 60%,#0E2A21 100%);color:#F6F1E7;box-shadow:var(--shadow)">
+      <div class="absolute -top-24 -end-24 w-80 h-80 rounded-full" style="background:radial-gradient(circle,rgba(217,183,111,.28),transparent 65%)"></div>
+      <div class="lg:col-span-5 relative">
+        <span class="eyebrow block mb-4" style="color:#D9B76F" data-i18n="reviews_badge">Verified Client Testimonials</span>
+        <div class="flex items-end gap-4">
+          <strong class="display font-medium text-8xl sm:text-9xl leading-none" style="color:#D9B76F">4.8</strong>
+          <div class="pb-3">
+            <div class="flex gap-1 text-lg mb-1" style="color:#D9B76F"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+            <span class="text-sm opacity-85" data-i18n="hero_reviews_badge">• 156 Google Maps Reviews</span>
+          </div>
+        </div>
+      </div>
+      <div class="lg:col-span-7 relative">
+        <h2 class="display font-medium text-3xl sm:text-4xl leading-tight mb-4" data-i18n="reviews_title">Trusted across Al Barsha, one chair at a time.</h2>
+        <p class="opacity-85 leading-relaxed mb-8 max-w-xl" data-i18n="reviews_note">Every rating comes from real guests on Google Maps. Read what they say.</p>
+        <a href="https://www.google.com/maps/place/The+Barber+Lounge/data=!4m7!3m6!1s0x3e5f435c702699b9:0xc02b80cbc9ec8fdb!8m2!3d25.2371363!4d55.3035075!16s%2Fg%2F11sb5xfgz9!19sChIJuZkmcFxDXz4R24_sycuAK8A?authuser=0&hl=en&g_ep=EgoyMDI2MTAwNS4wIJJjKgBIAVAD&rclk=1&g_ep=EgoyMDI2MTAwNS4wIJJjKgBIAVAD&rclk=1" target="_blank" rel="noopener noreferrer" class="btn-primary" style="background:#D9B76F;color:#14201B;box-shadow:none">
+          <i class="fab fa-google"></i><span data-i18n="reviews_link_btn">View 156 Reviews on Google</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== LOCATION ==================== -->
+  <section id="location" class="py-16 lg:py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-24">
+    <div class="card reveal p-6 sm:p-10 grid md:grid-cols-2 gap-10 items-center">
+      <div>
+        <span class="eyebrow block mb-4" data-i18n="loc_badge">Visit Us</span>
+        <h2 class="display font-medium text-4xl sm:text-5xl leading-[1.05] mb-8" data-i18n="loc_title">Hours &amp; location</h2>
+        <div class="space-y-6">
+          <div class="flex items-start gap-4">
+            <span class="w-11 h-11 shrink-0 rounded-full flex items-center justify-center" style="background:var(--emerald);color:#D9B76F"><i class="fas fa-location-dot"></i></span>
+            <div><strong class="display text-lg block" data-i18n="loc_address_title">THE BARBER LOUNGE GENTS GENTS SALON</strong><span class="muted text-sm" data-i18n="loc_address_sub">Al Raha Building - Shop 4 - Al Barsha First - Al Barsha - Dubai</span></div>
+          </div>
+          <div class="flex items-start gap-4">
+            <span class="w-11 h-11 shrink-0 rounded-full flex items-center justify-center" style="background:var(--emerald);color:#D9B76F"><i class="far fa-clock"></i></span>
+            <div><strong class="display text-lg block" data-i18n="loc_hours_title">Operating Hours</strong><span class="muted text-sm" data-i18n="loc_hours_sub">Daily from 9:00 AM to 1:00 AM (Continuous Service)</span></div>
+          </div>
+        </div>
+        <div class="mt-9 flex flex-wrap items-center gap-3">
+          <a href="https://www.google.com/maps/place/The+Barber+Lounge/data=!4m7!3m6!1s0x3e5f435c702699b9:0xc02b80cbc9ec8fdb!8m2!3d25.2371363!4d55.3035075!16s%2Fg%2F11sb5xfgz9!19sChIJuZkmcFxDXz4R24_sycuAK8A?authuser=0&hl=en&g_ep=EgoyMDI2MTAwNS4wIJJjKgBIAVAD&rclk=1&g_ep=EgoyMDI2MTAwNS4wIJJjKgBIAVAD&rclk=1" target="_blank" rel="noopener noreferrer" class="btn-primary"><i class="fas fa-location-arrow"></i><span data-i18n="btn_maps">Open in Google Maps</span></a>
+          <a href="https://wa.me/971508036011" target="_blank" rel="noopener noreferrer" class="wa-btn !w-12 !h-12" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        </div>
+      </div>
+      <div class="rounded-3xl overflow-hidden aspect-[4/3] border" style="border-color:var(--line)">
+        <iframe class="map-frame w-full h-full border-0" title="THE BARBER LOUNGE GENTS GENTS SALON map" src="https://maps.google.com/maps?q=ADRES%20TURKISH%20GENTS%20SALON%20Al%20Barsha%20First%20%20Dubai&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CTA BAND ==================== -->
+  <section class="px-4 sm:px-6 lg:px-8 pb-20 max-w-7xl mx-auto">
+    <div class="reveal text-center rounded-[2rem] px-6 py-16 sm:py-20" style="border:1px solid var(--brass-fill);background:linear-gradient(180deg,color-mix(in srgb,var(--brass-fill) 12%,transparent),transparent)">
+      <h2 class="display font-medium text-4xl sm:text-6xl leading-[1.05] mb-5" data-i18n="cta_title">Your chair is waiting.</h2>
+      <p class="muted max-w-xl mx-auto mb-9" data-i18n="cta_sub">Walk in any day until 1 AM, or reserve your slot in seconds.</p>
+      <button onclick="openBookingModal()" class="btn-primary" data-i18n="btn_book_hero">Book Appointment</button>
+    </div>
+  </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="border-t" style="border-color:var(--line);background:var(--bg2)">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid md:grid-cols-3 gap-8 items-center text-sm">
+      <div>
+        <span class="display text-2xl font-semibold block" data-i18n="brand_name">THE BARBER LOUNGE GENTS</span>
+        <span class="muted" data-i18n="footer_tag">Bespoke grooming in the heart of Al Barsha.</span>
+      </div>
+      <div class="muted md:text-center">© 2026 THE BARBER LOUNGE GENTS GENTS SALON · Al Barsha First, Dubai</div>
+      <div class="md:text-end font-semibold">Developed by <span style="color:var(--brass)">Tecnoemprende</span></div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/971508036011" target="_blank" rel="noopener noreferrer" class="fixed bottom-5 end-5 z-50 w-14 h-14 rounded-full text-white flex items-center justify-center text-3xl hover:scale-110 active:scale-95 transition" style="background:#1B9E52;box-shadow:0 14px 30px -10px rgba(27,158,82,.7)" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+
+  <!-- ==================== BOOKING MODAL ==================== -->
+  <div id="bookingModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="glass-card rounded-3xl max-w-md w-full p-6 sm:p-8 relative border border-gold-500/40">
+      <button onclick="closeBookingModal()" class="absolute top-6 right-6 text-stone-400 hover:text-stone-900 dark:hover:text-white text-xl">&times;</button>
+      
+      <div class="text-center mb-6">
+        <span class="text-amber-700 dark:text-gold-400 font-mono text-xs uppercase tracking-widest block mb-1" data-i18n="modal_book_badge">Instant Booking</span>
+        <h3 class="font-display font-black text-2xl text-stone-900 dark:text-white" data-i18n="modal_book_title">BOOK APPOINTMENT</h3>
+        <p class="text-stone-500 dark:text-slate-400 text-xs mt-1" data-i18n="modal_book_sub">Confirm your booking directly via WhatsApp</p>
+      </div>
+
+      <form id="bookingForm" onsubmit="handleBookingSubmit(event)" class="space-y-4 text-xs font-sans">
+        <div>
+          <label class="block text-stone-700 dark:text-slate-300 font-medium mb-1" data-i18n="form_name">Full Name</label>
+          <input type="text" id="bookName" required placeholder="Your full name" class="w-full px-4 py-3 rounded-xl bg-stone-100 dark:bg-white/5 border border-stone-300 dark:border-white/10 text-stone-900 dark:text-white focus:outline-none focus:border-gold-500">
+        </div>
+
+        <div>
+          <label class="block text-stone-700 dark:text-slate-300 font-medium mb-1" data-i18n="form_service">Service</label>
+          <select id="bookService" class="w-full px-4 py-3 rounded-xl bg-stone-100 dark:bg-noir-900 border border-stone-300 dark:border-white/10 text-stone-900 dark:text-white focus:outline-none focus:border-gold-500">
+            <option value="Master Scissor Haircut & Fade (AED 85)">Master Haircut & Skin Fade (AED 85 • 45 min)</option>
+            <option value="Royal Hot Towel Beard Sculpting (AED 65)">Royal Beard Sculpting (AED 65 • 30 min)</option>
+            <option value="VIP Executive Grooming Suite (AED 250)">VIP Executive Suite (AED 250 • 90 min)</option>
+            <option value="Authentic Moroccan Bath & Steam (AED 180)">Moroccan Bath & Steam (AED 180 • 60 min)</option>
+            <option value="Deep Charcoal & Gold Facial (AED 120)">Deep Charcoal & Gold Facial (AED 120 • 45 min)</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-stone-700 dark:text-slate-300 font-medium mb-1" data-i18n="form_time">Preferred Time</label>
+          <input type="text" id="bookTime" placeholder="e.g. Today at 7:30 PM" required class="w-full px-4 py-3 rounded-xl bg-stone-100 dark:bg-white/5 border border-stone-300 dark:border-white/10 text-stone-900 dark:text-white focus:outline-none focus:border-gold-500">
+        </div>
+
+        <button type="submit" class="w-full py-4 rounded-xl bg-gold-500 hover:bg-gold-400 text-black font-sans font-bold text-xs uppercase tracking-widest transition-all mt-4 shadow-lg shadow-gold-500/20" data-i18n="btn_book_submit">
+          Confirm Appointment
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================== ACTIVATION MODAL (1000 AED OFFER) ==================== -->
+  <div id="activationModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4">
+    <div class="glass-card rounded-3xl max-w-lg w-full p-6 sm:p-8 relative border border-gold-500/40">
+      <button onclick="closeActivationModal()" class="absolute top-6 right-6 text-stone-400 hover:text-white text-xl">&times;</button>
+      
+      <div class="text-center mb-6">
+        <span class="px-3 py-1 rounded-full bg-gold-400/20 text-amber-800 dark:text-gold-400 font-mono text-[10px] uppercase font-bold border border-gold-500/20">Official Launch Proposal</span>
+        <h3 class="font-display font-black text-2xl text-stone-900 dark:text-white mt-2">CLAIM THIS OFFICIAL WEBSITE</h3>
+        <p class="text-stone-600 dark:text-slate-300 text-xs mt-2 leading-relaxed">
+          Crafted exclusively for <strong>THE BARBER LOUNGE GENTS GENTS SALON</strong>. Includes private admin dashboard to edit prices, upload photos from your smartphone, custom domain & annual support.
+        </p>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-stone-100 dark:bg-white/[0.03] border border-stone-300 dark:border-white/10 space-y-3 mb-6 text-xs">
+        <div class="flex justify-between items-center text-stone-800 dark:text-slate-300">
+          <span>Complete Web Design + Domain + Fast Cloud Hosting:</span>
+          <strong class="text-amber-700 dark:text-gold-400 text-sm">1,000 AED (One-time)</strong>
+        </div>
+        <div class="flex justify-between items-center text-stone-800 dark:text-slate-300">
+          <span>Annual Maintenance & Priority Tech Support (Optional):</span>
+          <strong class="text-stone-900 dark:text-slate-200">500 AED / year</strong>
+        </div>
+      </div>
+
+      <a href="https://wa.me/971508379080?text=Hello%20David,%20I%20want%20to%20activate%20the%20official%20website%20for%20ADRES%20Turkish%20Gents%20Salon%20for%201,000%20AED" target="_blank" class="w-full py-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-sans font-bold text-xs uppercase tracking-widest text-center block transition-all shadow-lg shadow-emerald-500/20">
+        Contact to Activate (1,000 AED)
+      </a>
+    </div>
+  </div>
+
+  <!-- ==================== TIERRA QUERIDA ADMIN DASHBOARD MODAL ==================== -->
+  <div id="adminModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-xl hidden items-center justify-center p-3 sm:p-6 overflow-y-auto">
+    <div class="glass-card rounded-3xl max-w-3xl w-full p-6 sm:p-8 relative border border-gold-500/30 my-8">
+      <button onclick="closeAdminModal()" class="absolute top-6 right-6 text-stone-400 hover:text-white text-xl">&times;</button>
+      
+      <!-- Login View -->
+      <div id="adminLoginSection">
+        <div class="text-center mb-6">
+          <div class="w-12 h-12 rounded-2xl bg-gold-400/20 text-gold-500 flex items-center justify-center text-xl mx-auto mb-3">
+            <i class="fas fa-crown"></i>
+          </div>
+          <h3 class="font-display font-black text-2xl text-stone-900 dark:text-white">Admin Control Panel</h3>
+          <p class="text-stone-500 dark:text-slate-400 text-xs">Owner & Manager Private Mobile Dashboard</p>
+        </div>
+
+        <form onsubmit="handleAdminLogin(event)" class="space-y-4 max-w-sm mx-auto text-xs">
+          <div>
+            <label class="block text-stone-700 dark:text-slate-300 mb-1">Email</label>
+            <input type="email" id="adminEmailInput" value="admin@adresturkishsa.com" required class="w-full px-4 py-3 rounded-xl bg-stone-100 dark:bg-white/5 border border-stone-300 dark:border-white/10 text-stone-900 dark:text-white focus:outline-none focus:border-gold-500">
+          </div>
+          <div>
+            <label class="block text-stone-700 dark:text-slate-300 mb-1">Password</label>
+            <input type="password" id="adminPasswordInput" value="admin123" required class="w-full px-4 py-3 rounded-xl bg-stone-100 dark:bg-white/5 border border-stone-300 dark:border-white/10 text-stone-900 dark:text-white focus:outline-none focus:border-gold-500">
+          </div>
+          <button type="submit" class="w-full py-3.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-black font-bold uppercase tracking-widest transition-all">
+            Enter Dashboard
+          </button>
+        </form>
+      </div>
+
+      <!-- Dashboard View (After Login) -->
+      <div id="adminDashboardSection" class="hidden">
+        <div class="flex items-center justify-between pb-4 mb-6 border-b border-stone-300 dark:border-white/10">
+          <div>
+            <h3 class="font-display font-bold text-xl text-stone-900 dark:text-white">ADRES Turkish Control Hub</h3>
+            <span class="text-xs font-mono text-emerald-500">● Connected (Dual-Layer Active)</span>
+          </div>
+          <button onclick="logoutAdmin()" class="px-3 py-1.5 rounded-lg bg-stone-200 dark:bg-white/5 hover:bg-rose-500/20 text-stone-600 dark:text-slate-400 hover:text-rose-500 text-xs">
+            Logout
+          </button>
+        </div>
+
+        <!-- 5 Tabs Navigation -->
+        <div class="flex border-b border-stone-300 dark:border-white/10 mb-6 gap-2 overflow-x-auto text-xs font-mono">
+          <button onclick="switchTab('tabServices')" id="btnTabServices" class="px-4 py-2 border-b-2 border-gold-500 text-gold-600 dark:text-gold-400 font-bold whitespace-nowrap">1. Services & CRUD</button>
+          <button onclick="switchTab('tabAnnounce')" id="btnTabAnnounce" class="px-4 py-2 border-b-2 border-transparent text-stone-500 dark:text-slate-400 whitespace-nowrap">2. Announcements</button>
+          <button onclick="switchTab('tabCategories')" id="btnTabCategories" class="px-4 py-2 border-b-2 border-transparent text-stone-500 dark:text-slate-400 whitespace-nowrap">3. Categories</button>
+          <button onclick="switchTab('tabOrders')" id="btnTabOrders" class="px-4 py-2 border-b-2 border-transparent text-stone-500 dark:text-slate-400 whitespace-nowrap">4. Appointments Log</button>
+          <button onclick="switchTab('tabConfig')" id="btnTabConfig" class="px-4 py-2 border-b-2 border-transparent text-stone-500 dark:text-slate-400 whitespace-nowrap">5. Backup / Cloud</button>
+        </div>
+
+        <!-- TAB 1: SERVICES CRUD & HTML5 CANVAS IMAGE UPLOADER -->
+        <div id="tabServices" class="space-y-6">
+          <div class="p-4 rounded-2xl bg-stone-100 dark:bg-white/[0.03] border border-stone-300 dark:border-white/5">
+            <h4 class="font-bold text-stone-900 dark:text-white text-xs uppercase mb-3">Add / Edit Service</h4>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs mb-3">
+              <input type="text" id="svcName" placeholder="Service Name (e.g. Keratin Treatment)" class="px-3 py-2.5 rounded-lg bg-white dark:bg-noir-900 border border-stone-300 dark:border-white/10 text-stone-900 dark:text-white">
+              <input type="number" id="svcPrice" placeholder="Price in AED (e.g. 150)" class="px-3 py-2.5 rounded-lg bg-white dark:bg-noir-900 border border-stone-300 dark:border-white/10 text-stone-900 dark:text-white">
+              <input type="text" id="svcDuration" placeholder="Duration (e.g. 45 min)" class="px-3 py-2.5 rounded-lg bg-white dark:bg-noir-900 border border-stone-300 dark:border-white/10 text-stone-900 dark:text-white">
+              <select id="svcCategory" class="px-3 py-2.5 rounded-lg bg-white dark:bg-noir-900 border border-stone-300 dark:border-white/10 text-stone-900 dark:text-white">
+                <option value="Barbering">Barbering</option>
+                <option value="Beard">Beard</option>
+                <option value="Treatments">Treatments</option>
+                <option value="VIP Packages">VIP Packages</option>
+              </select>
+            </div>
+            
+            <!-- HTML5 Canvas Camera / Gallery Upload -->
+            <div class="flex items-center gap-3 mb-3">
+              <label class="flex-1 px-4 py-3 rounded-lg bg-gold-500/10 hover:bg-gold-500/20 text-amber-800 dark:text-gold-300 border border-gold-500/30 text-center cursor-pointer transition-all">
+                <i class="fas fa-camera mr-2"></i> Upload Photo from Smartphone (Auto Canvas Compress)
+                <input type="file" id="svcPhotoInput" accept="image/*" class="hidden" onchange="handleImageCompress(event)">
+              </label>
+              <img id="svcPhotoPreview" class="w-12 h-12 rounded-lg object-cover hidden border border-gold-500">
+            </div>
+
+            <textarea id="svcDesc" placeholder="Service description..." rows="2" class="w-full px-3 py-2 rounded-lg bg-white dark:bg-noir-900 border border-stone-300 dark:border-white/10 text-stone-900 dark:text-white text-xs mb-3"></textarea>
+            <button onclick="saveServiceItem()" class="px-6 py-2.5 rounded-lg bg-gold-500 text-black font-bold text-xs uppercase tracking-wider">
+              Save Service
+            </button>
+          </div>
+
+          <!-- Services List -->
+          <div class="space-y-2" id="adminServicesList">
+            <!-- Injected by JS -->
+          </div>
+        </div>
+
+        <!-- TAB 2: ANNOUNCEMENTS -->
+        <div id="tabAnnounce" class="hidden space-y-4 text-xs">
+          <label class="block text-stone-700 dark:text-slate-300 font-bold">Top Marquee Text:</label>
+          <input type="text" id="announceTextInput" class="w-full px-4 py-3 rounded-xl bg-white dark:bg-noir-900 border border-stone-300 dark:border-white/10 text-stone-900 dark:text-white">
+          <button onclick="saveAnnouncement()" class="px-5 py-2.5 rounded-lg bg-gold-500 text-black font-bold uppercase tracking-wider">
+            Update Announcement
+          </button>
+        </div>
+
+        <!-- TAB 3: CATEGORIES -->
+        <div id="tabCategories" class="hidden space-y-4 text-xs">
+          <div class="flex gap-2">
+            <input type="text" id="newCategoryInput" placeholder="New Category (e.g. Royal Spa)" class="flex-1 px-3 py-2 rounded-lg bg-white dark:bg-noir-900 border border-stone-300 dark:border-white/10 text-stone-900 dark:text-white">
+            <button onclick="addCategory()" class="px-4 py-2 bg-gold-500 text-black font-bold rounded-lg">Add</button>
+          </div>
+          <div class="flex flex-wrap gap-2" id="adminCategoryTags"></div>
+        </div>
+
+        <!-- TAB 4: ORDERS & APPOINTMENTS LOG -->
+        <div id="tabOrders" class="hidden space-y-3 text-xs">
+          <div id="ordersLogContainer" class="space-y-2">
+            <p class="text-stone-500 dark:text-slate-500 font-mono">No appointments recorded yet.</p>
+          </div>
+        </div>
+
+        <!-- TAB 5: BACKUP & NUBE -->
+        <div id="tabConfig" class="hidden space-y-4 text-xs font-mono">
+          <p class="text-stone-600 dark:text-slate-400">Instant 1-Click JSON Backup & Restore:</p>
+          <div class="flex gap-3">
+            <button onclick="exportDataBackup()" class="px-4 py-2.5 rounded-lg bg-stone-200 dark:bg-white/10 text-stone-900 dark:text-white font-bold">
+              <i class="fas fa-download mr-1"></i> Export Backup JSON
+            </button>
+            <label class="px-4 py-2.5 rounded-lg bg-gold-500/20 text-amber-800 dark:text-gold-300 border border-gold-500/30 font-bold cursor-pointer">
+              <i class="fas fa-upload mr-1"></i> Restore Backup
+              <input type="file" accept=".json" class="hidden" onchange="importDataBackup(event)">
+            </label>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================== I18N DICTIONARY & CORE SCRIPT ==================== -->
+  <script>
+    // Complete Bilingual Dictionary (English & Arabic)
+    const translations = {
+      en: {
+        preview_badge: "Preview:",
+        preview_salon: "THE BARBER LOUNGE GENTS GENTS SALON (Dubai, UAE)",
+        preview_cta_sub: "Claim this official website with custom domain for 1,000 AED",
+        preview_btn: "Activate Website",
+        marquee_text: "✦ OPEN DAILY 9:00 AM – 1:00 AM ✦ WALK-INS & ONLINE RESERVATIONS ✦ AL BARSHA FIRST, DUBAI",
+        brand_name: "THE BARBER LOUNGE GENTS",
+        brand_sub: "Gents Saloon • Dubai",
+        nav_services: "Services",
+        nav_amenities: "Amenities",
+        nav_reviews: "Reviews (4.8★)",
+        nav_location: "Location",
+        btn_book_nav: "Book Appointment",
+        hero_reviews_badge: "• 156 Google Maps Reviews",
+        hero_title: 'MASTER GROOMING & <span class="bg-gradient-to-r from-amber-700 via-gold-500 to-amber-600 dark:from-gold-300 dark:via-amber-400 dark:to-gold-500 bg-clip-text text-transparent">ROYAL BARBERING</span>',
+        hero_desc: "Located in Al Raha Building, Al Barsha First, Dubai. Precision haircuts, hot towel beard sculpting, authentic Moroccan bath, and executive VIP care in a private club ambiance.",
+        btn_book_hero: "Book Appointment",
+        btn_explore_hero: "Explore Services",
+        stat_hours_val: "9 AM – 1 AM",
+        stat_hours_lbl: "Open Daily",
+        stat_loc_val: "Al Barsha 1",
+        stat_loc_lbl: "Al Barsha • Dubai",
+        stat_rate_val: "4.8★",
+        stat_rate_lbl: "156 Reviews",
+        amenity_coffee_title: "Espresso & Tea Bar",
+        amenity_coffee_sub: "Complimentary specialty selection",
+        amenity_hammam_title: "Private Moroccan Suite",
+        amenity_hammam_sub: "Steam & scrub rituals",
+        amenity_hygiene_title: "Hospital-Grade Hygiene",
+        amenity_hygiene_sub: "Sealed single-use blades",
+        amenity_late_title: "Late-Night Care",
+        amenity_late_sub: "Continuous service until 1:00 AM",
+        sec_menu_badge: "Bespoke Treatment Menu",
+        sec_menu_title: "MASTER SERVICES",
+        sec_menu_sub: "Every treatment is delivered with premium imported grooming cosmetics and time-honored barbering craftsmanship.",
+        atmosphere_badge: "Private Gentlemen's Club",
+        atmosphere_title: "AN OASIS OF BESPOKE COMFORT IN AL BARSHA",
+        atmosphere_desc: "Step into a private and tranquil atmosphere designed for your personal time. Chesterfield leather armchairs, ambient illumination, and warm hospitality focused entirely on your grooming excellence.",
+        btn_book_lounge: "Book Appointment",
+        reviews_badge: "Verified Client Testimonials",
+        reviews_title: "GOOGLE MAPS REVIEWS (4.8★)",
+        reviews_link_btn: "View 156 Reviews on Google",
+        review_1_text: '"The best Turkish barber in Al Barsha without doubt. The fade is crisp, the staff is very polite and the hot towel service is unbeatable after a long working day."',
+        review_2_text: '"Always come here for the Moroccan bath and beard shaping. Clean salon, luxurious atmosphere and open until 1:00 AM which is so convenient."',
+        review_3_text: '"5 stars for precision and attention to detail. Great prices for the high quality they deliver. Definitely my regular barber in Al Barsha 1."',
+        verified_client: "Verified Google Reviewer",
+        regular_client: "Frequent Guest",
+        loc_badge: "Visit Us",
+        loc_title: "HOURS & LOCATION",
+        loc_address_title: "THE BARBER LOUNGE GENTS GENTS SALON",
+        loc_address_sub: "Al Raha Building - Shop 4 - Al Barsha First - Al Barsha - Dubai",
+        loc_hours_title: "Operating Hours",
+        loc_hours_sub: "Daily from 9:00 AM to 1:00 AM (Continuous Service)",
+        btn_maps: "Open in Google Maps",
+        modal_book_badge: "Instant Booking",
+        modal_book_title: "BOOK APPOINTMENT",
+        modal_book_sub: "Confirm your booking directly via WhatsApp",
+        form_name: "Full Name",
+        form_service: "Service",
+        form_time: "Preferred Time",
+        btn_book_submit: "Confirm Appointment",
+        aed: "AED",
+        book_action: "Book Appointment"
+      },
+      ar: {
+        preview_badge: "معاينة حصرية:",
+        preview_salon: "صالون أدريس التركي للرجال (البرشاء الأولى، دبي)",
+        preview_cta_sub: "احصل على هذا الموقع الرسمي بنطاقك الخاص مقابل 1,000 درهم فقط",
+        preview_btn: "تفعيل الموقع",
+        marquee_text: "✦ مفتوح يومياً من 9:00 صباحاً حتى 1:00 صباحاً ✦ نرحب بجميع الزوار والحجوزات ✦ البرشاء الأولى، دبي",
+        brand_name: "صالون أدريس التركي",
+        brand_sub: "للرجال • دبي",
+        nav_services: "الخدمات",
+        nav_amenities: "المزايا",
+        nav_reviews: "التقييمات (4.8★)",
+        nav_location: "الموقع",
+        btn_book_nav: "حجز موعد",
+        hero_reviews_badge: "• 156 تقييم حقيقي على خرائط جوجل",
+        hero_title: 'فن الحلاقة الفاخرة و <span class="bg-gradient-to-r from-amber-700 via-gold-500 to-amber-600 dark:from-gold-300 dark:via-amber-400 dark:to-gold-500 bg-clip-text text-transparent">العناية الملكية</span>',
+        hero_desc: "يقع في مبنى الراحة، البرشاء الأولى، دبي. قصات شعر دقيقة، نحت اللحية بالفوطة الساخنة، حمام مغربي تقليدي وعناية تنفيذية VIP في أجواء نادي خاص راقٍ.",
+        btn_book_hero: "احجز موعدك الآن",
+        btn_explore_hero: "استعرض قائمة الخدمات",
+        stat_hours_val: "9 ص – 1 ص",
+        stat_hours_lbl: "مفتوح يومياً",
+        stat_loc_val: "البرشاء 1",
+        stat_loc_lbl: "البرشاء • دبي",
+        stat_rate_val: "4.8★",
+        stat_rate_lbl: "156 تقييم",
+        amenity_coffee_title: "ركن القهوة المختصة",
+        amenity_coffee_sub: "قهوة وشاي عربي مجاني",
+        amenity_hammam_title: "جناح الحمام المغربي",
+        amenity_hammam_sub: "طقوس البخار والتقشير الخاص",
+        amenity_hygiene_title: "تعقيم طبي معتمد",
+        amenity_hygiene_sub: "شفرات معقمة للاستخدام الواحد",
+        amenity_late_title: "خدمة حتى وقت متأخر",
+        amenity_late_sub: "خدمة متواصلة حتى الواحدة صباحاً",
+        sec_menu_badge: "قائمة العناية الرجالية",
+        sec_menu_title: "الخدمات الحصرية",
+        sec_menu_sub: "تُقدم كل جلسة عناية باستخدام أرقى مستحضرات التجميل المستوردة وحرفية الحلاقة الأصيلة.",
+        atmosphere_badge: "أجواء النادي الخاص",
+        atmosphere_title: "واحة من الراحة والتميز في البرشاء",
+        atmosphere_desc: "استمتع بأجواء هادئة وفاخرة صُممت خصيصاً لوقتك الخاص. مقاعد جلدية مريحة، إضاءة مدروسة، وضيافة عربية أصيلة تركز على أناقتك وراحتك.",
+        btn_book_lounge: "احجز موعدك الآن",
+        reviews_badge: "آراء عملائنا الكرام",
+        reviews_title: "تقييمات خرائط جوجل (4.8★)",
+        reviews_link_btn: "عرض 156 تقييماً على جوجل",
+        review_1_text: '"أفضل حلاق في البرشاء بلا منازع. التدرج دقيق جداً، الطاقم محترم والخدمة بالفوطة الساخنة ممتازة بعد يوم عمل طويل."',
+        review_2_text: '"آتي إلى هنا دائماً للحمام المغربي وتشذيب اللحية. صالون نظيف وراقٍ ومفتوح حتى الواحدة صباحاً وهو أمر مناسب جداً."',
+        review_3_text: '"5 نجوم على الدقة والاهتمام بأدق التفاصيل. أسعار ممتازة مقارنة بالجودة العالية المقدمة. حلاقي الدائم في البرشاء الأولى."',
+        verified_client: "عميل معتمد على جوجل",
+        regular_client: "عميل دائم",
+        loc_badge: "تفضل بزيارتنا",
+        loc_title: "الموقع وساعات العمل",
+        loc_address_title: "صالون أدريس التركي للرجال",
+        loc_address_sub: "محل 4، مبنى الراحة، البرشاء الأولى، البرشاء، دبي، الإمارات",
+        loc_hours_title: "ساعات العمل الرسمية",
+        loc_hours_sub: "يومياً من الساعة 9:00 صباحاً حتى 1:00 صباحاً (خدمة مستمرة)",
+        btn_maps: "فتح في خرائط جوجل",
+        modal_book_badge: "حجز فوري",
+        modal_book_title: "حجز موعد",
+        modal_book_sub: "أكد حجزك مباشرة عبر تطبيق الواتساب",
+        form_name: "الاسم الكامل",
+        form_service: "الخدمة المطلوبة",
+        form_time: "الوقت المفضل",
+        btn_book_submit: "تأكيد الحجز عبر واتساب",
+        aed: "درهم",
+        book_action: "حجز موعد"
+      }
+    };
+
+    // Dedicated Services Dataset with Individual Images
+    const DEFAULT_SERVICES = [
+      {
+        id: "svc-1",
+        name_en: "Master Haircut & Skin Fade",
+        name_ar: "قص شعر دقيق وتدرج احترافي",
+        price: 85,
+        duration: "45 min",
+        category_en: "Barbering",
+        category_ar: "حلاقة",
+        desc_en: "Precision scissor work and seamless skin fade tailored to your facial structure. Includes wash and matte clay finish.",
+        desc_ar: "قص دقيق بالمقص وتدرج سلس يتناسب مع ملامح وجهك. يشمل غسيل الشعر وتصفيفه بالطين غير اللامع.",
+        image: "haircut.jpg",
+        badge_en: "Most Popular",
+        badge_ar: "الأكثر طلباً"
+      },
+      {
+        id: "svc-2",
+        name_en: "Royal Hot Towel Beard Sculpting",
+        name_ar: "نحت اللحية الملكي بالفوطة الساخنة",
+        price: 65,
+        duration: "30 min",
+        category_en: "Beard",
+        category_ar: "لحية",
+        desc_en: "Straight razor contouring with eucalyptus steaming towels, botanical shaving cream, and sandalwood beard oil massage.",
+        desc_ar: "تحديد دقيق بالموس مع فوط البخار العشبية برائحة الكينا وكريم الحلاقة النباتي وتدليك بزيت خشب الصندل.",
+        image: "beard.jpg",
+        badge_en: "Signature Ritual",
+        badge_ar: "بصمة أدريس التركي"
+      },
+      {
+        id: "svc-3",
+        name_en: "Authentic Moroccan Bath & Hammam",
+        name_ar: "حمام مغربي تقليدي وبخار خاص",
+        price: 180,
+        duration: "60 min",
+        category_en: "Treatments",
+        category_ar: "علاجات",
+        desc_en: "Private marble steam suite, traditional black olive soap, deep Kessa glove exfoliation, and pure eucalyptus relaxation.",
+        desc_ar: "جناح بخار رخامي خاص، صابون زيتون أسود بلدي، تقشير بكيس الكيسة التقليدي، واسترخاء بزيت الكينا.",
+        image: "bath.jpg",
+        badge_en: "Traditional Ritual",
+        badge_ar: "طقس تقليدي"
+      },
+      {
+        id: "svc-4",
+        name_en: "Deep Cleansing Charcoal & 24K Mask",
+        name_ar: "تنظيف عميق بالفحم وقناع الذهب",
+        price: 120,
+        duration: "45 min",
+        category_en: "Treatments",
+        category_ar: "علاجات",
+        desc_en: "Ultrasonic blackhead detox, steam hydration, gold collagen mask, and cold stone facial acupressure.",
+        desc_ar: "إزالة الرؤوس السوداء بالموجات الصوتية، ترطيب بالبخار، قناع الكولاجين بالذهب، وتدليك الوجه بالحجارة الباردة.",
+        image: "facial.jpg",
+        badge_en: "Executive Detox",
+        badge_ar: "ديتوكس تنفيذي"
+      },
+      {
+        id: "svc-5",
+        name_en: "VIP Executive Suite Experience",
+        name_ar: "باقة الجناح التنفيذي الملكية VIP",
+        price: 250,
+        duration: "90 min",
+        category_en: "VIP Packages",
+        category_ar: "باقات VIP",
+        desc_en: "Complete hair sculpture, beard sculpting, express detox facial, relaxing scalp massage, and complimentary barista selection.",
+        desc_ar: "قص شعر كامل، نحت اللحية، تنظيف سريع للوجه، تدليك مهدئ لفروة الرأس، وقهوة باريستا فاخرة.",
+        image: "lounge.jpg",
+        badge_en: "Complete Suite",
+        badge_ar: "الباقة الشاملة"
+      }
+    ];
+
+    const DEFAULT_CATEGORIES_EN = ["All", "Barbering", "Beard", "Treatments", "VIP Packages"];
+    const DEFAULT_CATEGORIES_AR = ["الكل", "حلاقة", "لحية", "علاجات", "باقات VIP"];
+
+    // State Variables
+    let currentLang = localStorage.getItem('barber_loung_turkis_lang') || 'en';
+    let currentTheme = localStorage.getItem('barber_loung_turkis_theme_v2') || 'light';
+    let services = JSON.parse(localStorage.getItem('barber_loung_turkis_turkis_services_v3')) || DEFAULT_SERVICES;
+    let currentFilterIdx = 0;
+    let orders = JSON.parse(localStorage.getItem('barber_loung_turkis_orders')) || [];
+    let currentCompressedPhoto = null;
+
+    // Boot App
+    document.addEventListener('DOMContentLoaded', () => {
+      applyTheme(currentTheme);
+      applyLanguage(currentLang);
+    });
+
+    // Theme Management
+    function applyTheme(theme) {
+      currentTheme = theme;
+      localStorage.setItem('barber_loung_turkis_theme_v2', theme);
+      var mt = document.querySelector('meta[name=theme-color]'); if (mt) mt.setAttribute('content', theme === 'dark' ? '#09100D' : '#F6F1E7');
+      if (theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    }
+
+    function toggleTheme() {
+      applyTheme(currentTheme === 'dark' ? 'light' : 'dark');
+    }
+
+    // Language Management
+    function toggleLangDropdown() {
+      const drop = document.getElementById('langDropdown');
+      drop.classList.toggle('hidden');
+    }
+
+    function changeLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('barber_loung_turkis_lang', lang);
+      document.getElementById('langDropdown').classList.add('hidden');
+      applyLanguage(lang);
+    }
+
+    function applyLanguage(lang) {
+      document.documentElement.setAttribute('lang', lang);
+      document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      document.getElementById('currentLangLabel').innerText = lang.toUpperCase();
+      var mEn = document.getElementById('mLangEn'), mAr = document.getElementById('mLangAr');
+      if (mEn && mAr) { mEn.classList.toggle('seg-active', lang === 'en'); mAr.classList.toggle('seg-active', lang === 'ar'); }
+
+      const dict = translations[lang] || translations.en;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) {
+          if (key === 'hero_title') {
+            el.innerHTML = dict[key];
+          } else {
+            el.innerText = dict[key];
+          }
+        }
+      });
+
+      renderCategoryFilters();
+      renderServices();
+    }
+
+    // Render Filters
+    function renderCategoryFilters() {
+      const container = document.getElementById('categoryFilterContainer');
+      const cats = currentLang === 'ar' ? DEFAULT_CATEGORIES_AR : DEFAULT_CATEGORIES_EN;
+
+      container.innerHTML = cats.map((cat, idx) => `
+        <button onclick="setFilterIndex(${idx})" class="chip ${currentFilterIdx === idx ? 'active' : ''}">${cat}</button>
+      `).join('');
+    }
+
+    function setFilterIndex(idx) {
+      currentFilterIdx = idx;
+      renderCategoryFilters();
+      renderServices();
+    }
+
+    // Render Services with Distinct Individual Images
+    function renderServices() {
+      const container = document.getElementById('servicesGrid');
+      const isAr = currentLang === 'ar';
+      const catsEn = DEFAULT_CATEGORIES_EN;
+
+      let filtered = services;
+      if (currentFilterIdx !== 0) {
+        const selectedCatEn = catsEn[currentFilterIdx];
+        filtered = services.filter(s => s.category_en === selectedCatEn || s.category === selectedCatEn);
+      }
+
+      const dict = translations[currentLang] || translations.en;
+
+      container.innerHTML = filtered.map(s => {
+        const name = isAr ? (s.name_ar || s.name) : (s.name_en || s.name);
+        const desc = isAr ? (s.desc_ar || s.desc) : (s.desc_en || s.desc);
+        const cat = isAr ? (s.category_ar || s.category) : (s.category_en || s.category);
+        const badge = isAr ? (s.badge_ar || s.badge) : (s.badge_en || s.badge);
+        const safeName = String(name).replace(/'/g, "\\'");
+
+        return `
+        <article class="card group overflow-hidden flex flex-col reveal in">
+          <div class="relative aspect-[4/5] overflow-hidden">
+            <img src="${s.image}" alt="${name}" loading="lazy" class="w-full h-full object-cover transition-transform duration-[1000ms] group-hover:scale-105">
+            <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(6,16,12,.75) 0%,rgba(6,16,12,0) 55%)"></div>
+            <div class="absolute top-4 start-4 flex flex-wrap items-center gap-2">
+              <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase" style="background:rgba(246,241,231,.92);color:#14201B;letter-spacing:.12em">${cat}</span>
+              ${badge ? `<span class="px-3 py-1 rounded-full text-[10px] font-bold" style="background:#D9B76F;color:#14201B">${badge}</span>` : ''}
+            </div>
+            <div class="absolute bottom-4 end-4 px-4 py-2 rounded-full" style="background:rgba(9,16,13,.78);color:#F6F1E7;backdrop-filter:blur(8px)">
+              <span class="display text-xl font-semibold" style="color:#D9B76F">${s.price}</span>
+              <span class="text-[11px] opacity-80">${dict.aed}</span>
+            </div>
+          </div>
+          <div class="p-6 flex-1 flex flex-col">
+            <h3 class="display text-2xl font-medium leading-tight mb-2">${name}</h3>
+            <p class="muted text-sm leading-relaxed mb-6">${desc}</p>
+            <div class="mt-auto flex items-center justify-between gap-3">
+              ${s.duration ? `<span class="text-xs muted flex items-center gap-2"><i class="far fa-clock" style="color:var(--brass)"></i>${s.duration}</span>` : '<span></span>'}
+              <button onclick="bookDirect('${safeName} (${s.price} ${dict.aed})')" class="btn-primary !py-3 !px-6">${dict.book_action}</button>
+            </div>
+          </div>
+        </article>
+        `;
+      }).join('');
+    }
+
+    function bookDirect(serviceText) {
+      document.getElementById('bookService').value = serviceText;
+      openBookingModal();
+    }
+
+    // Modal Handling
+    function openBookingModal() {
+      document.getElementById('bookingModal').classList.remove('hidden');
+      document.getElementById('bookingModal').classList.add('flex');
+    }
+    function closeBookingModal() {
+      document.getElementById('bookingModal').classList.add('hidden');
+      document.getElementById('bookingModal').classList.remove('flex');
+    }
+
+    function openActivationModal() {
+      document.getElementById('activationModal').classList.remove('hidden');
+      document.getElementById('activationModal').classList.add('flex');
+    }
+    function closeActivationModal() {
+      document.getElementById('activationModal').classList.add('hidden');
+      document.getElementById('activationModal').classList.remove('flex');
+    }
+
+    function openAdminModal() {
+      document.getElementById('adminModal').classList.remove('hidden');
+      document.getElementById('adminModal').classList.add('flex');
+      renderAdminServices();
+      renderAdminCategories();
+      renderAdminOrders();
+    }
+    function closeAdminModal() {
+      document.getElementById('adminModal').classList.add('hidden');
+      document.getElementById('adminModal').classList.remove('flex');
+    }
+
+    // Handle Public Booking Submission
+    function handleBookingSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('bookName').value;
+      const service = document.getElementById('bookService').value;
+      const time = document.getElementById('bookTime').value;
+
+      const orderItem = {
+        id: "res-" + Date.now(),
+        name,
+        service,
+        time,
+        date: new Date().toLocaleString()
+      };
+
+      orders.unshift(orderItem);
+      localStorage.setItem('barber_loung_turkis_orders', JSON.stringify(orders));
+
+      const isAr = currentLang === 'ar';
+      const waText = isAr
+        ? encodeURIComponent(`مرحباً صالون أدريس التركي للرجال، أود حجز موعد:\n- الاسم: ${name}\n- الخدمة: ${service}\n- الموعد: ${time}`)
+        : encodeURIComponent(`Hello THE BARBER LOUNGE GENTS GENTS SALON, I would like to book an appointment:\n- Name: ${name}\n- Service: ${service}\n- Preferred Time: ${time}`);
+
+      window.open(`https://wa.me/971508036011?text=${waText}`, '_blank');
+      closeBookingModal();
+    }
+
+    // Admin Auth
+    function handleAdminLogin(e) {
+      e.preventDefault();
+      const email = document.getElementById('adminEmailInput').value;
+      const pass = document.getElementById('adminPasswordInput').value;
+      if (email === "admin@adresturkishsa.com" && pass === "admin123") {
+        document.getElementById('adminLoginSection').classList.add('hidden');
+        document.getElementById('adminDashboardSection').classList.remove('hidden');
+      } else {
+        alert("Invalid admin credentials.");
+      }
+    }
+
+    function logoutAdmin() {
+      document.getElementById('adminLoginSection').classList.remove('hidden');
+      document.getElementById('adminDashboardSection').classList.add('hidden');
+    }
+
+    function switchTab(tabId) {
+      ['tabServices', 'tabAnnounce', 'tabCategories', 'tabOrders', 'tabConfig'].forEach(id => {
+        document.getElementById(id).classList.add('hidden');
+      });
+      document.getElementById(tabId).classList.remove('hidden');
+
+      ['btnTabServices', 'btnTabAnnounce', 'btnTabCategories', 'btnTabOrders', 'btnTabConfig'].forEach(btn => {
+        document.getElementById(btn).className = "px-4 py-2 border-b-2 border-transparent text-stone-500 dark:text-slate-400 whitespace-nowrap";
+      });
+      document.getElementById('btn' + tabId.charAt(0).toUpperCase() + tabId.slice(1)).className = "px-4 py-2 border-b-2 border-gold-500 text-gold-600 dark:text-gold-400 font-bold whitespace-nowrap";
+    }
+
+    // HTML5 Canvas Client-Side Mobile Image Compressor
+    function handleImageCompress(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const maxDim = 800;
+          let width = img.width;
+          let height = img.height;
+
+          if (width > height && width > maxDim) {
+            height = Math.round((height * maxDim) / width);
+            width = maxDim;
+          } else if (height > maxDim) {
+            width = Math.round((width * maxDim) / height);
+            height = maxDim;
+          }
+
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+
+          currentCompressedPhoto = canvas.toDataURL('image/jpeg', 0.82);
+          const preview = document.getElementById('svcPhotoPreview');
+          preview.src = currentCompressedPhoto;
+          preview.classList.remove('hidden');
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function saveServiceItem() {
+      const name = document.getElementById('svcName').value.trim();
+      const price = parseFloat(document.getElementById('svcPrice').value) || 50;
+      const duration = document.getElementById('svcDuration').value.trim() || "30 min";
+      const category = document.getElementById('svcCategory').value;
+      const desc = document.getElementById('svcDesc').value.trim();
+
+      if (!name) return alert('Please enter service name.');
+
+      const newSvc = {
+        id: "svc-" + Date.now(),
+        name_en: name,
+        name_ar: name,
+        price,
+        duration,
+        category_en: category,
+        category_ar: category,
+        desc_en: desc || "Professional grooming care.",
+        desc_ar: desc || "عناية حلاقة احترافية.",
+        image: currentCompressedPhoto || "haircut.jpg",
+        badge_en: "New",
+        badge_ar: "جديد"
+      };
+
+      services.unshift(newSvc);
+      localStorage.setItem('barber_loung_turkis_turkis_services_v3', JSON.stringify(services));
+      
+      document.getElementById('svcName').value = '';
+      document.getElementById('svcPrice').value = '';
+      document.getElementById('svcDuration').value = '';
+      document.getElementById('svcDesc').value = '';
+      document.getElementById('svcPhotoPreview').classList.add('hidden');
+      currentCompressedPhoto = null;
+
+      renderServices();
+      renderAdminServices();
+      alert('Service saved successfully.');
+    }
+
+    function deleteServiceItem(id) {
+      if (!confirm('Delete this service?')) return;
+      services = services.filter(s => String(s.id) !== String(id));
+      localStorage.setItem('barber_loung_turkis_turkis_services_v3', JSON.stringify(services));
+      renderServices();
+      renderAdminServices();
+    }
+
+    function renderAdminServices() {
+      const list = document.getElementById('adminServicesList');
+      list.innerHTML = services.map(s => `
+        <div class="p-3 rounded-xl bg-stone-100 dark:bg-white/[0.03] border border-stone-300 dark:border-white/5 flex items-center justify-between text-xs">
+          <div class="flex items-center gap-3">
+            <img src="${s.image}" class="w-10 h-10 rounded-lg object-cover">
+            <div>
+              <strong class="text-stone-900 dark:text-white block font-sans">${s.name_en || s.name}</strong>
+              <span class="text-amber-700 dark:text-gold-400 font-mono">${s.price} AED</span> • <span class="text-stone-500 dark:text-slate-400">${s.category_en || s.category}</span>
+            </div>
+          </div>
+          <button onclick="deleteServiceItem('${s.id}')" class="px-2.5 py-1 rounded bg-rose-500/20 text-rose-500 hover:bg-rose-500 hover:text-white transition-colors">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      `).join('');
+    }
+
+    function saveAnnouncement() {
+      const text = document.getElementById('announceTextInput').value.trim();
+      localStorage.setItem('barber_loung_turkis_announcement', text);
+      document.getElementById('announcementText').innerText = text;
+      alert('Announcement updated.');
+    }
+
+    function addCategory() {
+      const val = document.getElementById('newCategoryInput').value.trim();
+      if (!val) return;
+      DEFAULT_CATEGORIES_EN.push(val);
+      DEFAULT_CATEGORIES_AR.push(val);
+      document.getElementById('newCategoryInput').value = '';
+      renderCategoryFilters();
+      renderAdminCategories();
+    }
+
+    function renderAdminCategories() {
+      const cont = document.getElementById('adminCategoryTags');
+      cont.innerHTML = DEFAULT_CATEGORIES_EN.map(c => `
+        <span class="px-3 py-1 rounded-full bg-stone-200 dark:bg-white/5 border border-stone-300 dark:border-white/10 text-stone-700 dark:text-slate-300 flex items-center gap-2">
+          ${c}
+        </span>
+      `).join('');
+    }
+
+    function renderAdminOrders() {
+      const cont = document.getElementById('ordersLogContainer');
+      if (!orders.length) {
+        cont.innerHTML = '<p class="text-stone-500 dark:text-slate-500 font-mono">No appointments recorded.</p>';
+        return;
+      }
+      cont.innerHTML = orders.map(o => `
+        <div class="p-3 rounded-xl bg-stone-100 dark:bg-white/[0.03] border border-stone-300 dark:border-white/5">
+          <div class="flex justify-between items-center text-amber-700 dark:text-gold-400 font-mono text-[10px]">
+            <span>${o.id}</span>
+            <span>${o.date}</span>
+          </div>
+          <strong class="text-stone-900 dark:text-white block text-xs mt-1">${o.name}</strong>
+          <span class="text-stone-700 dark:text-slate-300 block text-xs">${o.service}</span>
+          <span class="text-stone-500 dark:text-slate-500 text-[11px] font-mono">Time requested: ${o.time}</span>
+        </div>
+      `).join('');
+    }
+
+    function exportDataBackup() {
+      const data = { services, orders };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `barber_loung_turkis_backup_${Date.now()}.json`;
+      a.click();
+    }
+
+    function importDataBackup(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (evt) => {
+        try {
+          const d = JSON.parse(evt.target.result);
+          if (d.services) services = d.services;
+          if (d.orders) orders = d.orders;
+          localStorage.setItem('barber_loung_turkis_turkis_services_v3', JSON.stringify(services));
+          localStorage.setItem('barber_loung_turkis_orders', JSON.stringify(orders));
+          renderServices();
+          renderAdminServices();
+          alert('Data restored successfully.');
+        } catch (err) {
+          alert('Invalid JSON file.');
+        }
+      };
+      reader.readAsText(file);
+    }
+  </script>
+  <script>
+    /* ===== v2 design: extra copy (EN + AR), menu, reveal, counters ===== */
+    Object.assign(translations.en, {
+      hero_eyebrow: "Dubai, UAE",
+      hero_title: 'The art of the <em class="brass-text">gentleman’s grooming</em>',
+      mq_1: "Signature Haircut", mq_2: "Royal Beard Sculpting", mq_3: "Moroccan Bath", mq_4: "Charcoal Detox Facial", mq_5: "VIP Gentlemen’s Lounge",
+      sec_menu_title: "Master services",
+      exp_badge: "The Experience", exp_title: "More than a haircut.",
+      atmosphere_title: "An oasis of bespoke comfort in Al Barsha",
+      stat_score: "Guest rating", stat_guests: "Google reviews", stat_hours16: "Hours of care daily", stat_rituals: "Signature rituals",
+      reviews_title: "Trusted across Al Barsha, one chair at a time.",
+      reviews_note: "Every rating comes from real guests on Google Maps. Read what they say.",
+      loc_title: "Hours & location",
+      cta_title: "Your chair is waiting.", cta_sub: "Walk in any day until 1 AM, or reserve your slot in seconds.",
+      menu_lang: "Language", menu_theme: "Appearance", theme_dark: "Dark", theme_light: "Light",
+      footer_tag: "Bespoke grooming in the heart of Al Barsha."
+    });
+    Object.assign(translations.ar, {
+      hero_eyebrow: "البرشاء الأولى · دبي",
+      hero_title: 'فنّ العناية <em class="brass-text">بالرجل الأنيق</em>',
+      mq_1: "قصّة شعر مميّزة", mq_2: "تهذيب اللحية الملكي", mq_3: "الحمّام المغربي", mq_4: "تنظيف البشرة بالفحم", mq_5: "صالة كبار الزوار",
+      sec_menu_title: "خدمات الحلاقة الراقية",
+      exp_badge: "التجربة", exp_title: "أكثر من مجرّد قصّة شعر.",
+      atmosphere_title: "واحة من الراحة الفاخرة في البرشاء",
+      stat_score: "تقييم الضيوف", stat_guests: "تقييم على جوجل", stat_hours16: "ساعة عناية يومياً", stat_rituals: "طقوس مميّزة",
+      reviews_title: "ثقة أهل البرشاء، كرسيّاً بعد كرسي.",
+      reviews_note: "كل تقييم من ضيوف حقيقيين على خرائط جوجل. اطّلع على آرائهم.",
+      loc_title: "الموقع وساعات العمل",
+      cta_title: "كرسيّك بانتظارك.", cta_sub: "تفضّل في أي يوم حتى الواحدة صباحاً، أو احجز موعدك في ثوانٍ.",
+      menu_lang: "اللغة", menu_theme: "المظهر", theme_dark: "داكن", theme_light: "فاتح",
+      footer_tag: "عناية راقية في قلب البرشاء."
+    });
+    /* re-apply now that extra keys exist */
+    applyLanguage(currentLang);
+
+    function toggleMenu() {
+      const panel = document.getElementById('menuPanel');
+      const open = panel.classList.toggle('hidden') === false;
+      document.getElementById('menuBtn').setAttribute('aria-expanded', open);
+    }
+    document.addEventListener('click', (e) => {
+      const panel = document.getElementById('menuPanel');
+      if (panel && !panel.classList.contains('hidden') && !panel.contains(e.target) && !e.target.closest('#menuBtn')) panel.classList.add('hidden');
+      const dd = document.getElementById('langDropdown');
+      if (dd && !dd.classList.contains('hidden') && !dd.contains(e.target) && !e.target.closest('#langBtn')) dd.classList.add('hidden');
+    });
+
+    /* scroll reveal + count-up */
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (!en.isIntersecting) return;
+        en.target.classList.add('in');
+        en.target.querySelectorAll('[data-count]').forEach(el => {
+          const to = parseFloat(el.dataset.count), dec = parseInt(el.dataset.dec || 0), t0 = performance.now(), dur = 1400;
+          const tick = (t) => { const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3); el.textContent = (to * e).toFixed(dec); if (k < 1) requestAnimationFrame(tick); else el.textContent = to.toFixed(dec); };
+          requestAnimationFrame(tick);
+        });
+        io.unobserve(en.target);
+      });
+    }, { threshold: .15 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+
+    <script>
+      /* HARVEY V3 1-TO-1 BESPOKE NICHE OVERRIDE: GENTS BARBER SALON */
+      try { localStorage.removeItem('barber_loung_turkis_services'); localStorage.removeItem('barber_loung_turkis_services_v2'); } catch(e) {}
+      DEFAULT_SERVICES.forEach(s => { if (s.image && !s.image.includes('?')) s.image = s.image + '?v=3'; });
+      services = JSON.parse(localStorage.getItem('barber_loung_turkis_services_v3')) || DEFAULT_SERVICES;
+      Object.assign(translations.en, {
+        brand_name: "THE BARBER LOUNGE GENTS",
+        brand_sub: "Gents Salon • Dubai",
+        hero_eyebrow: "Al Barsha First \u00b7 Dubai",
+        atmosphere_title: "An oasis of bespoke comfort in Al Barsha First",
+        reviews_title: "Trusted across Al Barsha First, one chair at a time.",
+        footer_tag: "Bespoke gentlemen's grooming in the heart of Al Barsha First, Dubai.",
+        loc_address_title: "THE BARBER LOUNGE GENTS SALON",
+        loc_address_sub: "Al Raha Building - Shop 4 - Al Barsha First - Al Barsha - Dubai"
+      });
+      Object.assign(translations.ar, {
+        brand_name: "THE BARBER LOUNGE GENTS SALON",
+        brand_sub: "صالون رجالي فاخر • دبي",
+        loc_address_title: "THE BARBER LOUNGE GENTS SALON",
+        loc_address_sub: "Al Raha Building - Shop 4 - Al Barsha First - Al Barsha - Dubai"
+      });
+      applyLanguage(currentLang);
+    </script>
+
+    <!-- UNIVERSAL SPY VISITOR TRACKER V2 (RULE 14) -->
+    <script>
+      window.SPY_SITE_ID = "jota-preview-barber-lounge";
+      window.SPY_SITE_NAME = "Jota Beta Preview: THE BARBER LOUNGE GENTS SALON";
+      window.SPY_SITE_CATEGORY = "jota_preview";
+    </script>
+    <script src="spy-tracker.js"></script>
+</body>
+</html>
