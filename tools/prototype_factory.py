@@ -390,7 +390,7 @@ def build_prototype_for_prospect(lead_id: str = None) -> dict:
     </script>
 """
     override_pattern = r'<script>\s*/\* (?:HARVEY|PAPARAZZI)[\s\S]*?</script>'
-    html = re.sub(override_pattern, override_script.strip(), html)
+    html = re.sub(override_pattern, lambda m: override_script.strip(), html)
 
     # Write customized index.html
     target_index = os.path.join(target_dir, "index.html")
