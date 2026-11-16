@@ -290,13 +290,108 @@ def build_prototype_for_prospect(lead_id: str = None) -> dict:
     replacement_cats = f"const DEFAULT_CATEGORIES_EN = {cats_en_js};\n    const DEFAULT_CATEGORIES_AR = {cats_ar_js};"
     html = re.sub(cats_pattern, replacement_cats, html, flags=re.DOTALL)
     
-    # Update translations dictionaries
-    html = re.sub(r'brand_name:\s*"[^"]+"', f'brand_name: "{p_name.upper()}"', html)
-    html = re.sub(r'brand_sub:\s*"[^"]+"', f'brand_sub: "{cfg["badge_en"]}"', html)
-    html = re.sub(r'loc_address_title:\s*"[^"]+"', f'loc_address_title: "{p_name}"', html)
-    html = re.sub(r'loc_address_sub:\s*"[^"]+"', f'loc_address_sub: "{p_address}"', html)
-    html = re.sub(r'hero_eyebrow:\s*"[^"]+"', f'hero_eyebrow: "{p_address.split("-")[-1].strip() if "-" in p_address else "Dubai"}"', html)
-    
+    # Monogram logo in header
+    first_letter = p_name[0].upper() if p_name else "P"
+    html = re.sub(
+        r'<span class="w-10 h-10 rounded-full flex items-center justify-center display text-xl font-[^"]*" style="background:[^;]+;color:[^"]+">[A-Z]</span>',
+        f'<span class="w-10 h-10 rounded-full flex items-center justify-center display text-xl font-bold" style="background:var(--brass-fill);color:#14201B">{first_letter}</span>',
+        html
+    )
+
+    # Floating badge on hero (beard.jpg for barber, manicure.jpg for ladies)
+    hero_badge_img = "beard.jpg" if niche_key == "gents_barber" else "manicure.jpg"
+    hero_badge_alt = "Precision Beard Sculpting" if niche_key == "gents_barber" else "Russian Couture Nails"
+    html = re.sub(
+        r'<img src="(?:manicure|beard)\.jpg"[^>]*class="rounded-xl aspect-\[4/5\][^"]*"[^>]*>',
+        f'<img src="{hero_badge_img}" alt="{hero_badge_alt}" class="rounded-xl aspect-[4/5] object-cover w-full" loading="lazy">',
+        html
+    )
+
+    # Hero headline & description
+    html = re.sub(r'data-i18n="hero_title">[\s\S]*?</h1>', f'data-i18n="hero_title">{cfg["hero_title_en"]}</h1>', html)
+    html = re.sub(r'data-i18n="hero_desc">[\s\S]*?</p>', f'data-i18n="hero_desc">{p_address}. {cfg["hero_desc_en"]}</p>', html)
+
+    # Replace script 6 bespoke override completely with niche data
+    override_script = f"""
+    <script>
+      /* {p_name.upper()} BESPOKE OVERRIDE */
+      try {{
+        localStorage.removeItem('{slug.replace("-", "_")}_services');
+        localStorage.removeItem('{slug.replace("-", "_")}_services_v2');
+        localStorage.removeItem('{slug.replace("-", "_")}_services_v3');
+      }} catch(e) {{}}
+
+      DEFAULT_SERVICES.splice(0, DEFAULT_SERVICES.length,
+{json.dumps(cfg["services"], ensure_ascii=False, indent=8).strip("[]")}
+      );
+      DEFAULT_CATEGORIES_EN.splice(0, DEFAULT_CATEGORIES_EN.length, {", ".join(json.dumps(c) for c in cfg["categories_en"])});
+      DEFAULT_CATEGORIES_AR.splice(0, DEFAULT_CATEGORIES_AR.length, {", ".join(json.dumps(c) for c in cfg["categories_ar"])});
+      services = DEFAULT_SERVICES;
+
+      Object.assign(translations.en, {{
+        brand_name: "{p_name.upper()}",
+        brand_sub: "{cfg["badge_en"]}",
+        hero_eyebrow: "{p_address.split("-")[-1].strip() if "-" in p_address else "Dubai"}",
+        hero_title: '{cfg["hero_title_en"]}',
+        hero_desc: "Located at {p_address}. {cfg["hero_desc_en"]}",
+        mq_1: "{cfg["services"][0]["name_en"]}", mq_2: "{cfg["services"][1]["name_en"]}", mq_3: "{cfg["services"][2]["name_en"]}", mq_4: "{cfg["services"][3]["name_en"]}", mq_5: "{cfg["services"][4]["name_en"]}",
+        sec_menu_title: "Signature services",
+        sec_menu_sub: "Every treatment is delivered with premium imported cosmetics and master craftsmanship.",
+        exp_badge: "The Experience",
+        exp_title: "More than a haircut.",
+        atmosphere_badge: "Private Atmosphere",
+        atmosphere_title: "An oasis of bespoke comfort in Dubai",
+        atmosphere_desc: "Modern luxury chairs, ambient illumination and master care focused entirely on your satisfaction.",
+        amenity_coffee_title: "{cfg["amenity_1"]["en"]}",
+        amenity_coffee_sub: "{cfg["amenity_1"]["sub_en"]}",
+        amenity_hygiene_title: "{cfg["amenity_2"]["en"]}",
+        amenity_hygiene_sub: "{cfg["amenity_2"]["sub_en"]}",
+        reviews_badge: "Verified Client Reviews",
+        reviews_title: "Loved across Dubai with {p_reviews} verified reviews.",
+        reviews_note: "Every rating comes from real guests on Google Maps.",
+        loc_title: "Hours & location",
+        cta_title: "Your chair is waiting.",
+        cta_sub: "Walk in or reserve your slot via WhatsApp in seconds.",
+        footer_tag: "Bespoke {cfg["badge_en"]} at {p_address}.",
+        loc_address_title: "{p_name}",
+        loc_address_sub: "{p_address}"
+      }});
+
+      Object.assign(translations.ar, {{
+        brand_name: "{p_name}",
+        brand_sub: "{cfg["badge_ar"]}",
+        hero_eyebrow: "دبي · الإمارات",
+        hero_title: '{cfg["hero_title_ar"]}',
+        hero_desc: "يقع في {p_address}. {cfg["hero_desc_ar"]}",
+        mq_1: "{cfg["services"][0]["name_ar"]}", mq_2: "{cfg["services"][1]["name_ar"]}", mq_3: "{cfg["services"][2]["name_ar"]}", mq_4: "{cfg["services"][3]["name_ar"]}", mq_5: "{cfg["services"][4]["name_ar"]}",
+        sec_menu_title: "قائمة الخدمات الحصرية",
+        sec_menu_sub: "تُقدم كل جلسة عناية باستخدام أرقى المستحضرات العالمية وبأعلى درجات الاحترافية.",
+        exp_badge: "التجربة الفاخرة",
+        exp_title: "أكثر من مجرد زيارة عادية.",
+        atmosphere_badge: "أجواء راقية",
+        atmosphere_title: "واحة من الراحة والتميز في دبي",
+        atmosphere_desc: "أجواء مريحة، إضاءة مدروسة وخبراء مكرسون لراحتك وأناقتك.",
+        amenity_coffee_title: "{cfg["amenity_1"]["ar"]}",
+        amenity_coffee_sub: "{cfg["amenity_1"]["sub_ar"]}",
+        amenity_hygiene_title: "{cfg["amenity_2"]["ar"]}",
+        amenity_hygiene_sub: "{cfg["amenity_2"]["sub_ar"]}",
+        reviews_badge: "آراء العملاء المعتمدة",
+        reviews_title: "ثقة أهل دبي مع {p_reviews} تقييم حقيقي على جوجل.",
+        reviews_note: "كل تقييم من ضيوف حقيقيين على خرائط جوجل.",
+        loc_title: "الموقع وساعات العمل",
+        cta_title: "مكانك بانتظارك.",
+        cta_sub: "تفضل بزيارتنا أو احجز موعدك عبر واتساب في ثوانٍ.",
+        footer_tag: "خدمات راقية في {p_address}.",
+        loc_address_title: "{p_name}",
+        loc_address_sub: "{p_address}"
+      }});
+
+      applyLanguage(currentLang);
+    </script>
+"""
+    override_pattern = r'<script>\s*/\* (?:HARVEY|PAPARAZZI)[\s\S]*?</script>'
+    html = re.sub(override_pattern, override_script.strip(), html)
+
     # Write customized index.html
     target_index = os.path.join(target_dir, "index.html")
     with open(target_index, "w", encoding="utf-8") as f:
