@@ -277,8 +277,8 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(to right, rgba(6, 17, 13, 0.65) 0%, rgba(6, 17, 13, 0.45) 55%, rgba(6, 17, 13, 0.25) 100%),
-        linear-gradient(to bottom, rgba(6, 17, 13, 0.6) 0%, transparent 45%, var(--bg) 100%);
+        linear-gradient(to right, rgba(6, 17, 13, 0.72) 0%, rgba(6, 17, 13, 0.52) 55%, rgba(6, 17, 13, 0.38) 100%),
+        linear-gradient(to bottom, rgba(6, 17, 13, 0.70) 0%, rgba(6, 17, 13, 0.30) 45%, rgba(6, 17, 13, 0.90) 100%);
       pointer-events: none;
       z-index: 1;
     }
@@ -459,7 +459,7 @@
   <section id="hero" class="relative px-4 sm:px-6 lg:px-8 pt-12 pb-16 lg:pt-20 lg:pb-28 overflow-hidden bg-[#06110D]">
     
     <!-- OpenHero Cinematic Background Video -->
-    <video autoplay loop muted playsinline class="hero-video-bg" aria-hidden="true">
+    <video autoplay loop muted playsinline poster="hero.jpg" class="hero-video-bg" aria-hidden="true">
       <source src="hero-bg.mp4" type="video/mp4">
     </video>
 
@@ -485,7 +485,7 @@
 
     <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
 
-      <div class="lg:col-span-7 reveal">
+      <div class="lg:col-span-7 reveal in">
         <span class="eyebrow block mb-6 text-[#D9B76F]" data-i18n="hero_eyebrow">Al Barsha First · Dubai</span>
         <h1 class="display font-medium text-[2.7rem] sm:text-6xl lg:text-[4.6rem] leading-[1.02] mb-7 text-white" data-i18n="hero_title">
           The art of <em class="brass-text italic">timeless beauty & luxury</em>
@@ -503,7 +503,7 @@
         </div>
       </div>
 
-      <div class="lg:col-span-5 relative reveal mx-auto w-full max-w-md lg:max-w-none">
+      <div class="lg:col-span-5 relative reveal in mx-auto w-full max-w-md lg:max-w-none">
         <div class="arch-ring">
           <div class="arch aspect-[4/5]">
             <img src="hero.jpg?v=3" alt="Maison Haniel interior, Dubai" class="w-full h-full object-cover" fetchpriority="high">
@@ -547,9 +547,9 @@
     <div class="grid lg:grid-cols-12 gap-6 items-end mb-12 reveal">
       <div class="lg:col-span-7">
         <span class="eyebrow block mb-4" data-i18n="sec_menu_badge">Bespoke Treatment Menu</span>
-        <h2 class="display font-medium text-4xl sm:text-5xl lg:text-6xl leading-[1.05]" data-i18n="sec_menu_title">Master services</h2>
+        <h2 class="display font-medium text-4xl sm:text-5xl lg:text-6xl leading-[1.05]" data-i18n="sec_menu_title">Signature beauty rituals</h2>
       </div>
-      <p class="lg:col-span-5 muted leading-relaxed" data-i18n="sec_menu_sub">Every treatment is delivered with premium imported grooming cosmetics and time-honored barbering craftsmanship.</p>
+      <p class="lg:col-span-5 muted leading-relaxed" data-i18n="sec_menu_sub">Every treatment is crafted exclusively for ladies using luxury botanical elixirs, 24K gold skin therapy, and couture hair & nail artistry.</p>
     </div>
 
     <div class="flex items-center gap-2.5 mb-10 overflow-x-auto pb-2 -mx-4 px-4 sm:mx-0 sm:px-0" id="categoryFilterContainer"></div>
@@ -640,7 +640,7 @@
         <div class="space-y-6">
           <div class="flex items-start gap-4">
             <span class="w-11 h-11 shrink-0 rounded-full flex items-center justify-center" style="background:var(--emerald);color:#D9B76F"><i class="fas fa-location-dot"></i></span>
-            <div><strong class="display text-lg block" data-i18n="loc_address_title">Maison Haniel</strong><span class="muted text-sm" data-i18n="loc_address_sub">Oasis Tower - Sheikh Zayed Rd - Trade Center Second - DIFC - Dubai</span></div>
+            <div><strong class="display text-lg block" data-i18n="loc_address_title">Maison Haniel</strong><span class="muted text-sm" data-i18n="loc_address_sub">Al Mehairi 1 Building, Ground Floor - Al Barsha First - Dubai</span></div>
           </div>
           <div class="flex items-start gap-4">
             <span class="w-11 h-11 shrink-0 rounded-full flex items-center justify-center" style="background:var(--emerald);color:#D9B76F"><i class="far fa-clock"></i></span>
@@ -648,12 +648,12 @@
           </div>
         </div>
         <div class="mt-9 flex flex-wrap items-center gap-3">
-          <a href="https://www.google.com/maps/place/Ladies+First+Beauty+Salon/data=!4m7!3m6!1s0x3e5f428eb0cbbdcd:0xa99fc65d503a5c93!8m2!3d25.2114478!4d55.276291!16s%2Fg%2F11cnp28g8v!19sChIJzb3LsI5CXz4Rk1w6UF3Gn6k?authuser=0&hl=en&g_ep=EgoyMDI2MTAwNS4wIJJjKgBIAVAD&rclk=1" target="_blank" rel="noopener noreferrer" class="btn-primary"><i class="fas fa-location-arrow"></i><span data-i18n="btn_maps">Open in Google Maps</span></a>
+          <a href="https://www.google.com/maps/place/Maison+Haniel/data=!4m7!3m6!1s0x3e5f6bc7cfdbc711:0xfadb91cd468ea3e3!8m2!3d25.1099984!4d55.1959371!16s%2Fg%2F11h2xhqdgb!19sChIJEcfbz8drXz4R46OORs2R2_o?authuser=0&hl=en&g_ep=EgoyMDI2MTAwNS4wIJJjKgBIAVAD&rclk=1" target="_blank" rel="noopener noreferrer" class="btn-primary"><i class="fas fa-location-arrow"></i><span data-i18n="btn_maps">Open in Google Maps</span></a>
           <a href="https://wa.me/971509981318" target="_blank" rel="noopener noreferrer" class="wa-btn !w-12 !h-12" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
         </div>
       </div>
       <div class="rounded-3xl overflow-hidden aspect-[4/3] border" style="border-color:var(--line)">
-        <iframe class="map-frame w-full h-full border-0" title="Maison Haniel map" src="https://maps.google.com/maps?q=Ladies%20First%20Beauty%20Salon%20DIFC%20%20Sheikh%20Zayed%20Rd%20%20Dubai&t=&z=15&ie=UTF8&iwloc=&output=embed" allowfullscreen loading="lazy"></iframe>
+        <iframe class="map-frame w-full h-full border-0" title="Maison Haniel map" src="https://maps.google.com/maps?q=25.1099984,55.1959371&t=&z=16&ie=UTF8&iwloc=&output=embed" allowfullscreen loading="lazy"></iframe>
       </div>
     </div>
   </section>
@@ -812,9 +812,9 @@
               <input type="number" id="svcPrice" placeholder="Price in AED (e.g. 150)" class="px-3 py-2.5 rounded-lg bg-white dark:bg-noir-900 border border-stone-300 dark:border-white/10 text-stone-900 dark:text-white">
               <input type="text" id="svcDuration" placeholder="Duration (e.g. 45 min)" class="px-3 py-2.5 rounded-lg bg-white dark:bg-noir-900 border border-stone-300 dark:border-white/10 text-stone-900 dark:text-white">
               <select id="svcCategory" class="px-3 py-2.5 rounded-lg bg-white dark:bg-noir-900 border border-stone-300 dark:border-white/10 text-stone-900 dark:text-white">
-                <option value="Barbering">Barbering</option>
-                <option value="Beard">Beard</option>
-                <option value="Treatments">Treatments</option>
+                <option value="Hair & Styling">Hair & Styling</option>
+                <option value="Facials & Skin">Facials & Skin</option>
+                <option value="Nails & Spa">Nails & Spa</option>
                 <option value="VIP Packages">VIP Packages</option>
               </select>
             </div>
@@ -902,8 +902,8 @@
         nav_location: "Location",
         btn_book_nav: "Book Appointment",
         hero_reviews_badge: "• 198 Google Maps Reviews",
-        hero_title: 'MASTER GROOMING & <span class="bg-gradient-to-r from-amber-700 via-gold-500 to-amber-600 dark:from-gold-300 dark:via-amber-400 dark:to-gold-500 bg-clip-text text-transparent">ROYAL BARBERING</span>',
-        hero_desc: "Located in Al Raha Building, Al Mehairi 1 Building, Ground Floor, Al Barsha First, Dubai. Precision haircuts, hot towel beard sculpting, authentic Moroccan bath, and executive VIP care in a private club ambiance.",
+        hero_title: 'The art of timeless <em class="brass-text">beauty & luxury care</em>',
+        hero_desc: "Located in Al Mehairi 1 Building, Ground Floor, Al Barsha First, Dubai. Couture hair styling, HydraFacial skin rituals, Russian nail artistry, and private Moroccan hammam in an elegant ladies-only sanctuary.",
         btn_book_hero: "Book Appointment",
         btn_explore_hero: "Explore Services",
         stat_hours_val: "9 AM – 1 AM",
@@ -912,33 +912,33 @@
         stat_loc_lbl: "Al Barsha • Dubai",
         stat_rate_val: "4.8★",
         stat_rate_lbl: "198 Reviews",
-        amenity_coffee_title: "Espresso & Tea Bar",
-        amenity_coffee_sub: "Complimentary specialty selection",
-        amenity_hammam_title: "Private Moroccan Suite",
-        amenity_hammam_sub: "Steam & scrub rituals",
-        amenity_hygiene_title: "Hospital-Grade Hygiene",
-        amenity_hygiene_sub: "Sealed single-use blades",
+        amenity_coffee_title: "Herbal Tea & Matcha Bar",
+        amenity_coffee_sub: "Complimentary artisan refreshments",
+        amenity_hammam_title: "Private Moroccan Hammam",
+        amenity_hammam_sub: "Rose water steam & organic argan rituals",
+        amenity_hygiene_title: "Medical-Grade Sterilization",
+        amenity_hygiene_sub: "Autoclave-sealed manicure & facial tools",
         amenity_late_title: "Late-Night Care",
         amenity_late_sub: "Continuous service until 1:00 AM",
         sec_menu_badge: "Bespoke Treatment Menu",
         sec_menu_title: "MASTER SERVICES",
-        sec_menu_sub: "Every treatment is delivered with premium imported grooming cosmetics and time-honored barbering craftsmanship.",
-        atmosphere_badge: "Private Gentlemen's Club",
+        sec_menu_sub: "Every treatment is crafted exclusively for ladies using luxury botanical elixirs, 24K gold skin therapy, and couture hair & nail artistry.",
+        atmosphere_badge: "Private Ladies Sanctuary",
         atmosphere_title: "AN OASIS OF BESPOKE COMFORT IN AL BARSHA",
-        atmosphere_desc: "Step into a private and tranquil atmosphere designed for your personal time. Chesterfield leather armchairs, ambient illumination, and warm hospitality focused entirely on your grooming excellence.",
+        atmosphere_desc: "Step into an oasis of feminine elegance designed for your complete relaxation. Velvet loungers, ambient illumination, and warm hospitality focused entirely on your beauty experience.",
         btn_book_lounge: "Book Appointment",
         reviews_badge: "Verified Client Testimonials",
         reviews_title: "GOOGLE MAPS REVIEWS (4.8★)",
         reviews_link_btn: "View 198 Reviews on Google",
-        review_1_text: '"The best Turkish barber in Al Barsha without doubt. The fade is crisp, the staff is very polite and the hot towel service is unbeatable after a long working day."',
-        review_2_text: '"Always come here for the Moroccan bath and beard shaping. Clean salon, luxurious atmosphere and open until 1:00 AM which is so convenient."',
-        review_3_text: '"5 stars for precision and attention to detail. Great prices for the high quality they deliver. Definitely my regular barber in Al Barsha 1."',
+        review_1_text: '"The best ladies salon in Al Barsha without doubt. The blowdry is sleek, the staff is very polite and the Russian manicure is unbeatable."',
+        review_2_text: '"Always come here for the Moroccan bath and hair care. Clean salon, luxurious atmosphere and open until 1:00 AM which is so convenient."',
+        review_3_text: '"5 stars for precision and attention to detail. Great prices for the high quality they deliver. Definitely my regular beauty salon in Al Barsha 1."',
         verified_client: "Verified Google Reviewer",
         regular_client: "Frequent Guest",
         loc_badge: "Visit Us",
         loc_title: "HOURS & LOCATION",
         loc_address_title: "Maison Haniel",
-        loc_address_sub: "Oasis Tower - Sheikh Zayed Rd - Trade Center Second - DIFC - Dubai",
+        loc_address_sub: "Al Mehairi 1 Building, Ground Floor - Al Barsha First - Dubai",
         loc_hours_title: "Operating Hours",
         loc_hours_sub: "Daily from 9:00 AM to 1:00 AM (Continuous Service)",
         btn_maps: "Open in Google Maps",
@@ -954,61 +954,61 @@
       },
       ar: {
         preview_badge: "معاينة حصرية:",
-        preview_salon: "صالون أدريس التركي للرجال (البرشاء الأولى، دبي)",
-        preview_cta_sub: "احصل على هذا الموقع الرسمي بنطاقك الخاص مقابل 1,000 درهم فقط",
+        preview_salon: "ميزون هانيل للسيدات (البرشاء الأولى، دبي)",
+        preview_cta_sub: "احصلي على هذا الموقع الرسمي بنطاقكِ الخاص مقابل 1,000 درهم فقط",
         preview_btn: "تفعيل الموقع",
-        marquee_text: "✦ مفتوح يومياً من 9:00 صباحاً حتى 1:00 صباحاً ✦ نرحب بجميع الزوار والحجوزات ✦ البرشاء الأولى، دبي",
-        brand_name: "صالون أدريس التركي",
-        brand_sub: "للرجال • دبي",
+        marquee_text: "✦ مفتوح يومياً من 9:00 صباحاً حتى 1:00 صباحاً ✦ نرحب بجميع الزائرات والحجوزات ✦ البرشاء الأولى، دبي",
+        brand_name: "ميزون هانيل",
+        brand_sub: "صالون وسبا للسيدات • دبي",
         nav_services: "الخدمات",
         nav_amenities: "المزايا",
         nav_reviews: "التقييمات (4.8★)",
         nav_location: "الموقع",
         btn_book_nav: "حجز موعد",
         hero_reviews_badge: "• 198 تقييم حقيقي على خرائط جوجل",
-        hero_title: 'فن الحلاقة الفاخرة و <span class="bg-gradient-to-r from-amber-700 via-gold-500 to-amber-600 dark:from-gold-300 dark:via-amber-400 dark:to-gold-500 bg-clip-text text-transparent">العناية الملكية</span>',
-        hero_desc: "يقع في مبنى الراحة، البرشاء الأولى، دبي. قصات شعر دقيقة، نحت اللحية بالفوطة الساخنة، حمام مغربي تقليدي وعناية تنفيذية VIP في أجواء نادي خاص راقٍ.",
-        btn_book_hero: "احجز موعدك الآن",
-        btn_explore_hero: "استعرض قائمة الخدمات",
+        hero_title: 'فنّ الجمال الراقي و <span class="bg-gradient-to-r from-amber-700 via-gold-500 to-amber-600 dark:from-gold-300 dark:via-amber-400 dark:to-gold-500 bg-clip-text text-transparent">العناية الملكية</span>',
+        hero_desc: "يقع في مبنى المهيري 1، الطابق الأرضي، البرشاء الأولى، دبي. تصفيف شعر راقٍ، عناية بالبشرة بالذهب عيار 24، مانيكير روسي وحمام مغربي خاص في أجواء ملكية للسيدات.",
+        btn_book_hero: "احجزي موعدكِ الآن",
+        btn_explore_hero: "استعرضي قائمة الخدمات",
         stat_hours_val: "9 ص – 1 ص",
         stat_hours_lbl: "مفتوح يومياً",
         stat_loc_val: "البرشاء 1",
         stat_loc_lbl: "البرشاء • دبي",
         stat_rate_val: "4.8★",
         stat_rate_lbl: "198 تقييم",
-        amenity_coffee_title: "ركن القهوة المختصة",
-        amenity_coffee_sub: "قهوة وشاي عربي مجاني",
+        amenity_coffee_title: "ركن الضيافة والشاي العضوي",
+        amenity_coffee_sub: "مشروبات ترحيبية فاخرة ومجانية",
         amenity_hammam_title: "جناح الحمام المغربي",
         amenity_hammam_sub: "طقوس البخار والتقشير الخاص",
-        amenity_hygiene_title: "تعقيم طبي معتمد",
-        amenity_hygiene_sub: "شفرات معقمة للاستخدام الواحد",
+        amenity_hygiene_title: "تعقيم طبي فائق",
+        amenity_hygiene_sub: "أدوات معقمة ومغلفة لكل سيدة",
         amenity_late_title: "خدمة حتى وقت متأخر",
         amenity_late_sub: "خدمة متواصلة حتى الواحدة صباحاً",
-        sec_menu_badge: "قائمة العناية الرجالية",
-        sec_menu_title: "الخدمات الحصرية",
-        sec_menu_sub: "تُقدم كل جلسة عناية باستخدام أرقى مستحضرات التجميل المستوردة وحرفية الحلاقة الأصيلة.",
-        atmosphere_badge: "أجواء النادي الخاص",
+        sec_menu_badge: "قائمة العناية الفاخرة",
+        sec_menu_title: "الخدمات الملكية",
+        sec_menu_sub: "تُقدم كل جلسة عناية باستخدام أرقى مستحضرات التجميل العالمية والعناية الفائقة بالشعر والبشرة.",
+        atmosphere_badge: "واحة الأناقة للسيدات",
         atmosphere_title: "واحة من الراحة والتميز في البرشاء",
-        atmosphere_desc: "استمتع بأجواء هادئة وفاخرة صُممت خصيصاً لوقتك الخاص. مقاعد جلدية مريحة، إضاءة مدروسة، وضيافة عربية أصيلة تركز على أناقتك وراحتك.",
-        btn_book_lounge: "احجز موعدك الآن",
-        reviews_badge: "آراء عملائنا الكرام",
+        atmosphere_desc: "استمتعي بأجواء هادئة وفاخرة صُممت خصيصاً لوقتكِ الخاص. مقاعد مريحة، إضاءة هادئة، وضيافة راقية تركز على أناقتكِ وراحتكِ.",
+        btn_book_lounge: "احجزي موعدكِ الآن",
+        reviews_badge: "آراء عميلاتنا الكرام",
         reviews_title: "تقييمات خرائط جوجل (4.8★)",
         reviews_link_btn: "عرض 198 تقييماً على جوجل",
-        review_1_text: '"أفضل حلاق في البرشاء بلا منازع. التدرج دقيق جداً، الطاقم محترم والخدمة بالفوطة الساخنة ممتازة بعد يوم عمل طويل."',
-        review_2_text: '"آتي إلى هنا دائماً للحمام المغربي وتشذيب اللحية. صالون نظيف وراقٍ ومفتوح حتى الواحدة صباحاً وهو أمر مناسب جداً."',
-        review_3_text: '"5 نجوم على الدقة والاهتمام بأدق التفاصيل. أسعار ممتازة مقارنة بالجودة العالية المقدمة. حلاقي الدائم في البرشاء الأولى."',
-        verified_client: "عميل معتمد على جوجل",
-        regular_client: "عميل دائم",
-        loc_badge: "تفضل بزيارتنا",
+        review_1_text: '"أفضل صالون للسيدات في البرشاء بلا منازع. السشوار والصبغة رائعة، الطاقم محترم والخدمة ممتازة بعد يوم عمل طويل."',
+        review_2_text: '"آتي إلى هنا دائماً للحمام المغربي والعناية بالأظافر. صالون نظيف وراقٍ ومفتوح حتى الواحدة صباحاً وهو أمر مناسب جداً."',
+        review_3_text: '"5 نجوم على الدقة والاهتمام بأدق التفاصيل. أسعار ممتازة مقارنة بالجودة العالية المقدمة. صالوني الدائم في البرشاء الأولى."',
+        verified_client: "عميلة معتمدة على جوجل",
+        regular_client: "عميلة دائمة",
+        loc_badge: "تفضلي بزيارتنا",
         loc_title: "الموقع وساعات العمل",
-        loc_address_title: "صالون أدريس التركي للرجال",
-        loc_address_sub: "محل 4، مبنى الراحة، البرشاء الأولى، البرشاء، دبي، الإمارات",
+        loc_address_title: "ميزون هانيل",
+        loc_address_sub: "مبنى المهيري 1، الطابق الأرضي - البرشاء الأولى - دبي",
         loc_hours_title: "ساعات العمل الرسمية",
         loc_hours_sub: "يومياً من الساعة 9:00 صباحاً حتى 1:00 صباحاً (خدمة مستمرة)",
         btn_maps: "فتح في خرائط جوجل",
         modal_book_badge: "حجز فوري",
         modal_book_title: "حجز موعد",
-        modal_book_sub: "أكد حجزك مباشرة عبر تطبيق الواتساب",
+        modal_book_sub: "أكدي حجزكِ مباشرة عبر تطبيق الواتساب",
         form_name: "الاسم الكامل",
         form_service: "الخدمة المطلوبة",
         form_time: "الوقت المفضل",
@@ -1106,8 +1106,8 @@
       }
     ];
 
-    const DEFAULT_CATEGORIES_EN = ["All", "Barbering", "Beard", "Treatments", "VIP Packages"];
-    const DEFAULT_CATEGORIES_AR = ["الكل", "حلاقة", "لحية", "علاجات", "باقات VIP"];
+    const DEFAULT_CATEGORIES_EN = ["All", "Hair & Styling", "Facials & Skin", "Nails & Spa", "VIP Packages"];
+    const DEFAULT_CATEGORIES_AR = ["الكل", "الشعر والتصفيف", "البشرة والنضارة", "الأظافر والسبا", "باقات VIP"];
 
     // State Variables
     let currentLang = localStorage.getItem('maison_haniel_lang') || 'en';
@@ -1142,20 +1142,22 @@
     // Language Management
     function toggleLangDropdown() {
       const drop = document.getElementById('langDropdown');
-      drop.classList.toggle('hidden');
+      if (drop) drop.classList.toggle('hidden');
     }
 
     function changeLang(lang) {
       currentLang = lang;
       localStorage.setItem('maison_haniel_lang', lang);
-      document.getElementById('langDropdown').classList.add('hidden');
+      const drop = document.getElementById('langDropdown');
+      if (drop) drop.classList.add('hidden');
       applyLanguage(lang);
     }
 
     function applyLanguage(lang) {
       document.documentElement.setAttribute('lang', lang);
       document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
-      document.getElementById('currentLangLabel').innerText = lang.toUpperCase();
+      const lbl = document.getElementById('currentLangLabel');
+      if (lbl) lbl.innerText = lang.toUpperCase();
       var mEn = document.getElementById('mLangEn'), mAr = document.getElementById('mLangAr');
       if (mEn && mAr) { mEn.classList.toggle('seg-active', lang === 'en'); mAr.classList.toggle('seg-active', lang === 'ar'); }
 
@@ -1514,33 +1516,33 @@
     /* ===== v2 design: extra copy (EN + AR), menu, reveal, counters ===== */
     Object.assign(translations.en, {
       hero_eyebrow: "Al Barsha First · Dubai",
-      hero_title: 'The art of the <em class="brass-text">gentleman’s grooming</em>',
-      mq_1: "Signature Haircut", mq_2: "Royal Beard Sculpting", mq_3: "Moroccan Bath", mq_4: "Charcoal Detox Facial", mq_5: "VIP Gentlemen’s Lounge",
-      sec_menu_title: "Master services",
-      exp_badge: "The Experience", exp_title: "More than a haircut.",
-      atmosphere_title: "An oasis of bespoke comfort in Al Barsha",
+      hero_title: 'The art of timeless <em class="brass-text">beauty & luxury care</em>',
+      mq_1: "Couture Hair & Keratin", mq_2: "24K Gold HydraFacial", mq_3: "Russian Manicure & Spa", mq_4: "Private Moroccan Hammam", mq_5: "VIP Bridal Lounge",
+      sec_menu_title: "Signature beauty rituals",
+      exp_badge: "The Sanctuary", exp_title: "More than a beauty salon.",
+      atmosphere_title: "An oasis of feminine elegance in Al Barsha",
       stat_score: "Guest rating", stat_guests: "Google reviews", stat_hours16: "Hours of care daily", stat_rituals: "Signature rituals",
-      reviews_title: "Trusted across Al Barsha, one chair at a time.",
+      reviews_title: "Loved across Al Barsha for radiant results.",
       reviews_note: "Every rating comes from real guests on Google Maps. Read what they say.",
       loc_title: "Hours & location",
       cta_title: "Your chair is waiting.", cta_sub: "Walk in any day until 1 AM, or reserve your slot in seconds.",
       menu_lang: "Language", menu_theme: "Appearance", theme_dark: "Dark", theme_light: "Light",
-      footer_tag: "Bespoke beauty & hair artistry in the heart of Al Barsha."
+      footer_tag: "Bespoke ladies beauty & hair artistry in the heart of Al Barsha."
     });
     Object.assign(translations.ar, {
       hero_eyebrow: "البرشاء الأولى · دبي",
-      hero_title: 'فنّ العناية <em class="brass-text">بالرجل الأنيق</em>',
-      mq_1: "قصّة شعر مميّزة", mq_2: "تهذيب اللحية الملكي", mq_3: "الحمّام المغربي", mq_4: "تنظيف البشرة بالفحم", mq_5: "صالة كبار الزوار",
-      sec_menu_title: "خدمات الحلاقة الراقية",
-      exp_badge: "التجربة", exp_title: "أكثر من مجرّد قصّة شعر.",
-      atmosphere_title: "واحة من الراحة الفاخرة في البرشاء",
+      hero_title: 'فنّ الجمال الراقي <em class="brass-text">والعناية الملكية للسيدات</em>',
+      mq_1: "تصفيف الشعر والكيراتين", mq_2: "هيدرافيشل الذهب", mq_3: "مانيكير وبديكير سبا", mq_4: "الحمام المغربي الملكي", mq_5: "جناح كبار الشخصيات",
+      sec_menu_title: "طقوس الجمال الملكية",
+      exp_badge: "واحة السيدات", exp_title: "أكثر من مجرد صالون تجميل.",
+      atmosphere_title: "واحة من الراحة والتميز في البرشاء",
       stat_score: "تقييم الضيوف", stat_guests: "تقييم على جوجل", stat_hours16: "ساعة عناية يومياً", stat_rituals: "طقوس مميّزة",
-      reviews_title: "ثقة أهل البرشاء، كرسيّاً بعد كرسي.",
+      reviews_title: "ثقة سيدات دبي في كل تفصيل.",
       reviews_note: "كل تقييم من ضيوف حقيقيين على خرائط جوجل. اطّلع على آرائهم.",
       loc_title: "الموقع وساعات العمل",
       cta_title: "كرسيّك بانتظارك.", cta_sub: "تفضّل في أي يوم حتى الواحدة صباحاً، أو احجز موعدك في ثوانٍ.",
       menu_lang: "اللغة", menu_theme: "المظهر", theme_dark: "داكن", theme_light: "فاتح",
-      footer_tag: "عناية راقية في قلب البرشاء."
+      footer_tag: "عناية ملكية وجمال راقٍ للسيدات في قلب البرشاء."
     });
     /* re-apply now that extra keys exist */
     applyLanguage(currentLang);
@@ -1558,19 +1560,41 @@
     });
 
     /* scroll reveal + count-up */
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(en => {
-        if (!en.isIntersecting) return;
-        en.target.classList.add('in');
-        en.target.querySelectorAll('[data-count]').forEach(el => {
-          const to = parseFloat(el.dataset.count), dec = parseInt(el.dataset.dec || 0), t0 = performance.now(), dur = 1400;
-          const tick = (t) => { const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3); el.textContent = (to * e).toFixed(dec); if (k < 1) requestAnimationFrame(tick); else el.textContent = to.toFixed(dec); };
-          requestAnimationFrame(tick);
+    function triggerCountUp(el) {
+      const to = parseFloat(el.dataset.count), dec = parseInt(el.dataset.dec || 0), t0 = performance.now(), dur = 1400;
+      const tick = (t) => {
+        const k = Math.min(1, (t - t0) / dur), e = 1 - Math.pow(1 - k, 3);
+        el.textContent = (to * e).toFixed(dec);
+        if (k < 1) requestAnimationFrame(tick);
+        else el.textContent = to.toFixed(dec);
+      };
+      requestAnimationFrame(tick);
+    }
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(en => {
+          if (!en.isIntersecting) return;
+          en.target.classList.add('in');
+          en.target.querySelectorAll('[data-count]').forEach(triggerCountUp);
+          io.unobserve(en.target);
         });
-        io.unobserve(en.target);
+      }, { threshold: 0.05, rootMargin: '50px 0px 50px 0px' });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    } else {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+    }
+
+    // Safety fallback: reveal all elements on screen or after 400ms
+    setTimeout(() => {
+      document.querySelectorAll('.reveal').forEach(el => {
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight + 100) {
+          el.classList.add('in');
+          el.querySelectorAll('[data-count]').forEach(triggerCountUp);
+        }
       });
-    }, { threshold: .15 });
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    }, 400);
   </script>
 
     <script>
@@ -1654,44 +1678,44 @@
       Object.assign(translations.en, {
         brand_name: "MAISON HANIEL",
         brand_sub: "Ladies Salon & Spa • Dubai",
-        hero_eyebrow: "DIFC \u00b7 Sheikh Zayed Rd \u00b7 Dubai",
+        hero_eyebrow: "Al Barsha First · Dubai",
         hero_title: 'The art of timeless <em class="brass-text">beauty &amp; luxury care</em>',
-        hero_desc: "Welcome to Maison Haniel in DIFC \u00b7 Sheikh Zayed Rd \u00b7 Dubai. Couture hair styling, HydraFacial skin rituals, Russian nail artistry, and private Moroccan hammam in an elegant ladies-only sanctuary.",
+        hero_desc: "Welcome to Maison Haniel in Al Barsha First · Dubai. Couture hair styling, HydraFacial skin rituals, Russian nail artistry, and private Moroccan hammam in an elegant ladies-only sanctuary.",
         mq_1: "Couture Hair & Keratin", mq_2: "24K Gold HydraFacial", mq_3: "Russian Manicure & Spa", mq_4: "Private Moroccan Hammam", mq_5: "VIP Bridal Lounge",
         sec_menu_title: "Signature beauty rituals",
         sec_menu_sub: "Every treatment is crafted exclusively for ladies using luxury botanical elixirs, 24K gold skin therapy, and couture hair & nail artistry.",
         exp_badge: "The Sanctuary",
         exp_title: "More than a beauty salon.",
         atmosphere_badge: "Private Ladies Sanctuary",
-        atmosphere_title: "An oasis of feminine elegance in DIFC",
-        atmosphere_desc: "Designed exclusively for ladies seeking complete privacy, serenity, and world-class beauty artistry in the heart of Dubai.",
+        atmosphere_title: "An oasis of feminine elegance in Al Barsha",
+        atmosphere_desc: "Designed exclusively for ladies seeking complete privacy, serenity, and world-class beauty artistry in the heart of Al Barsha, Dubai.",
         amenity_hammam_title: "Private Moroccan Hammam",
         amenity_hammam_sub: "Rose water steam & organic argan rituals",
         amenity_coffee_title: "Herbal Tea & Matcha Bar",
         amenity_coffee_sub: "Complimentary artisan refreshments",
         amenity_hygiene_title: "Medical-Grade Sterilization",
         amenity_hygiene_sub: "Autoclave-sealed manicure & facial tools",
-        reviews_title: "Loved across DIFC for radiant results.",
+        reviews_title: "Loved across Al Barsha for radiant results.",
         cta_title: "Your private suite is waiting.",
         cta_sub: "Walk in or reserve your personal beauty ritual via WhatsApp in seconds.",
-        footer_tag: "Bespoke ladies beauty & spa sanctuary in DIFC, Dubai.",
+        footer_tag: "Bespoke ladies beauty & spa sanctuary in Al Barsha First, Dubai.",
         loc_address_title: "Maison Haniel",
-        loc_address_sub: "Oasis Tower - Sheikh Zayed Rd - Trade Center Second - DIFC - Dubai"
+        loc_address_sub: "Al Mehairi 1 Building, Ground Floor - Al Barsha First - Dubai"
       });
       Object.assign(translations.ar, {
-        brand_name: "Maison Haniel",
+        brand_name: "ميزون هانيل",
         brand_sub: "صالون وسبا للسيدات • دبي",
-        hero_eyebrow: "دبي · الإمارات العربية المتحدة",
+        hero_eyebrow: "البرشاء الأولى · دبي",
         hero_title: 'فنّ الجمال الراقي <em class="brass-text">والعناية الملكية للسيدات</em>',
-        hero_desc: "وجهتكِ الفاخرة لتصفيف الشعر وعلاجات البشرة والأظافر والحمام المغربي في أجواء راقية وخصوصية تامة للسيدات.",
+        hero_desc: "وجهتكِ الفاخرة لتصفيف الشعر وعلاجات البشرة والأظافر والحمام المغربي في أجواء راقية وخصوصية تامة للسيدات في البرشاء الأولى، دبي.",
         mq_1: "تصفيف الشعر والكيراتين", mq_2: "هيدرافيشل الذهب", mq_3: "مانيكير وبديكير سبا", mq_4: "الحمام المغربي الملكي", mq_5: "جناح كبار الشخصيات",
         sec_menu_title: "طقوس الجمال الملكية",
         sec_menu_sub: "علاجات مصممة حصرياً للسيدات باستخدام أرقى مستحضرات العناية بالشعر والبشرة والأظافر.",
         exp_badge: "واحة السيدات",
         exp_title: "أكثر من مجرد صالون تجميل.",
         atmosphere_badge: "خصوصية تامة للسيدات",
-        atmosphere_title: "واحة من الأناقة والأنوثة في دبي",
-        atmosphere_desc: "مصمم خصيصاً للسيدات الباحثات عن الخصوصية التامة والهدوء وأرقى خدمات التجميل.",
+        atmosphere_title: "واحة من الأناقة والأنوثة في البرشاء",
+        atmosphere_desc: "مصمم خصيصاً للسيدات الباحثات عن الخصوصية التامة والهدوء وأرقى خدمات التجميل في قلب البرشاء، دبي.",
         amenity_hammam_title: "حمام مغربي ملكي خاص",
         amenity_hammam_sub: "طقوس البخار بماء الورد وزيت الأركان",
         amenity_coffee_title: "ركن الضيافة والشاي العضوي",
@@ -1701,9 +1725,9 @@
         reviews_title: "ثقة سيدات دبي في كل تفصيل.",
         cta_title: "جناحكِ الخاص بانتظارك.",
         cta_sub: "احجزي موعدكِ الآن عبر واتساب في ثوانٍ.",
-        footer_tag: "عناية ملكية وجمال راقٍ للسيدات في قلب دبي.",
-        loc_address_title: "Maison Haniel",
-        loc_address_sub: "Oasis Tower - Sheikh Zayed Rd - Trade Center Second - DIFC - Dubai"
+        footer_tag: "عناية ملكية وجمال راقٍ للسيدات في قلب البرشاء الأولى، دبي.",
+        loc_address_title: "ميزون هانيل",
+        loc_address_sub: "مبنى المهيري 1، الطابق الأرضي - البرشاء الأولى - دبي"
       });
       applyLanguage(currentLang);
     </script>
