@@ -268,7 +268,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-      opacity: 0.45;
+      opacity: 0.75;
       transform: scale(1.03);
       pointer-events: none;
       z-index: 0;
@@ -277,7 +277,7 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(to right, rgba(6, 17, 13, 0.94) 0%, rgba(6, 17, 13, 0.8) 55%, rgba(6, 17, 13, 0.45) 100%),
+        linear-gradient(to right, rgba(6, 17, 13, 0.65) 0%, rgba(6, 17, 13, 0.45) 55%, rgba(6, 17, 13, 0.25) 100%),
         linear-gradient(to bottom, rgba(6, 17, 13, 0.6) 0%, transparent 45%, var(--bg) 100%);
       pointer-events: none;
       z-index: 1;
@@ -405,41 +405,19 @@
     <div class="nav-glass max-w-6xl mx-auto rounded-full px-3 sm:px-5 py-2 flex items-center justify-between gap-2 relative" style="box-shadow:var(--shadow)">
 
       <a href="#hero" class="flex items-center gap-3 ps-1">
-        <span class="w-10 h-10 rounded-full flex items-center justify-center display text-xl font-semibold" style="background:var(--emerald);color:#D9B76F">L</span>
+        <span class="w-10 h-10 rounded-full flex items-center justify-center display text-xl font-semibold" style="background:var(--emerald);color:#D9B76F">M</span>
         <span class="leading-tight">
           <span class="display font-semibold text-base sm:text-lg block brand-title notranslate" translate="no" data-i18n="brand_name">MAISON HANIEL</span>
           <span class="text-[9px] sm:text-[10px] uppercase font-semibold block brand-sub" style="color:#D9B76F;letter-spacing:.22em" data-i18n="brand_sub">Ladies Salon & Spa • Dubai</span>
         </span>
       </a>
 
-      <nav class="hidden lg:flex items-center gap-7 text-[11px] uppercase font-semibold muted" style="letter-spacing:.16em">
-        <a href="#services" class="hover:text-[var(--ink)] transition-colors" data-i18n="nav_services">Services</a>
-        <a href="#amenities" class="hover:text-[var(--ink)] transition-colors" data-i18n="nav_amenities">Amenities</a>
-        <a href="#reviews" class="hover:text-[var(--ink)] transition-colors" data-i18n="nav_reviews">Reviews (4.8★)</a>
-        <a href="#location" class="hover:text-[var(--ink)] transition-colors" data-i18n="nav_location">Location</a>
-      </nav>
-
+            <!-- Clean Minimal Controls: WhatsApp + Hamburger Menu (All links in dropdown) -->
       <div class="flex items-center gap-2">
-        <div class="relative hidden sm:block">
-          <button onclick="toggleLangDropdown()" id="langBtn" class="icon-btn !w-auto px-3 gap-1.5 font-bold text-[11px]" aria-haspopup="true">
-            <i class="fas fa-globe text-[11px]"></i><span id="currentLangLabel">EN</span><i class="fas fa-chevron-down text-[9px] opacity-60"></i>
-          </button>
-          <div id="langDropdown" class="absolute end-0 mt-3 w-40 card !rounded-2xl py-1.5 hidden z-50 text-sm overflow-hidden">
-            <button onclick="changeLang('en')" class="w-full text-start px-4 py-2.5 flex items-center justify-between"><span>English</span><span class="text-[10px] muted">EN</span></button>
-            <button onclick="changeLang('ar')" class="w-full text-start px-4 py-2.5 flex items-center justify-between font-arabic"><span>العربية</span><span class="text-[10px] muted">AR</span></button>
-          </div>
-        </div>
-
-        <button onclick="toggleTheme()" id="themeToggleBtn" class="icon-btn hidden sm:inline-flex" title="Light / Dark" aria-label="Toggle theme">
-          <i class="fas fa-sun ico-sun"></i><i class="fas fa-moon ico-moon"></i>
-        </button>
-
         <a href="https://wa.me/971509981318" target="_blank" rel="noopener noreferrer" class="wa-btn" title="WhatsApp" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-
-        <button onclick="openBookingModal()" class="btn-primary hidden md:inline-flex !py-2.5 !px-5" data-i18n="btn_book_nav">Book Appointment</button>
-
-        <button onclick="toggleMenu()" id="menuBtn" class="icon-btn lg:!hidden" aria-label="Menu" aria-expanded="false"><i class="fas fa-bars-staggered"></i></button>
-        <button onclick="openAdminModal()" class="icon-btn hidden lg:inline-flex" title="Admin" aria-label="Admin"><i class="fas fa-lock text-[11px]"></i></button>
+        <button onclick="toggleMenu()" id="menuBtn" class="icon-btn !w-10 !h-10 !rounded-full flex items-center justify-center transition active:scale-95" aria-label="Menu" aria-expanded="false" style="background:var(--bg2);border-color:var(--line);color:var(--ink)">
+          <i class="fas fa-bars-staggered text-sm"></i>
+        </button>
       </div>
 
       <!-- Dropdown menu: links + language + theme -->
@@ -510,10 +488,10 @@
       <div class="lg:col-span-7 reveal">
         <span class="eyebrow block mb-6 text-[#D9B76F]" data-i18n="hero_eyebrow">Al Barsha First · Dubai</span>
         <h1 class="display font-medium text-[2.7rem] sm:text-6xl lg:text-[4.6rem] leading-[1.02] mb-7 text-white" data-i18n="hero_title">
-          The art of the <em class="brass-text italic">gentleman’s grooming</em>
+          The art of <em class="brass-text italic">timeless beauty & luxury</em>
         </h1>
         <p class="hero-desc text-base sm:text-lg max-w-xl leading-relaxed mb-10 text-slate-200" data-i18n="hero_desc">
-          Precision haircuts, hot towel beard sculpting, authentic Moroccan bath and executive VIP care in a private club ambiance.
+          Haute couture hair artistry, 24K gold facial rituals, Russian nail contouring and authentic Moroccan hammam in an exclusive ladies sanctuary.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 sm:items-center">
           <button onclick="openBookingModal()" class="btn-primary" data-i18n="btn_book_hero">Book Appointment</button>
@@ -536,7 +514,7 @@
           <span class="leading-tight"><strong class="display text-lg block" data-i18n="stat_hours_val">9 AM – 1 AM</strong><span class="text-[11px] muted" data-i18n="stat_hours_lbl">Open Daily</span></span>
         </div>
         <div class="glass rounded-2xl p-1.5 absolute -end-1 sm:-end-5 top-10 w-28 sm:w-32" style="box-shadow:var(--shadow)">
-          <img src="beard.jpg" alt="Royal beard sculpting" class="rounded-xl aspect-[4/5] object-cover w-full" loading="lazy">
+          <img src="manicure.jpg" alt="Russian Couture Nails" class="rounded-xl aspect-[4/5] object-cover w-full" loading="lazy">
         </div>
       </div>
     </div>
@@ -546,18 +524,20 @@
   <section aria-hidden="true" class="py-5 overflow-hidden" style="background:var(--emerald);color:var(--on-emerald)">
     <div dir="ltr" class="marquee display text-xl sm:text-2xl whitespace-nowrap">
       <div class="flex items-center shrink-0">
-        <span class="px-8" data-i18n="mq_1">Signature Haircut</span><span style="color:#D9B76F">✦</span>
-        <span class="px-8" data-i18n="mq_2">Royal Beard Sculpting</span><span style="color:#D9B76F">✦</span>
-        <span class="px-8" data-i18n="mq_3">Moroccan Bath</span><span style="color:#D9B76F">✦</span>
-        <span class="px-8" data-i18n="mq_4">Charcoal Detox Facial</span><span style="color:#D9B76F">✦</span>
-        <span class="px-8" data-i18n="mq_5">VIP Gentlemen’s Lounge</span><span style="color:#D9B76F">✦</span>
+        <span class="px-8" data-i18n="mq_1">Haute Couture Styling</span><span style="color:#D9B76F">✦</span>
+        <span class="px-8" data-i18n="mq_2">Russian Manicure</span><span style="color:#D9B76F">✦</span>
+        <span class="px-8" data-i18n="mq_3">24K Gold Facial</span><span style="color:#D9B76F">✦</span>
+        <span class="px-8" data-i18n="mq_4">Caviar Hair Therapy</span><span style="color:#D9B76F">✦</span>
+        <span class="px-8" data-i18n="mq_5">Moroccan Hammam</span><span style="color:#D9B76F">✦</span>
+        <span class="px-8" data-i18n="mq_6">VIP Bridal Suite</span><span style="color:#D9B76F">✦</span>
       </div>
       <div class="flex items-center shrink-0">
-        <span class="px-8" data-i18n="mq_1">Signature Haircut</span><span style="color:#D9B76F">✦</span>
-        <span class="px-8" data-i18n="mq_2">Royal Beard Sculpting</span><span style="color:#D9B76F">✦</span>
-        <span class="px-8" data-i18n="mq_3">Moroccan Bath</span><span style="color:#D9B76F">✦</span>
-        <span class="px-8" data-i18n="mq_4">Charcoal Detox Facial</span><span style="color:#D9B76F">✦</span>
-        <span class="px-8" data-i18n="mq_5">VIP Gentlemen’s Lounge</span><span style="color:#D9B76F">✦</span>
+        <span class="px-8" data-i18n="mq_1">Haute Couture Styling</span><span style="color:#D9B76F">✦</span>
+        <span class="px-8" data-i18n="mq_2">Russian Manicure</span><span style="color:#D9B76F">✦</span>
+        <span class="px-8" data-i18n="mq_3">24K Gold Facial</span><span style="color:#D9B76F">✦</span>
+        <span class="px-8" data-i18n="mq_4">Caviar Hair Therapy</span><span style="color:#D9B76F">✦</span>
+        <span class="px-8" data-i18n="mq_5">Moroccan Hammam</span><span style="color:#D9B76F">✦</span>
+        <span class="px-8" data-i18n="mq_6">VIP Bridal Suite</span><span style="color:#D9B76F">✦</span>
       </div>
     </div>
   </section>
@@ -1635,7 +1615,7 @@
           category_ar: "الأظافر والسبا",
           desc_en: "Precision cuticle artistry, BIAB/gel reinforcement, rose-petal soak, and warm paraffin foot therapy.",
           desc_ar: "عناية دقيقة بالأظافر مع طلاء جل روسي وحمام بتلات الورد والبارافين الدافئ.",
-          image: "beard.jpg?v=3",
+          image: "manicure.jpg?v=3",
           badge_en: "Couture Nails",
           badge_ar: "عناية متكاملة"
         },
